@@ -1,0 +1,170 @@
+{{>header}}
+
+<!-- Top area strats -->
+    <div class="top-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 d-flex mb-120">
+                    <div class="top-content">
+                        <ul>
+                            <li>
+                                <a href="/">
+                                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M1.125 5.99955L5.602 1.52205C5.822 1.30255 6.178 1.30255 6.3975 1.52205L10.875 5.99955M2.25 4.87455V9.93705C2.25 10.2475 2.502 10.4995 2.8125 10.4995H4.875V8.06205C4.875 7.75155 5.127 7.49955 5.4375 7.49955H6.5625C6.873 7.49955 7.125 7.75155 7.125 8.06205V10.4995H9.1875C9.498 10.4995 9.75 10.2475 9.75 9.93705V4.87455M4.125 10.4995H8.25"
+                                            stroke="white" stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                </a>
+                            </li>
+                            <li><a href="/admin/dashboard">Administrador</a></li>
+                            <li>Estadísticas</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Top area ends -->
+    <div class="discover-section m-5 p-5 mb-0 mt-0 pt-0 pb-0">
+        <div class="container">
+            <div class="row gy-4 ">
+                <div class="col-12 wow animate fadeInLeft" data-wow-delay="200ms" data-wow-duration="1500ms">
+                    <div class="discover-content" style="text-align: -webkit-center;">
+                        <h3 style="text-align: center;">Datos de la web</h3>
+                        <div class="countdown-wrap" style="max-width: fit-content;">
+                            <ul class="countdown-list">
+                                <li class="single-countdown">
+                                    <div class="number">
+                                        <h3 class="counter">{{numUsers}}</h3>
+                                    </div>
+                                    <span>Usuarios</span>
+                                </li>
+                                <li class="single-countdown">
+                                    <div class="number">
+                                        <h3 class="counter">{{numReviews}}</h3>
+                                    </div>
+                                    <span>Reviews</span>
+                                </li>
+                                <li class="single-countdown">
+                                    <div class="number">
+                                        <h3 class="counter">{{numArtworks}}</h3>
+                                    </div>
+                                    <span>Obras de arte</span>
+                                </li>
+                                <li class="single-countdown">
+                                    <div class="number">
+                                        <h3 class="counter">{{numArtists}}</h3>
+                                    </div>
+                                    <span>Artistas</span>
+                                </li>
+                                <li class="single-countdown">
+                                    <div class="number">
+                                        <h3 class="counter">{{numMuseums}}</h3>
+                                    </div>
+                                    <span>Museos</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Strats deshboard section -->
+    <div class="dashboard-section mb-120">
+    	{{#errorMessage}}
+        	<div class="container alert alert-danger">{{errorMessage}}</div>
+    	{{/errorMessage}}
+    	{{#success}}
+        	<div class="container alert alert-success">{{success}}</div>
+    	{{/success}}
+    	
+        <div class="container">
+            <div class="m-5 p-5">
+                <div class="dashboard-content-wrap">
+                    <div class="dashboard-profile-content">
+                        <div class="single-content mb-30">
+                            <h4 style="text-align: center;"><b>Estadísticas</b></h4>
+                            <div class="author-area text-center">
+								<h5>Reviews por puntuación</h5>
+								<canvas id="starsChart" width="400" height="200"></canvas>                     
+                            </div>
+                        </div>
+                        
+                        <div class="single-content mb-30">
+                            <div class="author-area text-center">
+								<h5>Puntuación media / Número de reseñas</h5>
+								<canvas id="receivedChart" width="400" height="200"></canvas>                        
+                            </div>
+                        </div>
+                        
+                        <div class="single-content mb-30">
+                            <div class="author-area text-center">
+								<h5>Top obras mas reseñadas</h5>
+								<canvas id="artworksFavChart" width="400" height="200"></canvas>                     
+                            </div>
+                        </div>
+                        
+                        <div class="single-content mb-30">
+                            <div class="author-area text-center">
+								<h5>Top obras de arte favoritas</h5>
+								<canvas id="artworksTopChart" width="400" height="200"></canvas>                     
+                            </div>
+                        </div>
+                        
+                        <div class="single-content mb-30">
+                            <div class="author-area text-center">
+								<h5>Top artistas más reseñados</h5>
+								<canvas id="artistsChart" width="400" height="200"></canvas>                     
+                            </div>
+                        </div>
+                        
+                        <div class="single-content mb-30">
+                            <div class="author-area text-center">
+								<h5>Top museos más reseñados</h5>
+								<canvas id="museumsFavChart" width="400" height="200"></canvas>                     
+                            </div>
+                        </div>
+                        
+                        <div class="single-content mb-30">
+                            <div class="author-area text-center">
+								<h5>Top usuarios con más reseñas</h5>
+								<canvas id="usersTopChart" width="400" height="200"></canvas>                     
+                            </div>
+                        </div>
+                        
+                        <div class="single-content mb-30">
+                            <div class="author-area text-center">
+								<h5>Top usuarios con más favoritos</h5>
+								<canvas id="usersFavChart" width="400" height="200"></canvas>                     
+                            </div>
+                        </div>
+                        
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    <!-- Ends deshboard section -->
+
+<script>
+    window.chartData = {
+        starsData: {{{starsData}}},
+        avgGiven: {{avgGiven}},
+        numReviews: {{numReviews}},
+        artistCounts: {{{artistCounts}}},
+        top10favArtworks: {{{top10favArtworks}}},
+        top10favMuseums: {{{top10favMuseums}}},
+        top10Users: {{{top10Users}}},
+        top10ArtworksMostFavourited: {{{top10ArtworksMostFavourited}}},
+        top10FavUsers: {{{top10FavUsers}}}
+    };
+</script>
+
+
+
+{{>footer}}

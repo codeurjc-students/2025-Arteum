@@ -1,0 +1,167 @@
+{{>header}}
+    <!-- Breadcrumb section strats here -->
+    <div class="breadcrumb-section2"
+        style="background-image: linear-gradient(180deg, rgba(0, 0, 0, 0.28), rgba(0, 0, 0, 0.28)), url(/assets/img/inner-page/home1-banner-bg3.jpg);">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 d-flex">
+                    <div class="top-content style-2">
+                        <ul>
+                            <li>
+                                <a href="/">
+                                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M1.125 5.99955L5.602 1.52205C5.822 1.30255 6.178 1.30255 6.3975 1.52205L10.875 5.99955M2.25 4.87455V9.93705C2.25 10.2475 2.502 10.4995 2.8125 10.4995H4.875V8.06205C4.875 7.75155 5.127 7.49955 5.4375 7.49955H6.5625C6.873 7.49955 7.125 7.75155 7.125 8.06205V10.4995H9.1875C9.498 10.4995 9.75 10.2475 9.75 9.93705V4.87455M4.125 10.4995H8.25"
+                                            stroke="white" stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                </a>
+                            </li>
+                            <li><a href="/dashboard-profile">{{userName}}</a></li>
+                            <li>Seguidores</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="breadcrumb-content">
+                        <h1>Seguidores del usuario {{userName}}</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumb section ends here -->
+    <!-- aution card section strats here -->
+    {{^followersEmpty}}
+	<div class="auction-card-sidebar-section pt-5 mb-120">
+        <div class="container">
+            <div class="row gy-5">
+                <div class="col-12 order-1">
+                    <div class="row">
+                        <div class="col-lg-12 mb-30">
+                            <div class="auction-card-top-area">
+                                <div class="left-content">
+                                    <h6>Mostrando <span>{{range}}</span> de <span>{{totalFollowers}}</span> seguidores.</h6>
+                                </div>
+                                <div class="right-content">
+                                	<form method="get" action="/user/followers">
+	                                    <div class="category-area d-flex active">
+	                                        <select name="sort" onchange="this.form.submit()">
+										        <option value="createdAt" {{#sortCreatedAt}}selected{{/sortCreatedAt}}>Más recientes</option>
+										        <option value="nameAsc" {{#sortNameAsc}}selected{{/sortNameAsc}}>Nombre A-Z</option>
+										        <option value="nameDesc" {{#sortName}}selected{{/sortName}}>Nombre Z-A</option>
+										    </select>
+	                                    </div>
+                                    </form>
+                                    <ul class="size-icon grid-view d-flex ">
+                                        <li class="column-2">
+                                            <svg width="7" height="14" viewBox="0 0 7 14" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M0.75 13.1875L0.749999 0.8125M5.8125 13.1875L5.8125 0.8125"
+                                                    stroke="#A0A0A0" stroke-width="1.5" stroke-linecap="round"
+                                                    stroke-linejoin="round" />
+                                            </svg>
+                                        </li>
+                                        <li class="column-3 active">
+                                            <svg width="10" height="14" viewBox="0 0 10 14" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path
+                                                    d="M1.0625 13.1875L1.0625 0.8125M5 13.1875L5 0.8125M8.9375 13.1875L8.9375 0.8125"
+                                                    stroke="white" stroke-width="1.5" stroke-linecap="round"
+                                                    stroke-linejoin="round" />
+                                            </svg>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="list-grid-product-wrap">
+                        <div class="row gy-4">
+                            {{#followersPage}}
+                            <div class="col-lg-3 col-md-6 item wow animate fadeInDown" data-wow-delay="200ms" data-wow-duration="1500ms">
+                                <div class="auction-card">
+                                	<div class="auction-card-img-wrap">
+                                        <a href="/public-profile/{{name}}" class="card-img">
+                                            <img src="/user/image/{{name}}" alt="Imagen de {{name}}" loading="lazy">
+                                        </a>
+	                                    <div class="auction-card-content" style="padding: 25px 15px 25px; border: 1px solid var(--border-color); border-top: outset;">
+	                                        <h6>
+	                                        	<a href="/public-profile/{{name}}">
+	                                        		<b>{{name}}</b>
+	                                        	</a>
+	                                        </h6>
+	                                        {{#location}}
+	                                        <ul>
+	                                            <li><span>📍 </span>{{this}}</li>
+	                                        </ul>
+					                        {{/location}}
+					                        
+					                        {{#isFollowing}}
+											<a href="/unfollow/{{name}}" class="bid-btn btn-hover mt-5">
+												<span>Dejar de seguir</span>
+												<strong style="top: -28.5px; left: 73.9531px;"></strong>
+											</a>
+											{{/isFollowing}}
+											{{^isFollowing}}
+											<a href="/follow/{{name}}" class="primary-btn2 btn-hover mt-5">
+												<span>Seguir</span>
+												<strong style="top: -28.5px; left: 73.9531px;"></strong>
+											</a>
+											{{/isFollowing}}
+	                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {{/followersPage}}
+                        </div>
+                    </div>
+                    <div class="row wow animate fadeInUp" data-wow-delay="200ms" data-wow-duration="1500ms">
+                        <div class="col-lg-12">
+                            <div class="page-navigation-area d-flex flex-wrap align-items-center justify-content-between">
+                                
+                                <div class="prev-next-btn">
+                                    {{#previousPage}}
+                                    <a href="/user/followers?page={{this}}&sort={{sort}}">
+                                        <svg width="7" height="14" viewBox="0 0 7 14"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M0 7.00008L7 0L2.54545 7.00008L7 14L0 7.00008Z" />
+                                        </svg>
+                                        Anterior
+                                    </a>
+                                	{{/previousPage}}
+                                </div>
+                                
+                                <ul class="pagination">
+                                	{{#previousPage}}
+                                    <li><a href="/user/followers?page={{this}}&sort={{sort}}">{{this}}</a></li>
+                                    {{/previousPage}}
+                                    <li class="active"><a>{{currentPage}}</a></li>
+                                    {{#nextPage}}
+                                    <li><a href="/user/followers?page={{this}}&sort={{sort}}">{{this}}</a></li>
+                                    {{/nextPage}}
+                                </ul>
+                                
+                                <div class="prev-next-btn">
+                                	{{#nextPage}}
+                                    <a href="/user/followers?page={{this}}&sort={{sort}}">
+                                        Siguiente
+                                        <svg width="7" height="14" viewBox="0 0 7 14"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M7 7.00008L0 0L4.45455 7.00008L0 14L7 7.00008Z" />
+                                        </svg>
+                                    </a>
+                                	{{/nextPage}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{/followersEmpty}}
+    
+{{>footer}}

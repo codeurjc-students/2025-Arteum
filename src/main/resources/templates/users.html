@@ -1,0 +1,236 @@
+{{>header}}
+    <!-- Breadcrumb section strats here -->
+    <div class="breadcrumb-section2"
+        style="background-image: linear-gradient(180deg, rgba(0, 0, 0, 0.28), rgba(0, 0, 0, 0.28)), url(/assets/img/inner-page/home1-banner-bg3.jpg);">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 d-flex">
+                    <div class="top-content style-2">
+                        <ul>
+                            <li>
+                                <a href="/">
+                                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M1.125 5.99955L5.602 1.52205C5.822 1.30255 6.178 1.30255 6.3975 1.52205L10.875 5.99955M2.25 4.87455V9.93705C2.25 10.2475 2.502 10.4995 2.8125 10.4995H4.875V8.06205C4.875 7.75155 5.127 7.49955 5.4375 7.49955H6.5625C6.873 7.49955 7.125 7.75155 7.125 8.06205V10.4995H9.1875C9.498 10.4995 9.75 10.2475 9.75 9.93705V4.87455M4.125 10.4995H8.25"
+                                            stroke="white" stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                </a>
+                            </li>
+                            <li>Usuarios</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="breadcrumb-content">
+                        <h1>Usuarios</h1>
+                       	<p>Explora y descubre usuarios, accede a sus perfiles para ver sus 
+                       	obras, leer sus reseñas y seguir a aquellos que más te interesen. 
+                       	Navega entre páginas para encontrar nuevas conexiones en nuestra comunidad artística.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumb section ends here -->
+    <!-- aution card section strats here -->
+	<div class="auction-card-sidebar-section pt-120 mb-120">
+    	{{#error}}
+        	<div class="container alert alert-danger">{{error}}</div>
+    	{{/error}}
+    	{{#success}}
+        	<div class="container alert alert-success">{{success}}</div>
+    	{{/success}}
+        <div class="container">
+            <div class="row gy-5">
+                <div class="col-12 order-xl-12 order-2">
+                	<div class="sidebar-area row">
+                        <div class="single-widgets widget_search mb-50">
+                            <form>
+                                <div class="wp-block-search__inside-wrapper ">
+                                	<input type="hidden" name="sort" value="{{#sortName}}name{{/sortName}}{{#sortFounded}}founded{{/sortFounded}}{{#sortLocation}}location{{/sortLocation}}">
+                                	{{^search}}
+                                    <input type="search" id="wp-block-search__input-1" class="wp-block-search__input"
+                                        name="search" value="" placeholder="Busca cualquier usuario">
+                                    {{/search}}
+                                    {{#search}}
+                                    <input type="search" id="wp-block-search__input-1" class="wp-block-search__input"
+                                        name="search" value="{{search}}">
+                                    {{/search}}
+                                    <button type="submit" class="wp-block-search__button">
+                                        <svg width="16" height="16" viewBox="0 0 16 16"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M11.7425 10.3418C12.7107 9.0205 13.1444 7.38236 12.9567 5.75508C12.769 4.1278 11.9739 2.63139 10.7303 1.56522C9.48666 0.49905 7.88635 -0.0582469 6.2495 0.0048239C4.61265 0.0678947 3.05997 0.746681 1.90209 1.90538C0.744221 3.06409 0.0665459 4.61725 0.00464636 6.25415C-0.0572531 7.89104 0.501188 9.49095 1.56825 10.7338C2.63531 11.9766 4.13229 12.7707 5.7597 12.9572C7.38711 13.1438 9.02494 12.7089 10.3455 11.7397H10.3445C10.3745 11.7797 10.4065 11.8177 10.4425 11.8547L14.2924 15.7046C14.4799 15.8922 14.7342 15.9977 14.9995 15.9977C15.2647 15.9978 15.5192 15.8926 15.7068 15.7051C15.8944 15.5176 15.9999 15.2632 16 14.9979C16.0001 14.7327 15.8948 14.4782 15.7073 14.2906L11.8575 10.4408C11.8217 10.4046 11.7833 10.3711 11.7425 10.3408V10.3418ZM12.0004 6.4979C12.0004 7.22015 11.8582 7.93532 11.5818 8.60258C11.3054 9.26985 10.9003 9.87614 10.3896 10.3868C9.87889 10.8975 9.2726 11.3027 8.60533 11.5791C7.93807 11.8554 7.2229 11.9977 6.50065 11.9977C5.77841 11.9977 5.06324 11.8554 4.39597 11.5791C3.72871 11.3027 3.12242 10.8975 2.61171 10.3868C2.10101 9.87614 1.6959 9.26985 1.41951 8.60258C1.14312 7.93532 1.00086 7.22015 1.00086 6.4979C1.00086 5.03927 1.5803 3.64037 2.61171 2.60896C3.64312 1.57755 5.04202 0.99811 6.50065 0.99811C7.95929 0.99811 9.35818 1.57755 10.3896 2.60896C11.421 3.64037 12.0004 5.03927 12.0004 6.4979Z" />
+                                        </svg>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="right-content">
+                        <div class="row">
+	                        <div class="col-lg-12 mb-30">
+	                            <div class="auction-card-top-area">
+	                                <div class="left-content">
+	                                    <h6>Mostrando <span>{{range}}</span> de <span>{{totalUsers}}</span> usuarios.</h6>
+	                                </div>
+	                                <div class="right-content">
+	                                	<form method="get" action="/users">
+	                                    	<div class="category-area d-lg-flex d-none active">
+											    <select name="sort" onchange="this.form.submit()">
+											        <option value="createdAt" {{#sortCreatedAt}}selected{{/sortCreatedAt}}>Más recientes</option>
+											        <option value="nameAsc" {{#sortNameAsc}}selected{{/sortNameAsc}}>Nombre A-Z</option>
+											        <option value="nameDesc" {{#sortName}}selected{{/sortName}}>Nombre Z-A</option>
+											    </select>
+			                                    {{#search}}
+											    <input type="hidden" name="search" value="{{search}}">
+			                                    {{/search}}
+											    <input type="hidden" name="page" value="{{currentPage}}">
+	                                    	</div>
+                                    	</form>
+	                                    <ul class="size-icon grid-view d-lg-flex d-none">
+	                                        <li class="column-2">
+	                                            <svg width="7" height="14" viewBox="0 0 7 14" fill="none"
+	                                                xmlns="http://www.w3.org/2000/svg">
+	                                                <path d="M0.75 13.1875L0.749999 0.8125M5.8125 13.1875L5.8125 0.8125"
+	                                                    stroke="#A0A0A0" stroke-width="1.5" stroke-linecap="round"
+	                                                    stroke-linejoin="round" />
+	                                            </svg>
+	                                        </li>
+	                                        <li class="column-3 active">
+	                                            <svg width="10" height="14" viewBox="0 0 10 14" fill="none"
+	                                                xmlns="http://www.w3.org/2000/svg">
+	                                                <path
+	                                                    d="M1.0625 13.1875L1.0625 0.8125M5 13.1875L5 0.8125M8.9375 13.1875L8.9375 0.8125"
+	                                                    stroke="white" stroke-width="1.5" stroke-linecap="round"
+	                                                    stroke-linejoin="round" />
+	                                            </svg>
+	                                        </li>
+	                                    </ul>
+	                                </div>
+	                            </div>
+	                        </div>
+	                    </div>
+	                    {{#usersEmpty}}
+					    <div class="list-grid-product-wrap mt-5 mb-5 pt-5 pb-5">
+	                        <div class="row gy-4">
+					              <div class="col-lg-12" style="text-align: -webkit-center;">
+					                  <div class="breadcrumb-content col-12">
+					                      <h6><b>No hay usuarios en base a tus criterios de busqueda.</b></h6>
+					                  </div>
+					              </div>
+					          </div>
+					    </div>
+					    {{/usersEmpty}}
+	    				{{^usersEmpty}}
+                    <div class="list-grid-product-wrap">
+                        <div class="row gy-4">
+                            {{#usersPage}}
+                            <div class="col-lg-3 col-md-6 item wow animate fadeInDown" data-wow-delay="200ms" data-wow-duration="1500ms">
+                                <div class="auction-card">
+                                	<div class="auction-card-img-wrap">
+                                        <a href="/public-profile/{{name}}" class="card-img">
+                                            <img src="/user/image/{{name}}" alt="Imagen de {{name}}" loading="lazy">
+                                        </a>
+	                                    <div class="auction-card-content" style="padding: 25px 15px 25px; border: 1px solid var(--border-color); border-top: outset;">
+	                                        <h6>
+	                                        	<a href="/public-profile/{{name}}">
+	                                        		<b>{{name}}</b>
+	                                        	</a>
+	                                        </h6>
+	                                        <ul>
+	                                        {{#location}}
+	                                            <li><span>📍 </span>{{this}}</li>
+					                        {{/location}}
+					                        {{#biography}}
+	                                            <li><span>🖋️ </span>{{this}}</li>
+					                        {{/biography}}
+	                                        </ul>
+					                        
+					                        {{^admin}}
+					                        {{#isFollowing}}
+											<a href="/unfollow/{{name}}" class="bid-btn btn-hover mt-5">
+												<span>Dejar de seguir</span>
+												<strong style="top: -28.5px; left: 73.9531px;"></strong>
+											</a>
+											{{/isFollowing}}
+											{{^isFollowing}}
+											<a href="/follow/{{name}}" class="primary-btn2 btn-hover mt-5">
+												<span>Seguir</span>
+												<strong style="top: -28.5px; left: 73.9531px;"></strong>
+											</a>
+											{{/isFollowing}}
+											{{/admin}}
+											{{#admin}}
+	                                        <div class="mt-3">
+		                                        <a href="/admin/user/edit/{{id}}" class="bid-btn btn-info btn-hover" 
+		                                        style="background-color: var(--bs-info);">
+		                                            <span>Editar</span>
+		                                            <strong></strong>
+		                                        </a>
+		                                        <a href="/admin/user/delete/{{id}}" class="bid-btn btn-danger btn-hover" 
+		                                        style="background-color: var(--bs-danger);" 
+		                                        onclick="return confirm('¿Estás seguro de que quieres eliminar este usuario?');">
+		                                            <span>Eliminar</span>
+		                                            <strong></strong>
+		                                        </a>
+	                                        </div>
+	                                        {{/admin}}
+	                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {{/usersPage}}
+                        </div>
+                    </div>
+                    {{/usersEmpty}}
+                    <div class="row wow animate fadeInUp" data-wow-delay="200ms" data-wow-duration="1500ms">
+                        <div class="col-lg-12">
+                            <div class="page-navigation-area d-flex flex-wrap align-items-center justify-content-between">
+                                
+                                <div class="prev-next-btn">
+                                    {{#previousPage}}
+                                    <a href="/users?page={{this}}&sort={{sort}}">
+                                        <svg width="7" height="14" viewBox="0 0 7 14"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M0 7.00008L7 0L2.54545 7.00008L7 14L0 7.00008Z" />
+                                        </svg>
+                                        Anterior
+                                    </a>
+                                	{{/previousPage}}
+                                </div>
+                                
+                                <ul class="pagination">
+                                	{{#previousPage}}
+                                    <li><a href="/users?page={{this}}&sort={{sort}}">{{this}}</a></li>
+                                    {{/previousPage}}
+                                    <li class="active"><a>{{currentPage}}</a></li>
+                                    {{#nextPage}}
+                                    <li><a href="/users?page={{this}}&sort={{sort}}">{{this}}</a></li>
+                                    {{/nextPage}}
+                                </ul>
+                                
+                                <div class="prev-next-btn">
+                                	{{#nextPage}}
+                                    <a href="/users?page={{this}}&sort={{sort}}">
+                                        Siguiente
+                                        <svg width="7" height="14" viewBox="0 0 7 14"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M7 7.00008L0 0L4.45455 7.00008L0 14L7 7.00008Z" />
+                                        </svg>
+                                    </a>
+                                	{{/nextPage}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    
+{{>footer}}

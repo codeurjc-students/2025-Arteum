@@ -1,0 +1,318 @@
+{{>header}}
+    <!-- Breadcrumb section strats here -->
+    <div class="breadcrumb-section2"
+        style="background-image: linear-gradient(180deg, rgba(0, 0, 0, 0.28), rgba(0, 0, 0, 0.28)), url(assets/img/inner-page/breadcrumb-image2.jpg);">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 d-flex">
+                    <div class="top-content style-2">
+                        <ul>
+                            <li>
+                                <a href="/">
+                                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M1.125 5.99955L5.602 1.52205C5.822 1.30255 6.178 1.30255 6.3975 1.52205L10.875 5.99955M2.25 4.87455V9.93705C2.25 10.2475 2.502 10.4995 2.8125 10.4995H4.875V8.06205C4.875 7.75155 5.127 7.49955 5.4375 7.49955H6.5625C6.873 7.49955 7.125 7.75155 7.125 8.06205V10.4995H9.1875C9.498 10.4995 9.75 10.2475 9.75 9.93705V4.87455M4.125 10.4995H8.25"
+                                            stroke="white" stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                </a>
+                            </li>
+                            <li>Obras de arte</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="breadcrumb-content">
+                        <h1>Obras de arte</h1>
+                        <p>Descubre nuestro amplio catálogo de obras de arte, cuidadosamente 
+                        seleccionadas para inspirarte y conectar con diferentes estilos y artistas. 
+                        Navega entre páginas para explorar más piezas y encontrar las que más te gusten.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumb section ends here -->
+    <!-- aution card section strats here -->
+    <div class="auction-card-sidebar-section pt-120 mb-120">
+    	{{#error}}
+        	<div class="container alert alert-danger">{{error}}</div>
+    	{{/error}}
+    	{{#success}}
+        	<div class="container alert alert-success">{{success}}</div>
+    	{{/success}}
+        <div class="container">
+            <div class="row gy-5">
+                <div class="col-xl-3 order-xl-1 order-1">
+                    <div class="sidebar-area row">
+                        <div class="single-widgets widget_search mb-50">
+                            <form method="get" action="/artworks">
+                                <div class="wp-block-search__inside-wrapper ">
+                                	<input type="hidden" name="sort" value="{{#sortTitle}}title{{/sortTitle}}{{#sortRating}}averageRating{{/sortRating}}{{#sortArtist}}artist.name{{/sortArtist}}{{#sortYear}}creationYear{{/sortYear}}{{#sortMuseum}}museum.name{{/sortMuseum}}">
+                                	{{#topArtists}}
+                                    	{{#selected}}
+                                    	<input type="hidden" name="artist" value="{{id}}">
+                                    	{{/selected}}
+                                    {{/topArtists}}
+                                	{{^search}}
+                                    <input type="search" id="wp-block-search__input-1" class="wp-block-search__input"
+                                        name="search" value="" placeholder="Busca obras de arte">
+                                    {{/search}}
+                                    {{#search}}
+                                    <input type="search" id="wp-block-search__input-1" class="wp-block-search__input"
+                                        name="search" value="{{search}}">
+                                    {{/search}}
+                                    {{#ratingRanges}}
+		                            	{{#selected}}
+										<input type="hidden" name="ratingRanges" value="{{min}}-{{max}}">
+										{{/selected}}
+								    {{/ratingRanges}}
+                                    <button type="submit" class="wp-block-search__button">
+                                        <svg width="16" height="16" viewBox="0 0 16 16"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M11.7425 10.3418C12.7107 9.0205 13.1444 7.38236 12.9567 5.75508C12.769 4.1278 11.9739 2.63139 10.7303 1.56522C9.48666 0.49905 7.88635 -0.0582469 6.2495 0.0048239C4.61265 0.0678947 3.05997 0.746681 1.90209 1.90538C0.744221 3.06409 0.0665459 4.61725 0.00464636 6.25415C-0.0572531 7.89104 0.501188 9.49095 1.56825 10.7338C2.63531 11.9766 4.13229 12.7707 5.7597 12.9572C7.38711 13.1438 9.02494 12.7089 10.3455 11.7397H10.3445C10.3745 11.7797 10.4065 11.8177 10.4425 11.8547L14.2924 15.7046C14.4799 15.8922 14.7342 15.9977 14.9995 15.9977C15.2647 15.9978 15.5192 15.8926 15.7068 15.7051C15.8944 15.5176 15.9999 15.2632 16 14.9979C16.0001 14.7327 15.8948 14.4782 15.7073 14.2906L11.8575 10.4408C11.8217 10.4046 11.7833 10.3711 11.7425 10.3408V10.3418ZM12.0004 6.4979C12.0004 7.22015 11.8582 7.93532 11.5818 8.60258C11.3054 9.26985 10.9003 9.87614 10.3896 10.3868C9.87889 10.8975 9.2726 11.3027 8.60533 11.5791C7.93807 11.8554 7.2229 11.9977 6.50065 11.9977C5.77841 11.9977 5.06324 11.8554 4.39597 11.5791C3.72871 11.3027 3.12242 10.8975 2.61171 10.3868C2.10101 9.87614 1.6959 9.26985 1.41951 8.60258C1.14312 7.93532 1.00086 7.22015 1.00086 6.4979C1.00086 5.03927 1.5803 3.64037 2.61171 2.60896C3.64312 1.57755 5.04202 0.99811 6.50065 0.99811C7.95929 0.99811 9.35818 1.57755 10.3896 2.60896C11.421 3.64037 12.0004 5.03927 12.0004 6.4979Z" />
+                                        </svg>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="single-widgets mb-50 col-6 col-xl-12">
+	                        <form id="filterForm" method="get" action="/artworks">
+	                        	<input type="hidden" name="sort" value="{{#sortTitle}}title{{/sortTitle}}{{#sortRating}}averageRating{{/sortRating}}{{#sortArtist}}artist.name{{/sortArtist}}{{#sortYear}}creationYear{{/sortYear}}{{#sortMuseum}}museum.name{{/sortMuseum}}">
+		                        {{#search}}
+							    <input type="hidden" name="search" value="{{search}}">
+	                            {{/search}}
+	                            {{#ratingRanges}}
+	                            	{{#selected}}
+									<input type="hidden" name="ratingRanges" value="{{min}}-{{max}}">
+									{{/selected}}
+							    {{/ratingRanges}}
+	                            <div class="widget-title">
+	                                <h5>Artistas</h5>
+	                            </div>
+	                            <div class="checkbox-container">
+	                                <ul>
+	                                	{{#topArtists}}
+	                                    <li>
+	                                        <label class="containerss">
+	                                        	<input type="checkbox" name="artist" value="{{id}}" onchange="this.form.submit()" {{#selected}}checked{{/selected}}>
+	                                            <span class="checkmark"></span>
+	                                            <span>{{name}}</span>
+	                                        </label>
+	                                    </li>
+	                                    {{/topArtists}}
+	                                </ul>
+	                            </div>
+                        	</form>
+                        </div>
+                        <div class="single-widgets mb-50 col-6 col-xl-12">
+                        	<form id="filterForm" method="get" action="/artworks">
+	                        	<input type="hidden" name="sort" value="{{#sortTitle}}title{{/sortTitle}}{{#sortRating}}averageRating{{/sortRating}}{{#sortArtist}}artist.name{{/sortArtist}}{{#sortYear}}creationYear{{/sortYear}}{{#sortMuseum}}museum.name{{/sortMuseum}}">
+		                        {{#search}}
+							    <input type="hidden" name="search" value="{{search}}">
+	                            {{/search}}
+	                            {{#topArtists}}
+                                	{{#selected}}
+                                	<input type="hidden" name="artist" value="{{id}}">
+                                	{{/selected}}
+                                {{/topArtists}}
+	                            <div class="widget-title">
+	                                <h5>Valoración media</h5>
+	                            </div>
+	                            <div class="checkbox-container">
+	                                <ul>
+	                                	{{#ratingRanges}}
+	                                	<li>
+										    <label class="containerss">
+										      <input type="checkbox" name="ratingRanges" value="{{min}}-{{max}}" onchange="this.form.submit()" {{#selected}}checked{{/selected}}>
+										      <span class="checkmark"></span>
+										      <span>{{min}} - {{max}}</span>
+										    </label>
+									    </li>
+									    {{/ratingRanges}}
+	                                </ul>
+	                            </div>
+	                    	</form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-9 order-xl-2 order-2">
+                    <div class="row">
+                        <div class="col-lg-12 mb-30">
+                            <div class="auction-card-top-area">
+                                <div class="left-content">
+                                    <h6>Mostrando <span>{{range}}</span> de <span>{{totalArtworks}}</span> obras de arte.</h6>
+                                </div>
+                                <div class="right-content">
+                                    <form method="get" action="/artworks">
+                                    	<div class="category-area d-lg-flex d-none active">
+										    <select name="sort" onchange="this.form.submit()">
+										        <option value="title" {{#sortTitle}}selected{{/sortTitle}}>Nombre</option>
+										        <option value="averageRating" {{#sortRating}}selected{{/sortRating}}>Puntuación</option>
+										        <option value="artist.name" {{#sortArtist}}selected{{/sortArtist}}>Artista</option>
+										        <option value="creationYear" {{#sortYear}}selected{{/sortYear}}>Año de creación</option>
+										        <option value="museum.name" {{#sortMuseum}}selected{{/sortMuseum}}>Museo</option>
+										    </select>
+		                                    {{#search}}
+										    <input type="hidden" name="search" value="{{search}}">
+		                                    {{/search}}
+		                                    {{#topArtists}}
+		                                    	{{#selected}}
+		                                    	<input type="hidden" name="artist" value="{{id}}">
+		                                    	{{/selected}}
+		                                    {{/topArtists}}
+		                                    {{#ratingRanges}}
+				                            	{{#selected}}
+												<input type="hidden" name="ratingRanges" value="{{min}}-{{max}}">
+												{{/selected}}
+										    {{/ratingRanges}}
+										    <input type="hidden" name="page" value="{{currentPage}}">
+                                    	</div>
+                                    </form>
+                                    <ul class="size-icon grid-view d-lg-flex d-none">
+                                        <li class="column-2">
+                                            <svg width="7" height="14" viewBox="0 0 7 14" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M0.75 13.1875L0.749999 0.8125M5.8125 13.1875L5.8125 0.8125"
+                                                    stroke="#A0A0A0" stroke-width="1.5" stroke-linecap="round"
+                                                    stroke-linejoin="round" />
+                                            </svg>
+                                        </li>
+                                        <li class="column-3 active">
+                                            <svg width="10" height="14" viewBox="0 0 10 14" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path
+                                                    d="M1.0625 13.1875L1.0625 0.8125M5 13.1875L5 0.8125M8.9375 13.1875L8.9375 0.8125"
+                                                    stroke="white" stroke-width="1.5" stroke-linecap="round"
+                                                    stroke-linejoin="round" />
+                                            </svg>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {{#artworksEmpty}}
+				    <div class="list-grid-product-wrap mt-5 mb-5 pt-5 pb-5">
+                        <div class="row gy-4">
+				              <div class="col-lg-12" style="text-align: -webkit-center;">
+				                  <div class="breadcrumb-content col-12">
+				                      <h6><b>No hay obras de arte en base a tus criterios de busqueda.</b></h6>
+				                  </div>
+				              </div>
+				          </div>
+				    </div>
+				    {{/artworksEmpty}}
+    				{{^artworksEmpty}}
+                    <div class="list-grid-product-wrap">
+                        <div class="row gy-4">
+                            {{#artworksPage}}
+                            <div class="col-lg-4 col-md-6 item wow animate fadeInDown" data-wow-delay="200ms" data-wow-duration="1500ms">
+                                <div class="auction-card">
+                                    <div class="auction-card-img-wrap">
+                                        <a href="/artworks/{{id}}" class="card-img">
+                                            <img src="/artwork/image/{{id}}" alt="Imagen de {{title}}" loading="lazy">
+                                        </a>
+                                        {{#logged}}
+                                        {{^admin}}
+	                                       	{{#isFavorite}}
+									        <a class="wishlist wishlist-hovered" href="/artwork/favourite/delete/{{id}}">   
+										    {{/isFavorite}}
+										    {{^isFavorite}}
+									        <a class="wishlist" href="/artwork/favourite/add/{{id}}">   
+										    {{/isFavorite}}  
+	                                            <svg width="16" height="15" viewBox="0 0 16 15"
+	                                                xmlns="http://www.w3.org/2000/svg">
+	                                                <path
+	                                                    d="M8.00013 3.32629L7.32792 2.63535C5.75006 1.01348 2.85685 1.57317 1.81244 3.61222C1.32211 4.57128 1.21149 5.95597 2.10683 7.72315C2.96935 9.42471 4.76378 11.4628 8.00013 13.6828C11.2365 11.4628 13.03 9.42471 13.8934 7.72315C14.7888 5.95503 14.6791 4.57128 14.1878 3.61222C13.1434 1.57317 10.2502 1.01254 8.67234 2.63441L8.00013 3.32629ZM8.00013 14.8125C-6.375 5.31378 3.57406 -2.09995 7.83512 1.8216C7.89138 1.87317 7.94669 1.9266 8.00013 1.98192C8.05303 1.92665 8.10807 1.87349 8.16513 1.82254C12.4253 -2.10182 22.3753 5.31284 8.00013 14.8125Z">
+	                                                </path>
+	                                            </svg>
+	                                        </a>
+                                        {{/admin}}
+                                        {{/logged}}
+                                    <div class="auction-card-content">
+                                        <h6><a href="/artworks/{{id}}"><b>{{title}}</b></a>
+                                        </h6>
+                                        <ul>
+                                            <li><span>Artista : </span><a href="/artists/{{artist.id}}">{{artist.name}}</a></li>
+                                            <li><span>Museo : </span><a href="/museum/{{museum.id}}">{{museum.name}}</a></li>
+                                            <li><span>Puntuación : </span>{{averageRating}}</li>
+                                        </ul>
+                                        <a href="/artworks/{{id}}" class="bid-btn btn-hover">
+                                            <span>Detalles</span>
+                                            <strong></strong>
+                                        </a>
+                                        {{#admin}}
+                                        <div class="mt-3">
+	                                        <a href="/admin/artwork/edit/{{id}}" class="bid-btn btn-info btn-hover" 
+	                                        style="background-color: var(--bs-info);">
+	                                            <span>Editar</span>
+	                                            <strong></strong>
+	                                        </a>
+	                                        <a href="/admin/artwork/delete/{{id}}" class="bid-btn btn-danger btn-hover" 
+	                                        style="background-color: var(--bs-danger);" 
+	                                        onclick="return confirm('¿Estás seguro de que quieres eliminar esta obra?');">
+	                                            <span>Eliminar</span>
+	                                            <strong></strong>
+	                                        </a>
+                                        </div>
+                                        {{/admin}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {{/artworksPage}}
+                    </div>
+                    <div class="row wow animate fadeInUp" data-wow-delay="200ms" data-wow-duration="1500ms">
+                        <div class="col-lg-12 mb-120">
+                            <div class="page-navigation-area d-flex flex-wrap align-items-center justify-content-between">
+                                
+                                <div class="prev-next-btn">
+                                    {{#previousPage}}
+                                    <a href="/artworks?page={{this}}{{#search}}&search={{search}}{{/search}}&sort={{sort}}{{#topArtists}}{{#selected}}&artist={{id}}{{/selected}}{{/topArtists}}{{#ratingRanges}}{{#selected}}&ratingRanges={{min}}-{{max}}{{/selected}}{{/ratingRanges}}">
+                                        <svg width="7" height="14" viewBox="0 0 7 14"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M0 7.00008L7 0L2.54545 7.00008L7 14L0 7.00008Z" />
+                                        </svg>
+                                        Anterior
+                                    </a>
+                                	{{/previousPage}}
+                                </div>
+                                
+                                <ul class="pagination">
+                                	{{#previousPage}}
+                                    <li><a href="/artworks?page={{this}}{{#search}}&search={{search}}{{/search}}&sort={{sort}}{{#topArtists}}{{#selected}}&artist={{id}}{{/selected}}{{/topArtists}}{{#ratingRanges}}{{#selected}}&ratingRanges={{min}}-{{max}}{{/selected}}{{/ratingRanges}}">{{this}}</a></li>
+                                    {{/previousPage}}
+                                    <li class="active"><a>{{currentPage}}</a></li>
+                                    {{#nextPage}}
+                                    <li><a href="/artworks?page={{this}}{{#search}}&search={{search}}{{/search}}&sort={{sort}}{{#topArtists}}{{#selected}}&artist={{id}}{{/selected}}{{/topArtists}}{{#ratingRanges}}{{#selected}}&ratingRanges={{min}}-{{max}}{{/selected}}{{/ratingRanges}}">{{this}}</a></li>
+                                    {{/nextPage}}
+                                </ul>
+                                
+                                <div class="prev-next-btn">
+                                	{{#nextPage}}
+                                    <a href="/artworks?page={{this}}{{#search}}&search={{search}}{{/search}}&sort={{sort}}{{#topArtists}}{{#selected}}&artist={{id}}{{/selected}}{{/topArtists}}{{#ratingRanges}}{{#selected}}&ratingRanges={{min}}-{{max}}{{/selected}}{{/ratingRanges}}">
+                                        Siguiente
+                                        <svg width="7" height="14" viewBox="0 0 7 14"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M7 7.00008L0 0L4.45455 7.00008L0 14L7 7.00008Z" />
+                                        </svg>
+                                    </a>
+                                	{{/nextPage}}
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+    			{{/artworksEmpty}}
+            </div>
+        </div>
+    </div>
+    <!-- aution card section ends here -->
+    
+{{>footer}}

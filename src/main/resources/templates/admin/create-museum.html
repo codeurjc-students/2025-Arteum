@@ -1,0 +1,88 @@
+{{>header}}
+
+	<!-- Top area strats -->
+	<div class="top-area">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12 d-flex mb-120">
+					<div class="top-content">
+						<ul>
+							<li>
+								<a href="/">
+									<svg width="12" height="12" viewBox="0 0 12 12" fill="none"
+										xmlns="http://www.w3.org/2000/svg">
+										<path
+											d="M1.125 5.99955L5.602 1.52205C5.822 1.30255 6.178 1.30255 6.3975 1.52205L10.875 5.99955M2.25 4.87455V9.93705C2.25 10.2475 2.502 10.4995 2.8125 10.4995H4.875V8.06205C4.875 7.75155 5.127 7.49955 5.4375 7.49955H6.5625C6.873 7.49955 7.125 7.75155 7.125 8.06205V10.4995H9.1875C9.498 10.4995 9.75 10.2475 9.75 9.93705V4.87455M4.125 10.4995H8.25"
+											stroke="white" stroke-linecap="round" stroke-linejoin="round"></path>
+									</svg>
+								</a>
+							</li>
+							<li><a href="/admin/dashboard">Administrador</a></li>
+							<li>Crear museo</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Top area ends -->
+	<!-- Strats deshboard section -->
+	<div class="dashboard-section mb-120">
+	  	{{#error}}
+        	<div class="container alert alert-danger">{{error}}</div>
+    	{{/error}}
+    	{{#success}}
+        	<div class="container alert alert-success">{{success}}</div>
+    	{{/success}}
+		<div class="container">
+			<div class="dashboard-wrapper" style=" display: block;">
+				<div class="dashboard-content-wrap">
+					<div class="dashboard-profile-content">
+						<div class="single-content">
+							<h2>Crear un nuevo museo</h2>
+							
+							<form method="post" enctype="multipart/form-data" class="row g-3 needs-validation" novalidate>
+								<input type="hidden" name="_csrf" value="{{token}}"/>
+							    <div class="col-md-6">
+							        <label for="name" class="form-label">Nombre</label>
+							        <input type="text" class="form-control" id="name" name="name" required>
+							    </div>
+							
+							    <div class="col-md-6">
+							        <label for="location" class="form-label">Ubicación</label>
+							        <input type="text" class="form-control" id="location" name="location" required>
+							    </div>
+							
+							    <div class="col-md-6">
+							        <label for="founded" class="form-label">Año de fundación</label>
+							        <input type="number" class="form-control" id="founded" name="founded" min="1000" max="2100" required>
+							    </div>
+							
+							    <div class="col-md-12">
+							        <label for="description" class="form-label">Descripción</label>
+							        <textarea class="form-control" id="description" name="description" rows="4" required></textarea>
+							    </div>
+							
+							    <div class="col-md-12">
+							        <label for="image" class="form-label">Imagen</label>
+							        <input type="file" class="form-control" id="image" name="image" accept="image/*">
+							    </div>
+							
+							    <div class="form-inner style-2 col-12">
+									<button type="submit" class="primary-btn2 btn-hover">
+										<span>Guardar museo</span>
+										<strong style="top: -28.5px; left: 73.9531px;"></strong>
+									</button>
+								</div>
+							</form>
+							
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+	</div>
+	<!-- Ends dashboard section -->
+
+{{>footer}}

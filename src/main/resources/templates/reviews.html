@@ -1,0 +1,180 @@
+{{>header}}
+    <!-- Breadcrumb section strats here -->
+    <div class="breadcrumb-section2"
+        style="background-image: linear-gradient(180deg, rgba(0, 0, 0, 0.28), rgba(0, 0, 0, 0.28)), url(/assets/img/inner-page/home1-banner-bg2.jpg);">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 d-flex">
+                    <div class="top-content style-2">
+                        <ul>
+                            <li>
+                                <a href="/">
+                                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M1.125 5.99955L5.602 1.52205C5.822 1.30255 6.178 1.30255 6.3975 1.52205L10.875 5.99955M2.25 4.87455V9.93705C2.25 10.2475 2.502 10.4995 2.8125 10.4995H4.875V8.06205C4.875 7.75155 5.127 7.49955 5.4375 7.49955H6.5625C6.873 7.49955 7.125 7.75155 7.125 8.06205V10.4995H9.1875C9.498 10.4995 9.75 10.2475 9.75 9.93705V4.87455M4.125 10.4995H8.25"
+                                            stroke="white" stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                </a>
+                            </li>
+                            <li><a href="/dashboard-profile">{{userName}}</a></li>
+                            <li>Reviews</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="breadcrumb-content">
+                        <h1>Reviews del usuario {{userName}}</h1>
+                        <p>Reviews realizadas</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumb section ends here -->
+    <!-- aution card section strats here -->
+    {{^reviewsEmpty}}
+	<div class="auction-card-sidebar-section pt-5 mb-120">
+        <div class="container">
+            <div class="row gy-5">
+                <div class="col-12 order-1">
+                    <div class="row">
+                        <div class="col-lg-12 mb-30">
+                            <div class="auction-card-top-area">
+                                <div class="left-content">
+                                    <h6>Mostrando <span>{{range}}</span> de <span>{{totalReviews}}</span> reviews.</h6>
+                                </div>
+                                <div class="right-content">
+                                	<form method="get" action="/user/reviews">
+                                		<input type="hidden" name="page" value="{{currentPage}}">
+	                                    <div class="category-area d-lg-flex d-none active">
+	                                        <select name="sort" onchange="this.form.submit()">
+										        <option value="createdAt" {{#sortCreatedAt}}selected{{/sortCreatedAt}}>Más recientes</option>
+										        <option value="rating" {{#sortRating}}selected{{/sortRating}}>Mayor Puntuación</option>
+										        <option value="ratingAsc" {{#sortRatingAsc}}selected{{/sortRatingAsc}}>Menor Puntuación</option>
+										        <option value="createdAtAsc" {{#sortCreatedAtAsc}}selected{{/sortCreatedAtAsc}}>Más antiguos</option>
+										    </select>
+	                                    </div>
+                                    </form>
+                                    <ul class="size-icon grid-view d-lg-flex d-none">
+                                        <li class="column-2">
+                                            <svg width="7" height="14" viewBox="0 0 7 14" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M0.75 13.1875L0.749999 0.8125M5.8125 13.1875L5.8125 0.8125"
+                                                    stroke="#A0A0A0" stroke-width="1.5" stroke-linecap="round"
+                                                    stroke-linejoin="round" />
+                                            </svg>
+                                        </li>
+                                        <li class="column-3 active">
+                                            <svg width="10" height="14" viewBox="0 0 10 14" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path
+                                                    d="M1.0625 13.1875L1.0625 0.8125M5 13.1875L5 0.8125M8.9375 13.1875L8.9375 0.8125"
+                                                    stroke="white" stroke-width="1.5" stroke-linecap="round"
+                                                    stroke-linejoin="round" />
+                                            </svg>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="list-grid-product-wrap">
+                        <div class="row gy-4">
+                            {{#reviewsPage}}
+                            <div class="col-lg-4 col-md-6 item wow animate fadeInDown" data-wow-delay="200ms" data-wow-duration="1500ms">
+                                <div class="auction-card">
+                                	<div class="auction-card-img-wrap">
+                                        <a href="/artworks/{{artwork.id}}" class="card-img">
+                                            <img src="/artwork/image/{{artwork.id}}" alt="Imagen de {{artwork.title}}" loading="lazy">
+                                        </a>
+                                        {{#logged}}
+	                                       	{{#isFavorite}}
+									        <a class="wishlist wishlist-hovered" href="/artwork/favourite/delete/{{artwork.id}}?page={{currentPage}}">   
+										    {{/isFavorite}}
+										    {{^isFavorite}}
+									        <a class="wishlist" href="/artwork/favourite/add/{{artwork.id}}?page={{currentPage}}">   
+										    {{/isFavorite}}  
+	                                            <svg width="16" height="15" viewBox="0 0 16 15"
+	                                                xmlns="http://www.w3.org/2000/svg">
+	                                                <path
+	                                                    d="M8.00013 3.32629L7.32792 2.63535C5.75006 1.01348 2.85685 1.57317 1.81244 3.61222C1.32211 4.57128 1.21149 5.95597 2.10683 7.72315C2.96935 9.42471 4.76378 11.4628 8.00013 13.6828C11.2365 11.4628 13.03 9.42471 13.8934 7.72315C14.7888 5.95503 14.6791 4.57128 14.1878 3.61222C13.1434 1.57317 10.2502 1.01254 8.67234 2.63441L8.00013 3.32629ZM8.00013 14.8125C-6.375 5.31378 3.57406 -2.09995 7.83512 1.8216C7.89138 1.87317 7.94669 1.9266 8.00013 1.98192C8.05303 1.92665 8.10807 1.87349 8.16513 1.82254C12.4253 -2.10182 22.3753 5.31284 8.00013 14.8125Z">
+	                                                </path>
+	                                            </svg>
+	                                        </a>
+                                        {{/logged}}
+	                                    <div class="auction-card-content" style="padding: 25px 15px 25px; border: 1px solid var(--border-color); border-top: outset;">
+	                                        <h6>
+	                                        	<a href="/artworks/{{artwork.id}}">
+	                                        		<b>{{artwork.title}}</b>
+	                                        	</a>
+	                                        	<a href="/artists/{{artwork.artist.id}}">
+	                                        		<b> ({{artwork.artist.name}})</b>
+	                                        	</a>
+	                                        </h6>
+	                                        <ul>
+	                                        	{{#comment}}
+	                                            	<li><span>Comentario : </span>{{comment}}</a></li>
+	                                            {{/comment}}
+	                                            <li><span>Puntuación : </span>{{rating}}</li>
+	                                        </ul>
+	                                        <a href="/artworks/{{artwork.id}}" class="primary-btn2 btn-hover mt-3">
+												<span>Editar</span>
+												<strong style="top: -28.5px; left: 73.9531px;"></strong>
+											</a>
+	                                    </div>
+	                                </div>
+                                </div>
+                            </div>
+                            {{/reviewsPage}}
+                        </div>
+                    </div>
+                    <div class="row wow animate fadeInUp" data-wow-delay="200ms" data-wow-duration="1500ms">
+                        <div class="col-lg-12">
+                            <div class="page-navigation-area d-flex flex-wrap align-items-center justify-content-between">
+                                
+                                <div class="prev-next-btn">
+                                    {{#previousPage}}
+                                    <a href="/user/reviews?page={{this}}&sort={{sort}}">
+                                        <svg width="7" height="14" viewBox="0 0 7 14"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M0 7.00008L7 0L2.54545 7.00008L7 14L0 7.00008Z" />
+                                        </svg>
+                                        Anterior
+                                    </a>
+                                	{{/previousPage}}
+                                </div>
+                                
+                                <ul class="pagination">
+                                	{{#previousPage}}
+                                    <li><a href="/user/reviews?page={{this}}&sort={{sort}}">{{this}}</a></li>
+                                    {{/previousPage}}
+                                    <li class="active"><a>{{currentPage}}</a></li>
+                                    {{#nextPage}}
+                                    <li><a href="/user/reviews?page={{this}}&sort={{sort}}">{{this}}</a></li>
+                                    {{/nextPage}}
+                                </ul>
+                                
+                                <div class="prev-next-btn">
+                                	{{#nextPage}}
+                                    <a href="/user/reviews?page={{this}}&sort={{sort}}">
+                                        Siguiente
+                                        <svg width="7" height="14" viewBox="0 0 7 14"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M7 7.00008L0 0L4.45455 7.00008L0 14L7 7.00008Z" />
+                                        </svg>
+                                    </a>
+                                	{{/nextPage}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{/reviewsEmpty}}
+    
+{{>footer}}

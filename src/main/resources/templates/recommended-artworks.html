@@ -1,0 +1,128 @@
+{{>header}}
+
+<!-- Breadcrumb section strats here -->
+<div class="breadcrumb-section2"
+	style="background-image: linear-gradient(180deg, rgba(0, 0, 0, 0.28), rgba(0, 0, 0, 0.28)), url(/assets/img/inner-page/home1-banner-bg1.jpg);">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12 d-flex">
+				<div class="top-content style-2">
+					<ul>
+						<li><a href="/"> <svg width="12" height="12"
+									viewBox="0 0 12 12" fill="none"
+									xmlns="http://www.w3.org/2000/svg">
+                                        <path
+										d="M1.125 5.99955L5.602 1.52205C5.822 1.30255 6.178 1.30255 6.3975 1.52205L10.875 5.99955M2.25 4.87455V9.93705C2.25 10.2475 2.502 10.4995 2.8125 10.4995H4.875V8.06205C4.875 7.75155 5.127 7.49955 5.4375 7.49955H6.5625C6.873 7.49955 7.125 7.75155 7.125 8.06205V10.4995H9.1875C9.498 10.4995 9.75 10.2475 9.75 9.93705V4.87455M4.125 10.4995H8.25"
+										stroke="white" stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+						</a></li>
+						<li>Obras de arte recomendadas</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="breadcrumb-content">
+					<h1>Obras de arte recomendadas</h1>
+					<p>
+					    Este módulo te recomienda obras de arte basadas en tus gustos y preferencias. 
+					    El sistema analiza tus valoraciones anteriores, las compara con otros usuarios 
+					    que han dado puntuaciones similares y te sugiere nuevas obras que podrían 
+					    interesarte, incluso si aún no las has descubierto. Cuantas más valoraciones des, ¡mejor serán las recomendaciones!
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Breadcrumb section ends here -->
+<!-- aution card section strats here -->
+
+{{#recommendedArtworksEmpty}}
+<div class="breadcrumb-section2 pt-120 mb-120">
+	<div class="row">
+		<div class="col-lg-12" style="text-align: -webkit-center;">
+			<div class="breadcrumb-content col-12">
+				<h2>No tenemos suficentes datos para recomendarte obras de
+					arte.</h2>
+				<h2>¡Te recomendamos que amplies tus red social y guardes tus
+					obras favoritas!</h2>
+			</div>
+		</div>
+	</div>
+</div>
+{{/recommendedArtworksEmpty}} 
+{{^recommendedArtworksEmpty}}
+<div class="auction-card-sidebar-section pt-120 mb-120">
+	<div class="container">
+		<div class="row gy-5">
+			<div class="col-12 order-2">
+				<div class="list-grid-product-wrap">
+					<div class="row gy-4">
+						{{#recommendedArtworks}}
+						<div class="col-lg-3 col-md-4 item wow animate fadeInDown" data-wow-delay="200ms" data-wow-duration="1500ms">
+                                <div class="auction-card">
+                                    <div class="auction-card-img-wrap">
+                                        <a href="/artworks/{{id}}" class="card-img">
+                                            <img src="/artwork/image/{{id}}" alt="Imagen de {{title}}" loading="lazy">
+                                        </a>
+                                        {{#logged}}
+                                        {{^admin}}
+	                                       	{{#isFavorite}}
+									        <a class="wishlist wishlist-hovered" href="/artwork/favourite/delete/{{id}}">   
+										    {{/isFavorite}}
+										    {{^isFavorite}}
+									        <a class="wishlist" href="/artwork/favourite/add/{{id}}">   
+										    {{/isFavorite}}  
+	                                            <svg width="16" height="15" viewBox="0 0 16 15"
+	                                                xmlns="http://www.w3.org/2000/svg">
+	                                                <path
+	                                                    d="M8.00013 3.32629L7.32792 2.63535C5.75006 1.01348 2.85685 1.57317 1.81244 3.61222C1.32211 4.57128 1.21149 5.95597 2.10683 7.72315C2.96935 9.42471 4.76378 11.4628 8.00013 13.6828C11.2365 11.4628 13.03 9.42471 13.8934 7.72315C14.7888 5.95503 14.6791 4.57128 14.1878 3.61222C13.1434 1.57317 10.2502 1.01254 8.67234 2.63441L8.00013 3.32629ZM8.00013 14.8125C-6.375 5.31378 3.57406 -2.09995 7.83512 1.8216C7.89138 1.87317 7.94669 1.9266 8.00013 1.98192C8.05303 1.92665 8.10807 1.87349 8.16513 1.82254C12.4253 -2.10182 22.3753 5.31284 8.00013 14.8125Z">
+	                                                </path>
+	                                            </svg>
+	                                        </a>
+                                        {{/admin}}
+                                        {{/logged}}
+                                    <div class="auction-card-content">
+                                        <h6><a href="/artworks/{{id}}"><b>{{title}}</b></a>
+                                        </h6>
+                                        <ul>
+                                            <li><span>Artista : </span><a href="/artists/{{artist.id}}">{{artist.name}}</a></li>
+                                            <li><span>Museo : </span><a href="/museum/{{museum.id}}">{{museum.name}}</a></li>
+                                            <li><span>Puntuación : </span>{{averageRating}}</li>
+                                        </ul>
+                                        <a href="/artworks/{{id}}" class="bid-btn btn-hover">
+                                            <span>Detalles</span>
+                                            <strong></strong>
+                                        </a>
+                                        {{#admin}}
+                                        <div class="mt-3">
+	                                        <a href="/admin/artwork/edit/{{id}}" class="bid-btn btn-info btn-hover" 
+	                                        style="background-color: var(--bs-info);">
+	                                            <span>Editar</span>
+	                                            <strong></strong>
+	                                        </a>
+	                                        <a href="/admin/artwork/delete/{{id}}" class="bid-btn btn-danger btn-hover" 
+	                                        style="background-color: var(--bs-danger);" 
+	                                        onclick="return confirm('¿Estás seguro de que quieres eliminar esta obra?');">
+	                                            <span>Eliminar</span>
+	                                            <strong></strong>
+	                                        </a>
+                                        </div>
+                                        {{/admin}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+						{{/recommendedArtworks}}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- aution card section ends here -->
+{{/recommendedArtworksEmpty}} 
+
+{{>footer}}
