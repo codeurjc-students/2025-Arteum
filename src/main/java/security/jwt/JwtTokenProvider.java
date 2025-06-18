@@ -1,5 +1,7 @@
 package security.jwt;
 
+import java.nio.charset.StandardCharsets;
+import java.security.Key;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Calendar;
@@ -19,21 +21,21 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 
 import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.SignatureException;
-import io.jsonwebtoken.UnsupportedJwtException;
+import io.jsonwebtoken.security.Keys;
 import jakarta.servlet.http.HttpServletRequest;
 
 @Component
 public class JwtTokenProvider {
 
 	private static final Logger LOG = LoggerFactory.getLogger(JwtRequestFilter.class);
+	private Key key;
 
 	@Value("${jwt.secret}")
-	private String jwtSecret;
+	public void setJwtSecret(String secret) {
+		this.key = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
+	}
 
 	private static long JWT_EXPIRATION_IN_MS = 5400000;
 	private static Long REFRESH_TOKEN_EXPIRATION_MSEC = 10800000l;
@@ -46,10 +48,6 @@ public class JwtTokenProvider {
 		return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
 	}
 
-	public String getUsername(String token) {
-		return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().getSubject();
-	}
-
 	public String resolveToken(HttpServletRequest req) {
 		String bearerToken = req.getHeader("Authorization");
 		if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
@@ -60,20 +58,16 @@ public class JwtTokenProvider {
 
 	public boolean validateToken(String token) {
 		try {
-			Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token);
+			Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
 			return true;
-		} catch (SignatureException ex) {
-			LOG.debug("Invalid JWT Signature");
-		} catch (MalformedJwtException ex) {
-			LOG.debug("Invalid JWT token");
-		} catch (ExpiredJwtException ex) {
-			LOG.debug("Expired JWT token");
-		} catch (UnsupportedJwtException ex) {
-			LOG.debug("Unsupported JWT exception");
-		} catch (IllegalArgumentException ex) {
-			LOG.debug("JWT claims string is empty");
+		} catch (Exception e) {
+			LOG.debug("JWT validation error: " + e.getMessage());
+			return false;
 		}
-		return false;
+	}
+
+	public String getUsername(String token) {
+		return Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token).getBody().getSubject();
 	}
 
 	public Token generateToken(UserDetails user) {
@@ -86,8 +80,9 @@ public class JwtTokenProvider {
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(now);
 		calendar.add(Calendar.HOUR_OF_DAY, 8);
-		String token = Jwts.builder().setClaims(claims).setSubject((user.getUsername())).setIssuedAt(new Date())
-				.setExpiration(expiryDate).signWith(SignatureAlgorithm.HS256, jwtSecret).compact();
+		String token = Jwts.builder().setSubject(user.getUsername()).setIssuedAt(new Date())
+				.setExpiration(new Date(System.currentTimeMillis() + JWT_EXPIRATION_IN_MS))
+				.signWith(key, SignatureAlgorithm.HS256).compact();
 		return new Token(Token.TokenType.ACCESS, token, duration,
 				LocalDateTime.ofInstant(expiryDate.toInstant(), ZoneId.systemDefault()));
 	}
@@ -102,8 +97,9 @@ public class JwtTokenProvider {
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(now);
 		calendar.add(Calendar.HOUR_OF_DAY, 8);
-		String token = Jwts.builder().setClaims(claims).setSubject((user.getUsername())).setIssuedAt(new Date())
-				.setExpiration(expiryDate).signWith(SignatureAlgorithm.HS256, jwtSecret).compact();
+		String token = Jwts.builder().setSubject(user.getUsername()).setIssuedAt(new Date())
+				.setExpiration(new Date(System.currentTimeMillis() + JWT_EXPIRATION_IN_MS))
+				.signWith(key, SignatureAlgorithm.HS256).compact();
 		return new Token(Token.TokenType.REFRESH, token, duration,
 				LocalDateTime.ofInstant(expiryDate.toInstant(), ZoneId.systemDefault()));
 	}
