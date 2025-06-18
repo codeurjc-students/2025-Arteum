@@ -3,6 +3,8 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -32,6 +34,7 @@ public class Museum {
 	private int founded;
 	@Lob
 	@Column(name = "image", columnDefinition = "LONGBLOB")
+	@JsonIgnore
 	private byte[] image;
 
 	@OneToMany(mappedBy = "museum")

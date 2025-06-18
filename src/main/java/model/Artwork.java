@@ -39,20 +39,23 @@ public class Artwork {
 	private double averageRating;
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "artist_id")
+	@JsonIgnore
 	private Artist artist;
 	@Lob
 	@Column(name = "image", columnDefinition = "LONGBLOB")
+	@JsonIgnore
 	private byte[] image;
 	@ManyToOne
 	@JoinColumn(name = "museum_id")
+	@JsonIgnore
 	private Museum museum;
-	
-	@OneToMany(mappedBy = "artwork", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Review> reviews;
 
-    @ManyToMany(mappedBy = "favoriteArtworks", fetch = FetchType.LAZY)
-    @JsonIgnore
-    private Set<User> usersWhoFavorited;
+	@OneToMany(mappedBy = "artwork", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Review> reviews;
+
+	@ManyToMany(mappedBy = "favoriteArtworks", fetch = FetchType.LAZY)
+	@JsonIgnore
+	private Set<User> usersWhoFavorited;
 
 	public Artwork(Long id, String title, Artist artist, int creationYear, String description, byte[] image,
 			Museum museum) {

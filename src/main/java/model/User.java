@@ -41,7 +41,8 @@ public class User {
     private String biography;
     private String location;
     @Lob
-    @Column(name = "image", columnDefinition = "LONGBLOB") 
+    @Column(name = "image", columnDefinition = "LONGBLOB")
+    @JsonIgnore
     private byte[] image;
     @ElementCollection(fetch = FetchType.EAGER)
 	private List<String> roles;
@@ -67,7 +68,6 @@ public class User {
         joinColumns = @JoinColumn(name = "user_id"),
         inverseJoinColumns = @JoinColumn(name = "artwork_id")
 	)
-    @JsonIgnore
 	private Set<Artwork> favoriteArtworks = new HashSet<>();
 
 	public User(String name, String email, String password) {
