@@ -29,13 +29,23 @@ public class UserService {
 	@PersistenceContext
 	private EntityManager entityManager;
 
-	public void save(User user) {
-		repository.save(user);
+	public User save(User user) {
+		return repository.save(user);
 	}
 
-	public void delete(User user) {
-		repository.delete(user);
+	public void deleteUser(Long userId) {
+	    Optional<User> userOpt = repository.findById(userId);
+	    if (userOpt.isPresent()) {
+	        User user = userOpt.get();
+	        user.getFollowers().forEach(follower -> follower.getFollowing().remove(user));
+	        user.getFollowing().forEach(followed -> followed.getFollowers().remove(user));
+	        user.getFollowers().clear();
+	        user.getFollowing().clear();
+	        repository.save(user);
+	        repository.delete(user);
+	    }
 	}
+
 
 	public Optional<User> findByEmail(String email) {
 		return repository.findByEmail(email);

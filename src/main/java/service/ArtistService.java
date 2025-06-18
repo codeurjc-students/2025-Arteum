@@ -99,4 +99,8 @@ public class ArtistService {
 		}
 		return artistsWithYear;
 	}
+	
+	public List<Artist> findTop10ArtistsByAverageArtworkRatingRaw() {
+	    return artistRepository.findTop10ArtistsByAverageArtworkRating();
+	}
 }
