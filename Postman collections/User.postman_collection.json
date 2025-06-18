@@ -1,0 +1,1010 @@
+{
+	"info": {
+		"_postman_id": "b9434c6d-4ac9-4f90-a5d1-d6e955f8063a",
+		"name": "User",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33772151"
+	},
+	"item": [
+		{
+			"name": "Listar usuarios paginados",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var template = `\r",
+							"<style type=\"text/css\">\r",
+							"    .tftable {font-size:14px;color:#333333;width:100%;border-width: 1px;border-color: #87ceeb;border-collapse: collapse;}\r",
+							"    .tftable th {font-size:18px;background-color:#87ceeb;border-width: 1px;padding: 8px;border-style: solid;border-color: #87ceeb;text-align:left;}\r",
+							"    .tftable tr {background-color:#ffffff;}\r",
+							"    .tftable td {font-size:14px;border-width: 1px;padding: 8px;border-style: solid;border-color: #87ceeb;}\r",
+							"    .tftable tr:hover {background-color:#e0ffff;}\r",
+							"</style>\r",
+							"\r",
+							"<table class=\"tftable\" border=\"1\">\r",
+							"    <tr>\r",
+							"        <th>ID</th>\r",
+							"        <th>Name</th>\r",
+							"        <th>Location</th>\r",
+							"        <th>Following</th>\r",
+							"    </tr>\r",
+							"    \r",
+							"    {{#each response.content}}\r",
+							"        <tr>\r",
+							"            <td>{{id}}</td>\r",
+							"            <td>{{name}}</td>\r",
+							"            <td>{{location}}</td>\r",
+							"            <td>{{following}}</td>\r",
+							"        </tr>\r",
+							"    {{/each}}\r",
+							"</table>\r",
+							"`;\r",
+							"\r",
+							"function constructVisualizerPayload() {\r",
+							"    return {response: pm.response.json()}\r",
+							"}\r",
+							"\r",
+							"pm.visualizer.set(template, constructVisualizerPayload());"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost/api/v1/users?page=1",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"v1",
+						"users"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Perfil público de un usuario",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var template = `\r",
+							"<style type=\"text/css\">\r",
+							"    .tftable {font-size:14px;color:#333333;width:100%;border-width: 1px;border-color: #87ceeb;border-collapse: collapse;}\r",
+							"    .tftable th {font-size:18px;background-color:#87ceeb;border-width: 1px;padding: 8px;border-style: solid;border-color: #87ceeb;text-align:left;}\r",
+							"    .tftable tr {background-color:#ffffff;}\r",
+							"    .tftable td {font-size:14px;border-width: 1px;padding: 8px;border-style: solid;border-color: #87ceeb;}\r",
+							"    .tftable tr:hover {background-color:#e0ffff;}\r",
+							"</style>\r",
+							"\r",
+							"<table class=\"tftable\" border=\"1\">\r",
+							"    <tr>\r",
+							"        <th>Name</th>\r",
+							"        <th>Biography</th>\r",
+							"        <th>Location</th>\r",
+							"        <th>Followers Count</th>\r",
+							"        <th>Following Count</th>\r",
+							"        <th>Reviews Count</th>\r",
+							"        <th>Reviews Average</th>\r",
+							"        <th>Favorite Artworks</th>\r",
+							"        <th>Not My Profile</th>\r",
+							"        <th>Following</th>\r",
+							"    </tr>\r",
+							"    <tr>\r",
+							"        <td>{{response.name}}</td>\r",
+							"        <td>{{response.biography}}</td>\r",
+							"        <td>{{response.location}}</td>\r",
+							"        <td>{{response.followersCount}}</td>\r",
+							"        <td>{{response.followingCount}}</td>\r",
+							"        <td>{{response.reviewsCount}}</td>\r",
+							"        <td>{{response.reviewsAverage}}</td>\r",
+							"        <td>\r",
+							"            {{#each response.favoriteArtworks}}\r",
+							"                <div>{{title}} ({{creationYear}})</div>\r",
+							"            {{/each}}\r",
+							"        </td>\r",
+							"        <td>{{response.notMyProfile}}</td>\r",
+							"        <td>{{response.following}}</td>\r",
+							"    </tr>\r",
+							"</table>\r",
+							"`;\r",
+							"\r",
+							"function constructVisualizerPayload() {\r",
+							"    return {response: pm.response.json()};\r",
+							"}\r",
+							"\r",
+							"pm.visualizer.set(template, constructVisualizerPayload());"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost/api/v1/users/public-profile/CanvasKing",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"v1",
+						"users",
+						"public-profile",
+						"CanvasKing"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Actualizar datos del perfil",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "location",
+							"value": "madrid",
+							"type": "text"
+						},
+						{
+							"key": "biography",
+							"value": "chuli",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://localhost/api/v1/users/change-data",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"v1",
+						"users",
+						"change-data"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Cambiar la contraseña",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "location",
+							"value": "madrid",
+							"type": "text"
+						},
+						{
+							"key": "biography",
+							"value": "chuli",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://localhost/api/v1/users/change-password?currentPassword=paintme&newPassword=paintme123&confirmPassword=paintme123",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"v1",
+						"users",
+						"change-password"
+					],
+					"query": [
+						{
+							"key": "currentPassword",
+							"value": "paintme"
+						},
+						{
+							"key": "newPassword",
+							"value": "paintme123"
+						},
+						{
+							"key": "confirmPassword",
+							"value": "paintme123"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Generar PDF del perfil de usuario Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost/api/v1/users/pdf",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"v1",
+						"users",
+						"pdf"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener obras recomendadas",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var template = `\r",
+							"<style type=\"text/css\">\r",
+							"    .tftable {font-size:14px;color:#333333;width:100%;border-width: 1px;border-color: #87ceeb;border-collapse: collapse;}\r",
+							"    .tftable th {font-size:18px;background-color:#87ceeb;border-width: 1px;padding: 8px;border-style: solid;border-color: #87ceeb;text-align:left;}\r",
+							"    .tftable tr {background-color:#ffffff;}\r",
+							"    .tftable td {font-size:14px;border-width: 1px;padding: 8px;border-style: solid;border-color: #87ceeb;}\r",
+							"    .tftable tr:hover {background-color:#e0ffff;}\r",
+							"</style>\r",
+							"\r",
+							"<table class=\"tftable\" border=\"1\">\r",
+							"    <tr>\r",
+							"        <th>ID</th>\r",
+							"        <th>Title</th>\r",
+							"        <th>Creation Year</th>\r",
+							"        <th>Description</th>\r",
+							"        <th>Average Rating</th>\r",
+							"        <th>Artist</th>\r",
+							"        <th>Museum</th>\r",
+							"        <th>Favorite</th>\r",
+							"    </tr>\r",
+							"    \r",
+							"    {{#each response}}\r",
+							"        <tr>\r",
+							"            <td>{{id}}</td>\r",
+							"            <td>{{title}}</td>\r",
+							"            <td>{{creationYear}}</td>\r",
+							"            <td>{{description}}</td>\r",
+							"            <td>{{averageRating}}</td>\r",
+							"            <td>{{artist}}</td>\r",
+							"            <td>{{museum}}</td>\r",
+							"            <td>{{favorite}}</td>\r",
+							"        </tr>\r",
+							"    {{/each}}\r",
+							"</table>\r",
+							"`;\r",
+							"\r",
+							"function constructVisualizerPayload() {\r",
+							"    return {response: pm.response.json()}\r",
+							"}\r",
+							"\r",
+							"pm.visualizer.set(template, constructVisualizerPayload());"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost/api/v1/users/recommended-artworks",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"v1",
+						"users",
+						"recommended-artworks"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener obras de arte favoritas",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var template = `\r",
+							"<style type=\"text/css\">\r",
+							"    .tftable {font-size:14px;color:#333333;width:100%;border-width: 1px;border-color: #87ceeb;border-collapse: collapse;}\r",
+							"    .tftable th {font-size:18px;background-color:#87ceeb;border-width: 1px;padding: 8px;border-style: solid;border-color: #87ceeb;text-align:left;}\r",
+							"    .tftable tr {background-color:#ffffff;}\r",
+							"    .tftable td {font-size:14px;border-width: 1px;padding: 8px;border-style: solid;border-color: #87ceeb;}\r",
+							"    .tftable tr:hover {background-color:#e0ffff;}\r",
+							"</style>\r",
+							"\r",
+							"<table class=\"tftable\" border=\"1\">\r",
+							"    <tr>\r",
+							"        <th>ID</th>\r",
+							"        <th>Title</th>\r",
+							"        <th>Creation Year</th>\r",
+							"        <th>Description</th>\r",
+							"        <th>Average Rating</th>\r",
+							"        <th>Artist</th>\r",
+							"        <th>Museum</th>\r",
+							"    </tr>\r",
+							"    \r",
+							"    {{#each response.content}}\r",
+							"        <tr>\r",
+							"            <td>{{id}}</td>\r",
+							"            <td>{{title}}</td>\r",
+							"            <td>{{creationYear}}</td>\r",
+							"            <td>{{description}}</td>\r",
+							"            <td>{{averageRating}}</td>\r",
+							"            <td>{{artist}}</td>\r",
+							"            <td>{{museum}}</td>\r",
+							"        </tr>\r",
+							"    {{/each}}\r",
+							"</table>\r",
+							"`;\r",
+							"\r",
+							"function constructVisualizerPayload() {\r",
+							"    return {response: pm.response.json()};\r",
+							"}\r",
+							"\r",
+							"pm.visualizer.set(template, constructVisualizerPayload());"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost/api/v1/users/favourites-artworks",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"v1",
+						"users",
+						"favourites-artworks"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener reviews",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var template = `\r",
+							"<style type=\"text/css\">\r",
+							"    .tftable {font-size:14px;color:#333333;width:100%;border-width: 1px;border-color: #87ceeb;border-collapse: collapse;}\r",
+							"    .tftable th {font-size:18px;background-color:#87ceeb;border-width: 1px;padding: 8px;border-style: solid;border-color: #87ceeb;text-align:left;}\r",
+							"    .tftable tr {background-color:#ffffff;}\r",
+							"    .tftable td {font-size:14px;border-width: 1px;padding: 8px;border-style: solid;border-color: #87ceeb;}\r",
+							"    .tftable tr:hover {background-color:#e0ffff;}\r",
+							"</style>\r",
+							"\r",
+							"<table class=\"tftable\" border=\"1\">\r",
+							"    <tr>\r",
+							"        <th>ID</th>\r",
+							"        <th>Artwork ID</th>\r",
+							"        <th>Rating</th>\r",
+							"        <th>Comment</th>\r",
+							"    </tr>\r",
+							"    \r",
+							"    {{#each response.reviews}}\r",
+							"        <tr id=row_{{@key}}>\r",
+							"            <td>{{id}}</td>\r",
+							"            <td>{{artworkId}}</td>\r",
+							"            <td>{{rating}}</td>\r",
+							"            <td>{{comment}}</td>\r",
+							"        </tr>\r",
+							"    {{/each}}\r",
+							"</table>\r",
+							"`;\r",
+							"\r",
+							"function constructVisualizerPayload() {\r",
+							"    var res = pm.response.json();\r",
+							"    return {response: res};\r",
+							"}\r",
+							"\r",
+							"pm.visualizer.set(template, constructVisualizerPayload());"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost/api/v1/users/reviews",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"v1",
+						"users",
+						"reviews"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener seguidores",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var template = `\r",
+							"<style type=\"text/css\">\r",
+							"    .tftable {font-size:14px;color:#333333;width:100%;border-width: 1px;border-color: #87ceeb;border-collapse: collapse;}\r",
+							"    .tftable th {font-size:18px;background-color:#87ceeb;border-width: 1px;padding: 8px;border-style: solid;border-color: #87ceeb;text-align:left;}\r",
+							"    .tftable tr {background-color:#ffffff;}\r",
+							"    .tftable td {font-size:14px;border-width: 1px;padding: 8px;border-style: solid;border-color: #87ceeb;}\r",
+							"    .tftable tr:hover {background-color:#e0ffff;}\r",
+							"</style>\r",
+							"\r",
+							"<table class=\"tftable\" border=\"1\">\r",
+							"    <tr>\r",
+							"        <th>ID</th>\r",
+							"        <th>Name</th>\r",
+							"        <th>Location</th>\r",
+							"        <th>Following</th>\r",
+							"    </tr>\r",
+							"    \r",
+							"    {{#each response.content}}\r",
+							"        <tr>\r",
+							"            <td>{{id}}</td>\r",
+							"            <td>{{name}}</td>\r",
+							"            <td>{{location}}</td>\r",
+							"            <td>{{following}}</td>\r",
+							"        </tr>\r",
+							"    {{/each}}\r",
+							"</table>\r",
+							"`;\r",
+							"\r",
+							"function constructVisualizerPayload() {\r",
+							"    return { response: pm.response.json() };\r",
+							"}\r",
+							"\r",
+							"pm.visualizer.set(template, constructVisualizerPayload());"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost/api/v1/users/followers",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"v1",
+						"users",
+						"followers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener seguidos",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var template = `\r",
+							"<style type=\"text/css\">\r",
+							"    .tftable {font-size:14px;color:#333333;width:100%;border-width: 1px;border-color: #87ceeb;border-collapse: collapse;}\r",
+							"    .tftable th {font-size:18px;background-color:#87ceeb;border-width: 1px;padding: 8px;border-style: solid;border-color: #87ceeb;text-align:left;}\r",
+							"    .tftable tr {background-color:#ffffff;}\r",
+							"    .tftable td {font-size:14px;border-width: 1px;padding: 8px;border-style: solid;border-color: #87ceeb;}\r",
+							"    .tftable tr:hover {background-color:#e0ffff;}\r",
+							"</style>\r",
+							"\r",
+							"<table class=\"tftable\" border=\"1\">\r",
+							"    <tr>\r",
+							"        <th>ID</th>\r",
+							"        <th>Name</th>\r",
+							"        <th>Location</th>\r",
+							"        <th>Following</th>\r",
+							"    </tr>\r",
+							"    \r",
+							"    {{#each response.content}}\r",
+							"        <tr>\r",
+							"            <td>{{id}}</td>\r",
+							"            <td>{{name}}</td>\r",
+							"            <td>{{location}}</td>\r",
+							"            <td>{{following}}</td>\r",
+							"        </tr>\r",
+							"    {{/each}}\r",
+							"</table>\r",
+							"`;\r",
+							"\r",
+							"function constructVisualizerPayload() {\r",
+							"    return { response: pm.response.json() };\r",
+							"}\r",
+							"\r",
+							"pm.visualizer.set(template, constructVisualizerPayload());"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost/api/v1/users/following",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"v1",
+						"users",
+						"following"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener stats",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var template = `\r",
+							"<canvas id=\"myChart\" height=\"75\"></canvas>\r",
+							"\r",
+							"<script src=\"https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js\"></script> \r",
+							"\r",
+							"<script>\r",
+							"    var ctx = document.getElementById(\"myChart\");\r",
+							"\r",
+							"    var myChart = new Chart(ctx, {\r",
+							"        type: \"bar\",\r",
+							"        data: {\r",
+							"            labels: [\"3 Stars\", \"4 Stars\", \"5 Stars\"],\r",
+							"            datasets: [{\r",
+							"                label: 'Stars Data',\r",
+							"                data: [{{response.starsData.3}}, {{response.starsData.4}}, {{response.starsData.5}}],\r",
+							"                backgroundColor: [\"#003f5c\", \"#58508d\", \"#bc5090\"],\r",
+							"            }]\r",
+							"        },\r",
+							"        options: {\r",
+							"            legend: { display: true },\r",
+							"            title: {\r",
+							"                display: true,\r",
+							"                text: 'User Stars Data'\r",
+							"            },\r",
+							"            scales: {\r",
+							"                xAxes: [{\r",
+							"                    display: true,\r",
+							"                    scaleLabel: {\r",
+							"                        display: true,\r",
+							"                        labelString: 'Star Ratings'\r",
+							"                    }\r",
+							"                }],\r",
+							"                yAxes: [{\r",
+							"                    display: true,\r",
+							"                    scaleLabel: {\r",
+							"                        display: true,\r",
+							"                        labelString: 'Count'\r",
+							"                    }\r",
+							"                }]\r",
+							"            }\r",
+							"        }\r",
+							"    });\r",
+							"</script>`;\r",
+							"\r",
+							"function constructVisualizerPayload() {\r",
+							"    var res = pm.response.json();\r",
+							"    \r",
+							"    return {response: res};\r",
+							"}\r",
+							"\r",
+							"pm.visualizer.set(template, constructVisualizerPayload());"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost/api/v1/users/stats",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"v1",
+						"users",
+						"stats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Seguir a un usuario",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "https://localhost/api/v1/users/follow/GalleryGhost",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"v1",
+						"users",
+						"follow",
+						"GalleryGhost"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Dejar de seguir a un usuario",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "https://localhost/api/v1/users/unfollow/GalleryGhost",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"v1",
+						"users",
+						"unfollow",
+						"GalleryGhost"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener imagen de usuario",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost/api/v1/users/image/CanvasKing",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"v1",
+						"users",
+						"image",
+						"CanvasKing"
+					]
+				},
+				"description": "\nThis endpoint is used to delete an image for a user. The request should be sent as an HTTP POST to the specified URL. The request body should be in raw format and include the user's email in the payload.\n\n### Request Body\n- email (string, required): The email of the user for whom the image needs to be deleted.\n\n### Response\nThe endpoint returns a status code of 405, indicating that the method used to access the endpoint is not allowed. The Content-Type of the response is text/xml.\n\n"
+			},
+			"response": []
+		},
+		{
+			"name": "Actualizar imagen de usuario",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "image",
+							"type": "file",
+							"src": "/C:/Users/Quique/Documents/Arteum/src/main/resources/static/assets/img/user/user3.jpg"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://localhost/api/v1/users/image",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"v1",
+						"users",
+						"image"
+					]
+				},
+				"description": "\nThis endpoint is used to delete an image for a user. The request should be sent as an HTTP POST to the specified URL. The request body should be in raw format and include the user's email in the payload.\n\n### Request Body\n- email (string, required): The email of the user for whom the image needs to be deleted.\n\n### Response\nThe endpoint returns a status code of 405, indicating that the method used to access the endpoint is not allowed. The Content-Type of the response is text/xml.\n\n"
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar imagen de usuario",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://localhost/api/v1/users/image",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"v1",
+						"users",
+						"image"
+					]
+				},
+				"description": "\nThis endpoint is used to delete an image for a user. The request should be sent as an HTTP POST to the specified URL. The request body should be in raw format and include the user's email in the payload.\n\n### Request Body\n- email (string, required): The email of the user for whom the image needs to be deleted.\n\n### Response\nThe endpoint returns a status code of 405, indicating that the method used to access the endpoint is not allowed. The Content-Type of the response is text/xml.\n\n"
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar mi cuenta",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost/api/v1/users/me",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"v1",
+						"users",
+						"me"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

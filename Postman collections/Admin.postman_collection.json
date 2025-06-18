@@ -1,0 +1,881 @@
+{
+	"info": {
+		"_postman_id": "da8e793b-c323-4c40-bd28-d443f2c56032",
+		"name": "Admin",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33772151"
+	},
+	"item": [
+		{
+			"name": "Crear una nueva obra de arte",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "title",
+							"value": "Prueba",
+							"type": "text"
+						},
+						{
+							"key": "creationYear",
+							"value": "2023",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "Prueba",
+							"type": "text"
+						},
+						{
+							"key": "artistId",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "museumId",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "image",
+							"type": "file",
+							"src": "/C:/Users/Quique/Documents/Arteum/src/main/resources/static/assets/img/artwork/001-BoulevardMontmartreSpringRain (1).jpg"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://localhost/api/v1/admin/artworks/create",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"v1",
+						"admin",
+						"artworks",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Editar una obra de arte",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "title",
+							"value": "Prueba2",
+							"type": "text"
+						},
+						{
+							"key": "creationYear",
+							"value": "2025",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "Prueba2",
+							"type": "text"
+						},
+						{
+							"key": "artistId",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "museumId",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "image",
+							"type": "file",
+							"src": "/C:/Users/Quique/Documents/Arteum/src/main/resources/static/assets/img/artwork/001-BoulevardMontmartreSpringRain (1).jpg"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://localhost/api/v1/admin/artworks/edit/248",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"v1",
+						"admin",
+						"artworks",
+						"edit",
+						"248"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar una obra de arte",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "title",
+							"value": "Prueba",
+							"type": "text"
+						},
+						{
+							"key": "creationYear",
+							"value": "2023",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "Prueba",
+							"type": "text"
+						},
+						{
+							"key": "artistId",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "museumId",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "image",
+							"type": "file",
+							"src": "/C:/Users/Quique/Documents/Arteum/src/main/resources/static/assets/img/artwork/001-BoulevardMontmartreSpringRain (1).jpg"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://localhost/api/v1/admin/artworks/delete/247",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"v1",
+						"admin",
+						"artworks",
+						"delete",
+						"247"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear un nuevo artista",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "Quique",
+							"type": "text"
+						},
+						{
+							"key": "nationality",
+							"value": "Español",
+							"type": "text"
+						},
+						{
+							"key": "dateOfBirth",
+							"value": "2000-01-01",
+							"type": "text"
+						},
+						{
+							"key": "dateOfDeath",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "biography",
+							"value": "Prueba artista",
+							"type": "text"
+						},
+						{
+							"key": "image",
+							"type": "file",
+							"src": "/C:/Users/Quique/Documents/Arteum/src/main/resources/static/assets/img/inner-page/article-img6.jpg"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://localhost/api/v1/admin/artists/create",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"v1",
+						"admin",
+						"artists",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Editar un artista",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "Quique2",
+							"type": "text"
+						},
+						{
+							"key": "nationality",
+							"value": "Español",
+							"type": "text"
+						},
+						{
+							"key": "dateOfBirth",
+							"value": "2000-01-01",
+							"type": "text"
+						},
+						{
+							"key": "dateOfDeath",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "biography",
+							"value": "Prueba artista2",
+							"type": "text"
+						},
+						{
+							"key": "image",
+							"type": "file",
+							"src": "/C:/Users/Quique/Documents/Arteum/src/main/resources/static/assets/img/inner-page/article-img6.jpg"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://localhost/api/v1/admin/artists/edit/76",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"v1",
+						"admin",
+						"artists",
+						"edit",
+						"76"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar un artista",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "title",
+							"value": "Prueba",
+							"type": "text"
+						},
+						{
+							"key": "creationYear",
+							"value": "2023",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "Prueba",
+							"type": "text"
+						},
+						{
+							"key": "artistId",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "museumId",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "image",
+							"type": "file",
+							"src": "/C:/Users/Quique/Documents/Arteum/src/main/resources/static/assets/img/artwork/001-BoulevardMontmartreSpringRain (1).jpg"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://localhost/api/v1/admin/artists/delete/76",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"v1",
+						"admin",
+						"artists",
+						"delete",
+						"76"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear un nuevo museo",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "Museo del Romanticismo",
+							"type": "text"
+						},
+						{
+							"key": "location",
+							"value": "Madrid, España",
+							"type": "text"
+						},
+						{
+							"key": "founded",
+							"value": "1982",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "Museo del romanticismo",
+							"type": "text"
+						},
+						{
+							"key": "image",
+							"type": "file",
+							"src": "/C:/Users/Quique/Documents/Arteum/src/main/resources/static/assets/img/inner-page/home1-banner-bg2.jpg"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://localhost/api/v1/admin/museums/create",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"v1",
+						"admin",
+						"museums",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Editar un museo",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "Museo del Romanticismo2",
+							"type": "text"
+						},
+						{
+							"key": "location",
+							"value": "Madrid, España",
+							"type": "text"
+						},
+						{
+							"key": "founded",
+							"value": "1982",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "Museo del romanticismo2",
+							"type": "text"
+						},
+						{
+							"key": "image",
+							"type": "file",
+							"src": "/C:/Users/Quique/Documents/Arteum/src/main/resources/static/assets/img/inner-page/article-img5.jpg"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://localhost/api/v1/admin/museums/edit/26",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"v1",
+						"admin",
+						"museums",
+						"edit",
+						"26"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar un museo",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "title",
+							"value": "Prueba",
+							"type": "text"
+						},
+						{
+							"key": "creationYear",
+							"value": "2023",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "Prueba",
+							"type": "text"
+						},
+						{
+							"key": "artistId",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "museumId",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "image",
+							"type": "file",
+							"src": "/C:/Users/Quique/Documents/Arteum/src/main/resources/static/assets/img/artwork/001-BoulevardMontmartreSpringRain (1).jpg"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://localhost/api/v1/admin/museums/delete/26",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"v1",
+						"admin",
+						"museums",
+						"delete",
+						"26"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear un nuevo usuario",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "username",
+							"value": "prueba2",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "prueba@ejemplo.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "123456",
+							"type": "text"
+						},
+						{
+							"key": "passwordConfirmation",
+							"value": "123456",
+							"type": "text"
+						},
+						{
+							"key": "location",
+							"value": "Madrid",
+							"type": "text"
+						},
+						{
+							"key": "biography",
+							"value": "Amante del arte",
+							"type": "text"
+						},
+						{
+							"key": "image",
+							"type": "file",
+							"src": "/C:/Users/Quique/Documents/Arteum/src/main/resources/static/assets/img/user/user7.jpg"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://localhost/api/v1/admin/users/create",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"v1",
+						"admin",
+						"users",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Editar un usuario",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "prueba2",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "prueba@ejemplo.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "123456",
+							"type": "text"
+						},
+						{
+							"key": "passwordConfirmation",
+							"value": "123456",
+							"type": "text"
+						},
+						{
+							"key": "location",
+							"value": "Madrid",
+							"type": "text"
+						},
+						{
+							"key": "biography",
+							"value": "Amante del arte",
+							"type": "text"
+						},
+						{
+							"key": "image",
+							"type": "file",
+							"src": "/C:/Users/Quique/Documents/Arteum/src/main/resources/static/assets/img/user/user7.jpg"
+						},
+						{
+							"key": "roles",
+							"value": "[\"USER\"]",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://localhost/api/v1/admin/users/edit/26",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"v1",
+						"admin",
+						"users",
+						"edit",
+						"26"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar un usuario",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "title",
+							"value": "Prueba",
+							"type": "text"
+						},
+						{
+							"key": "creationYear",
+							"value": "2023",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "Prueba",
+							"type": "text"
+						},
+						{
+							"key": "artistId",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "museumId",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "image",
+							"type": "file",
+							"src": "/C:/Users/Quique/Documents/Arteum/src/main/resources/static/assets/img/artwork/001-BoulevardMontmartreSpringRain (1).jpg"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://localhost/api/v1/admin/users/delete/26",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"v1",
+						"admin",
+						"users",
+						"delete",
+						"26"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear una nueva review",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "userId",
+							"value": "27",
+							"type": "text"
+						},
+						{
+							"key": "artworkId",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "rating",
+							"value": "5",
+							"type": "text"
+						},
+						{
+							"key": "comment",
+							"value": "xd",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://localhost/api/v1/admin/reviews/create",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"v1",
+						"admin",
+						"reviews",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear una nueva review Copy",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "userId",
+							"value": "27",
+							"type": "text"
+						},
+						{
+							"key": "artworkId",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "rating",
+							"value": "4",
+							"type": "text"
+						},
+						{
+							"key": "comment",
+							"value": "xd",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://localhost/api/v1/admin/reviews/edit/4997",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"v1",
+						"admin",
+						"reviews",
+						"edit",
+						"4997"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar una review",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "title",
+							"value": "Prueba",
+							"type": "text"
+						},
+						{
+							"key": "creationYear",
+							"value": "2023",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "Prueba",
+							"type": "text"
+						},
+						{
+							"key": "artistId",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "museumId",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "image",
+							"type": "file",
+							"src": "/C:/Users/Quique/Documents/Arteum/src/main/resources/static/assets/img/artwork/001-BoulevardMontmartreSpringRain (1).jpg"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://localhost/api/v1/admin/reviews/delete/4997",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"v1",
+						"admin",
+						"reviews",
+						"delete",
+						"4997"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Stats",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost/api/v1/admin/stats",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"v1",
+						"admin",
+						"stats"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

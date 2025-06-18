@@ -1,0 +1,380 @@
+{
+	"info": {
+		"_postman_id": "0e1ac066-adda-4faf-8654-d8dffb62369f",
+		"name": "Artwork",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33772151"
+	},
+	"item": [
+		{
+			"name": "Obras de arte paginadas",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var template = `\r",
+							"<style type=\"text/css\">\r",
+							"    .tftable {font-size:14px;color:#333333;width:100%;border-width: 1px;border-color: #87ceeb;border-collapse: collapse;}\r",
+							"    .tftable th {font-size:18px;background-color:#87ceeb;border-width: 1px;padding: 8px;border-style: solid;border-color: #87ceeb;text-align:left;}\r",
+							"    .tftable tr {background-color:#ffffff;}\r",
+							"    .tftable td {font-size:14px;border-width: 1px;padding: 8px;border-style: solid;border-color: #87ceeb;}\r",
+							"    .tftable tr:hover {background-color:#e0ffff;}\r",
+							"</style>\r",
+							"\r",
+							"<table class=\"tftable\" border=\"1\">\r",
+							"    <tr>\r",
+							"        <th>ID</th>\r",
+							"        <th>Title</th>\r",
+							"        <th>Creation Year</th>\r",
+							"        <th>Description</th>\r",
+							"        <th>Average Rating</th>\r",
+							"        <th>Artist</th>\r",
+							"        <th>Museum</th>\r",
+							"    </tr>\r",
+							"    \r",
+							"    {{#each response.content}}\r",
+							"        <tr id=row_{{@key}}>\r",
+							"            <td>{{id}}</td>\r",
+							"            <td>{{title}}</td>\r",
+							"            <td>{{creationYear}}</td>\r",
+							"            <td>{{description}}</td>\r",
+							"            <td>{{averageRating}}</td>\r",
+							"            <td>{{artist}}</td>\r",
+							"            <td>{{museum}}</td>\r",
+							"        </tr>\r",
+							"    {{/each}}\r",
+							"</table>\r",
+							"`;\r",
+							"\r",
+							"function constructVisualizerPayload() {\r",
+							"    return {response: pm.response.json()}\r",
+							"}\r",
+							"\r",
+							"pm.visualizer.set(template, constructVisualizerPayload());"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost/api/v1/artworks",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"v1",
+						"artworks"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obra de arte",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var template = `\r",
+							"<style type=\"text/css\">\r",
+							"    .tftable {font-size:14px;color:#333333;width:100%;border-width: 1px;border-color: #87ceeb;border-collapse: collapse;}\r",
+							"    .tftable th {font-size:18px;background-color:#87ceeb;border-width: 1px;padding: 8px;border-style: solid;border-color: #87ceeb;text-align:left;}\r",
+							"    .tftable tr {background-color:#ffffff;}\r",
+							"    .tftable td {font-size:14px;border-width: 1px;padding: 8px;border-style: solid;border-color: #87ceeb;}\r",
+							"    .tftable tr:hover {background-color:#e0ffff;}\r",
+							"</style>\r",
+							"\r",
+							"<table class=\"tftable\" border=\"1\">\r",
+							"    <tr>\r",
+							"        <th>ID</th>\r",
+							"        <th>Title</th>\r",
+							"        <th>Creation Year</th>\r",
+							"        <th>Description</th>\r",
+							"        <th>Average Rating</th>\r",
+							"        <th>Artist</th>\r",
+							"        <th>Museum</th>\r",
+							"    </tr>\r",
+							"    <tr>\r",
+							"        <td>{{response.id}}</td>\r",
+							"        <td>{{response.title}}</td>\r",
+							"        <td>{{response.creationYear}}</td>\r",
+							"        <td>{{response.description}}</td>\r",
+							"        <td>{{response.averageRating}}</td>\r",
+							"        <td>{{response.artist}}</td>\r",
+							"        <td>{{response.museum}}</td>\r",
+							"    </tr>\r",
+							"</table>\r",
+							"\r",
+							"<h3>Reviews:</h3>\r",
+							"<table class=\"tftable\" border=\"1\">\r",
+							"    <tr>\r",
+							"        <th>Review ID</th>\r",
+							"        <th>Username</th>\r",
+							"        <th>Rating</th>\r",
+							"        <th>Comment</th>\r",
+							"    </tr>\r",
+							"    {{#each response.reviews}}\r",
+							"        <tr>\r",
+							"            <td>{{id}}</td>\r",
+							"            <td>{{username}}</td>\r",
+							"            <td>{{rating}}</td>\r",
+							"            <td>{{comment}}</td>\r",
+							"        </tr>\r",
+							"    {{/each}}\r",
+							"</table>\r",
+							"`;\r",
+							"\r",
+							"function constructVisualizerPayload() {\r",
+							"    return { response: pm.response.json() };\r",
+							"}\r",
+							"\r",
+							"pm.visualizer.set(template, constructVisualizerPayload());"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost/api/v1/artworks/1",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"v1",
+						"artworks",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Añadir obra a favoritos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost/api/v1/artworks/favourite/add/1",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"v1",
+						"artworks",
+						"favourite",
+						"add",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar obra de favoritos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost/api/v1/artworks/favourite/delete/1",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"v1",
+						"artworks",
+						"favourite",
+						"delete",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener imagen de obra",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost/api/v1/artworks/image/1",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"v1",
+						"artworks",
+						"image",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Top 7 obras de arte",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var template = `\r",
+							"<style type=\"text/css\">\r",
+							"    .tftable {font-size:14px;color:#333333;width:100%;border-width: 1px;border-color: #87ceeb;border-collapse: collapse;}\r",
+							"    .tftable th {font-size:18px;background-color:#87ceeb;border-width: 1px;padding: 8px;border-style: solid;border-color: #87ceeb;text-align:left;}\r",
+							"    .tftable tr {background-color:#ffffff;}\r",
+							"    .tftable td {font-size:14px;border-width: 1px;padding: 8px;border-style: solid;border-color: #87ceeb;}\r",
+							"    .tftable tr:hover {background-color:#e0ffff;}\r",
+							"</style>\r",
+							"\r",
+							"<table class=\"tftable\" border=\"1\">\r",
+							"    <tr>\r",
+							"        <th>ID</th>\r",
+							"        <th>Title</th>\r",
+							"        <th>Creation Year</th>\r",
+							"        <th>Description</th>\r",
+							"        <th>Average Rating</th>\r",
+							"        <th>Artist</th>\r",
+							"        <th>Museum</th>\r",
+							"        <th>Favorite</th>\r",
+							"    </tr>\r",
+							"    \r",
+							"    {{#each response}}\r",
+							"        <tr>\r",
+							"            <td>{{id}}</td>\r",
+							"            <td>{{title}}</td>\r",
+							"            <td>{{creationYear}}</td>\r",
+							"            <td>{{description}}</td>\r",
+							"            <td>{{averageRating}}</td>\r",
+							"            <td>{{artist}}</td>\r",
+							"            <td>{{museum}}</td>\r",
+							"            <td>{{favorite}}</td>\r",
+							"        </tr>\r",
+							"    {{/each}}\r",
+							"</table>\r",
+							"`;\r",
+							"\r",
+							"function constructVisualizerPayload() {\r",
+							"    return { response: pm.response.json() };\r",
+							"}\r",
+							"\r",
+							"pm.visualizer.set(template, constructVisualizerPayload());"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost/api/v1/artworks/top-rated",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"v1",
+						"artworks",
+						"top-rated"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Random 7 obras de arte",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var template = `\r",
+							"<style type=\"text/css\">\r",
+							"    .tftable {font-size:14px;color:#333333;width:100%;border-width: 1px;border-color: #87ceeb;border-collapse: collapse;}\r",
+							"    .tftable th {font-size:18px;background-color:#87ceeb;border-width: 1px;padding: 8px;border-style: solid;border-color: #87ceeb;text-align:left;}\r",
+							"    .tftable tr {background-color:#ffffff;}\r",
+							"    .tftable td {font-size:14px;border-width: 1px;padding: 8px;border-style: solid;border-color: #87ceeb;}\r",
+							"    .tftable tr:hover {background-color:#e0ffff;}\r",
+							"</style>\r",
+							"\r",
+							"<table class=\"tftable\" border=\"1\">\r",
+							"    <tr>\r",
+							"        <th>ID</th>\r",
+							"        <th>Title</th>\r",
+							"        <th>Creation Year</th>\r",
+							"        <th>Description</th>\r",
+							"        <th>Average Rating</th>\r",
+							"        <th>Artist</th>\r",
+							"        <th>Museum</th>\r",
+							"        <th>Favorite</th>\r",
+							"    </tr>\r",
+							"    \r",
+							"    {{#each response}}\r",
+							"        <tr>\r",
+							"            <td>{{id}}</td>\r",
+							"            <td>{{title}}</td>\r",
+							"            <td>{{creationYear}}</td>\r",
+							"            <td>{{description}}</td>\r",
+							"            <td>{{averageRating}}</td>\r",
+							"            <td>{{artist}}</td>\r",
+							"            <td>{{museum}}</td>\r",
+							"            <td>{{favorite}}</td>\r",
+							"        </tr>\r",
+							"    {{/each}}\r",
+							"</table>\r",
+							"`;\r",
+							"\r",
+							"function constructVisualizerPayload() {\r",
+							"    return { response: pm.response.json() };\r",
+							"}\r",
+							"\r",
+							"pm.visualizer.set(template, constructVisualizerPayload());"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost/api/v1/artworks/random",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"v1",
+						"artworks",
+						"random"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
