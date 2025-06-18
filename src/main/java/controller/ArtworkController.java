@@ -58,10 +58,6 @@ public class ArtworkController {
 	@Autowired
 	private ResourceLoader resourceLoader;
 
-	ArtworkController(ReviewService reviewService) {
-		this.reviewService = reviewService;
-	}
-
 	@GetMapping("/artworks")
 	public String getArtworksPage(@RequestParam(defaultValue = "1") int page,
 			@RequestParam(defaultValue = "6") int size, @RequestParam(required = false) String search,

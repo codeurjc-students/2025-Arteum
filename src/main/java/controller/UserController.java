@@ -981,7 +981,7 @@ public class UserController {
 
 		User user = userService.findByEmail(principal.getName()).orElseGet(() -> userService
 				.findByName(principal.getName()).orElseThrow(() -> new UsernameNotFoundException("User not found")));
-		userService.delete(user);
+		userService.deleteUser(user.getId());
 		return "redirect:/logout";
 	}
 
@@ -1009,12 +1009,12 @@ public class UserController {
 	}
 
 	// ---RECOMENDATION ALGORITHM---
-	public Map<Long, Double> getUserRatings(Long userId) {
+	private Map<Long, Double> getUserRatings(Long userId) {
 		return reviewService.findByUserId(userId).stream()
 				.collect(Collectors.toMap(r -> r.getArtwork().getId(), Review::getRating, (r1, r2) -> (r1 + r2) / 2));
 	}
 
-	public List<Long> findSimilarUsers(Long userId, int topN) {
+	private List<Long> findSimilarUsers(Long userId, int topN) {
 		Map<Long, Double> myRatings = getUserRatings(userId);
 		List<User> others = userService.findAll();
 
@@ -1040,7 +1040,7 @@ public class UserController {
 		return na == 0 || nb == 0 ? 0 : dot / (Math.sqrt(na) * Math.sqrt(nb));
 	}
 
-	public List<Long> getCandidatesFromSimilars(Long userId, List<Long> similars) {
+	private List<Long> getCandidatesFromSimilars(Long userId, List<Long> similars) {
 		Set<Long> seen = getUserRatings(userId).keySet();
 		return reviewService.findByUserIdIn(similars).stream().map(r -> r.getArtwork().getId())
 				.filter(id -> !seen.contains(id)).collect(Collectors.groupingBy(id -> id, Collectors.counting()))
@@ -1048,7 +1048,7 @@ public class UserController {
 				.map(Map.Entry::getKey).toList();
 	}
 
-	public List<Artwork> filterAndRank(Long userId, List<Long> candidateIds) {
+	private List<Artwork> filterAndRank(Long userId, List<Long> candidateIds) {
 		Map<Long, Double> myRatings = getUserRatings(userId);
 		return artworkService.findAllById(candidateIds).stream().sorted(Comparator.comparing(a -> {
 			double score = a.getAverageRating();
@@ -1059,7 +1059,7 @@ public class UserController {
 		})).toList();
 	}
 
-	public List<Artwork> recommendArtworks(Long userId, int number) {
+	private List<Artwork> recommendArtworks(Long userId, int number) {
 		List<Long> similars = findSimilarUsers(userId, number);
 		List<Long> candidates = similars.isEmpty() ? List.of() : getCandidatesFromSimilars(userId, similars);
 

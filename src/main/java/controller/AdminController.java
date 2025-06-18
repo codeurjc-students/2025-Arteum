@@ -69,9 +69,6 @@ public class AdminController {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
-	@Autowired
-	private ResourceLoader resourceLoader;
-
 	@GetMapping("/dashboard")
 	public String showDashboard(Model model, HttpServletRequest request) {
 		if (!request.isUserInRole("ADMIN"))
