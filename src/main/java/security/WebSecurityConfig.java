@@ -5,14 +5,18 @@ import java.util.Arrays;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -30,7 +34,7 @@ public class WebSecurityConfig {
 	private security.jwt.UnauthorizedHandlerJwt unauthorizedHandlerJwt;
 	
 	@Bean
-	public PasswordEncoder passwordEncoder() {
+	PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
 	
@@ -46,7 +50,7 @@ public class WebSecurityConfig {
 	}
 	
 	@Bean
-	public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
+	AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
 		return authConfig.getAuthenticationManager();
 	}
 
@@ -57,8 +61,59 @@ public class WebSecurityConfig {
 		authProvider.setPasswordEncoder(passwordEncoder());
 		return authProvider;
 	}
+    
+    @Bean
+	@Order(1)
+	public SecurityFilterChain apiFilterChain(HttpSecurity http) throws Exception {
+
+		http.authenticationProvider(authenticationProvider());
+
+		http.securityMatcher("/api/v1/**")
+				.exceptionHandling(handling -> handling.authenticationEntryPoint(unauthorizedHandlerJwt));
+
+		http.authorizeHttpRequests(authorize -> authorize
+			    // --- PUBLIC REST ENDPOINTS ---
+			    .requestMatchers(HttpMethod.POST, "/api/v1/auth/login").permitAll()
+			    .requestMatchers(HttpMethod.POST, "/api/v1/auth/refresh").permitAll()
+			    .requestMatchers(HttpMethod.POST, "/api/v1/auth/logout").permitAll()
+
+			    .requestMatchers(HttpMethod.GET, "/api/v1/artists/**").permitAll()
+			    .requestMatchers(HttpMethod.GET, "/api/v1/artworks/**").permitAll()
+			    .requestMatchers(HttpMethod.GET, "/api/v1/museums/**").permitAll()
+			    
+			    .requestMatchers(HttpMethod.POST, "/api/v1/register").permitAll()
+			    
+			    // --- USER ROLE REQUIRED ---
+			    .requestMatchers("/api/v1/users/**").hasRole("USER")
+			    .requestMatchers("/api/v1/reviews/**").hasRole("USER")
+
+			    // --- ADMIN ROLE REQUIRED ---
+			    .requestMatchers("/api/v1/admin/**").hasRole("ADMIN")
+
+			    // --- FALLBACK ---
+			    .anyRequest().permitAll()
+		);
+
+		// Disable Form login Authentication
+		http.formLogin(formLogin -> formLogin.disable());
+
+		// Disable CSRF protection (it is difficult to implement in REST APIs)
+		http.csrf(csrf -> csrf.disable());
+
+		// Disable Basic Authentication
+		http.httpBasic(httpBasic -> httpBasic.disable());
+
+		// Stateless session
+		http.sessionManagement(management -> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+
+		// Add JWT Token filter
+		http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+
+		return http.build();
+	}
 
 	@Bean
+	@Order(2)
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
 		http.authenticationProvider(authenticationProvider());
