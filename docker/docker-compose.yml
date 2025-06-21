@@ -1,0 +1,19 @@
+services:
+  web:
+    image: etentor2021/arteum
+    ports:
+      - 443:443
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/arteum
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=password
+    depends_on:
+      - db
+    restart: on-failure
+  db:
+    image: mysql:8
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_DATABASE=arteum
+    volumes:
+      - ./mysql:/var/lib/mysql
