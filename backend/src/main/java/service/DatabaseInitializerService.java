@@ -1,6 +1,7 @@
 package service;
 
 import java.io.IOException;
+
 import java.net.URISyntaxException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -12,6 +13,7 @@ import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Profile;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -26,6 +28,7 @@ import model.Museum;
 import model.Review;
 import model.User;
 
+@Profile("!test")
 @Service
 public class DatabaseInitializerService {
 
@@ -55,9 +58,10 @@ public class DatabaseInitializerService {
 
 	@Value("${security.encodedPassword}")
 	private String encodedPassword;
-
+    
+	
 	@Transactional
-	@PostConstruct
+    @PostConstruct
 	public void init() throws IOException, URISyntaxException {
 		if (museumService.count() == 0) {
 			// =========================
@@ -1999,64 +2003,55 @@ public class DatabaseInitializerService {
 			// Actualizar ratings de obras
 			// ====================================
 			updateAllArtworkAverageRatings();
+			
+			// ==============================
+			// Flush
+			// ==============================
+			userService.flush();
+			artworkService.flush();
+			reviewService.flush();
+			museumService.flush();
+			reviewService.flush();
 		}
 	}
-
+	
 	@Transactional
 	public void assignFollowersAndFavorites() {
-		// Obtener todos los usuarios y obras existentes
-		List<User> users = userService.findAll();
-		users.removeIf(user -> user.getRoles() != null && user.getRoles().contains("ADMIN"));
-		List<Artwork> artworks = artworkService.findAll();
-		Random random = new Random();
+	    List<User> users = userService.findAll();
+	    users.removeIf(user -> user.getRoles() != null && user.getRoles().contains("ADMIN"));
 
-		// -------------------------------------------------
-		// Asignar seguidores a cada usuario de forma aleatoria
-		// -------------------------------------------------
-		for (User user : users) {
-			// Crear una lista de candidatos: todos los usuarios excepto el mismo
-			List<User> candidateUsers = new ArrayList<>(users);
-			candidateUsers.remove(user);
+	    // Paso 1: guardar usuarios sin relaciones
+	    userService.saveAll(users); // asegura que están gestionados
 
-			// Barajar la lista de candidatos para obtener un orden aleatorio
-			Collections.shuffle(candidateUsers, random);
+	    List<Artwork> artworks = artworkService.findAll();
+	    Random random = new Random();
 
-			// Seleccionar un número aleatorio de seguidores: entre 1 y el total
-			// decandidatos
-			int numFollowers = candidateUsers.isEmpty() ? 0 : random.nextInt(candidateUsers.size()) + 1;
+	    // Paso 2: agregar relaciones
+	    for (User user : users) {
+	        List<User> candidates = new ArrayList<>(users);
+	        candidates.remove(user);
+	        Collections.shuffle(candidates, random);
 
-			// Elegir los "numFollowers" primeros candidatos
-			List<User> chosenFollowers = candidateUsers.subList(0, numFollowers);
+	        int numFollowers = candidates.isEmpty() ? 0 : random.nextInt(candidates.size()) + 1;
+	        List<User> chosen = candidates.subList(0, numFollowers);
 
-			// Asignar la relación bidireccional:
-			// El usuario actual "sigue" a los elegidos
-			user.getFollowing().addAll(chosenFollowers);
-			// Cada candidato añade al usuario a su lista de "followers"
-			for (User follower : chosenFollowers) {
-				follower.getFollowers().add(user);
-			}
-		}
+	        user.getFollowing().addAll(chosen);
+	        for (User follower : chosen) {
+	            follower.getFollowers().add(user);
+	        }
 
-		// -------------------------------------------------
-		// Asignar obras favoritas a cada usuario de forma aleatoria
-		// -------------------------------------------------
-		for (User user : users) {
-			// Hacemos una copia de la lista de obras para no modificar la original
-			List<Artwork> artworksCopy = new ArrayList<>(artworks);
-			Collections.shuffle(artworksCopy, random);
+	        // También favoritos
+	        List<Artwork> shuffled = new ArrayList<>(artworks);
+	        Collections.shuffle(shuffled, random);
+	        int numFavorites = Math.min(random.nextInt(5) + 3, artworks.size());
+	        user.getFavoriteArtworks().addAll(shuffled.subList(0, numFavorites));
+	    }
 
-			// Seleccionar un número aleatorio de obras favoritas (entre 3 y 7), limitado al
-			// tamaño de la lista
-			int numFavorites = Math.min(random.nextInt(5) + 3, artworksCopy.size());
-
-			List<Artwork> chosenFavorites = artworksCopy.subList(0, numFavorites);
-			user.getFavoriteArtworks().addAll(chosenFavorites);
-		}
-
-		// Guardar todos los usuarios actualizados en una sola operación
-		userService.saveAll(users);
+	    // Paso 3: guardar relaciones
+	    userService.saveAll(users);
 	}
 
+	
 	@Transactional
 	public void updateAllArtworkAverageRatings() {
 		// Obtener todas las obras de la base de datos
@@ -2067,7 +2062,7 @@ public class DatabaseInitializerService {
 			artworkService.updateAverageRating(artwork);
 		}
 	}
-
+	
 	@Transactional
 	public void assignReviewsForFirst20Users() {
 		// Obtiene la lista de todos los usuarios y obras
@@ -2106,7 +2101,7 @@ public class DatabaseInitializerService {
 		// Guardar todas las reviews de una sola vez
 		reviewService.saveAll(reviews);
 	}
-
+	
 	private static Date parseDate(String dateStr) {
 		try {
 			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
