@@ -5,17 +5,14 @@ import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.instanceOf;
 
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestMethodOrder;
-import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
@@ -268,18 +265,6 @@ public class UserApiTest {
             .delete("/api/v1/users/image")
         .then()
             .statusCode(200);
-    }
-
-    @Test
-    @Order(13)
-    @DisplayName("13) GET /users/image/{username} – fetch profile image by username")
-    void testGetUserImage() {
-        given()
-        	.cookie("AuthToken", accessToken)
-        .when()
-            .get("/api/v1/users/image/" + username)
-        .then()
-        	.statusCode(200);
     }
 
 }

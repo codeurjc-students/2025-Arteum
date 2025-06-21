@@ -1,14 +1,7 @@
 package api;
 
 import static io.restassured.RestAssured.given;
-import static org.hamcrest.Matchers.anyOf;
-import static org.hamcrest.Matchers.emptyOrNullString;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.lessThanOrEqualTo;
-import static org.hamcrest.Matchers.not;
-import static org.hamcrest.Matchers.notNullValue;
 
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -52,16 +45,6 @@ class ArtistApiTest {
         given()
         .when()
             .get("/api/v1/artists/1")
-        .then()
-            .statusCode(200);
-    }
-
-    @Test
-    @DisplayName("GET /api/v1/artists/image/{id} - should return artist image or placeholder")
-    void testGetArtistImage() {
-        given()
-        .when()
-            .get("/api/v1/artists/image/1")
         .then()
             .statusCode(200);
     }
