@@ -8,79 +8,84 @@ import static org.hamcrest.Matchers.instanceOf;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.web.server.LocalServerPort;
+import org.springframework.test.context.ActiveProfiles;
 
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
+@SpringBootTest(classes = app.Application.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@AutoConfigureMockMvc
+@ActiveProfiles("test")
+@TestMethodOrder(OrderAnnotation.class)
 public class UserApiTest {
 
-    private static String accessToken;
-    private static String username;
-    private static String testPassword;
-    private static final String secondUsername = "PastelDreams";
+    private String accessToken;
+    private String username;
+    private String testPassword;
+    private String secondUsername = "PastelDreams";
 
-    @BeforeAll
-    static void setup() {
+    @LocalServerPort
+	private int port;
+	
+	@BeforeEach
+    void setupRA() {
         RestAssured.baseURI = "https://localhost";
+        RestAssured.port = port;
         RestAssured.useRelaxedHTTPSValidation();
 
-        username = "testUser" + System.currentTimeMillis();
-        testPassword = "TestPass123!";
-        String email = username + "@example.com";
-
-        // 1) Register
-        String registerBody = """
-            {
-                "username": "%s",
-                "email": "%s",
-                "password": "%s",
-                "confirmPassword": "%s"
-            }
-        """.formatted(username, email, testPassword, testPassword);
-
-        given()
-            .contentType(ContentType.JSON)
-            .body(registerBody)
-        .when()
-            .post("/api/v1/register")
-        .then()
-            .statusCode(201);
-
-        // 2) Login
-        String loginBody = """
-            {
-                "username": "%s",
-                "password": "%s"
-            }
-        """.formatted(username, testPassword);
-
-        Response response = given()
-            .contentType(ContentType.JSON)
-            .body(loginBody)
-        .when()
-            .post("/api/v1/auth/login");
-
-        response.then().statusCode(200);
-        accessToken = response.getCookie("AuthToken");
-        Assertions.assertNotNull(accessToken, "AuthToken cookie should not be null");
-    }
-
-    @AfterAll
-    static void cleanup() {
-        if (accessToken != null) {
-            given()
-            	.cookie("AuthToken", accessToken)
-            .when()
-                .delete("/api/v1/users/me")
-            .then()
-                .statusCode(204);
+        if (accessToken == null) {
+	        username = "testUser" + System.currentTimeMillis();
+	        testPassword = "TestPass123!";
+	        String email = username + "@example.com";
+	
+	        // 1) Register
+	        String registerBody = """
+	            {
+	                "username": "%s",
+	                "email": "%s",
+	                "password": "%s",
+	                "confirmPassword": "%s"
+	            }
+	        """.formatted(username, email, testPassword, testPassword);
+	
+	        given()
+	            .contentType(ContentType.JSON)
+	            .body(registerBody)
+	        .when()
+	            .post("/api/v1/register")
+	        .then()
+	            .statusCode(201);
+	
+	        // 2) Login
+	        String loginBody = """
+	            {
+	                "username": "%s",
+	                "password": "%s"
+	            }
+	        """.formatted(username, testPassword);
+	
+	        Response response = given()
+	            .contentType(ContentType.JSON)
+	            .body(loginBody)
+	        .when()
+	            .post("/api/v1/auth/login");
+	
+	        response.then().statusCode(200);
+	        accessToken = response.getCookie("AuthToken");
+	        Assertions.assertNotNull(accessToken, "AuthToken cookie should not be null");
         }
     }
 

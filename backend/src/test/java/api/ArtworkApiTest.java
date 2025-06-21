@@ -9,21 +9,32 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.web.server.LocalServerPort;
+import org.springframework.test.context.ActiveProfiles;
 
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 
+@SpringBootTest(classes = app.Application.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@AutoConfigureMockMvc
+@ActiveProfiles("test")
 class ArtworkApiTest {
-
-	@BeforeAll
-	static void setup() {
-		RestAssured.baseURI = "https://localhost";
-		// Allows self-signed certificates
-		RestAssured.useRelaxedHTTPSValidation();
-	}
+	
+	@LocalServerPort
+	private int port;
+	
+	@BeforeEach
+    void setup() {
+        RestAssured.baseURI = "https://localhost";
+        RestAssured.port = port;
+        RestAssured.useRelaxedHTTPSValidation();
+    }
 
 	@Test
 	@DisplayName("GET /api/v1/artworks - should return status 200 and non-empty list")

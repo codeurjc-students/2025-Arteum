@@ -11,19 +11,31 @@ import static org.hamcrest.Matchers.notNullValue;
 import java.io.IOException;
 
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.web.server.LocalServerPort;
+import org.springframework.test.context.ActiveProfiles;
 
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 
-public class MuseumApiTest {
+@SpringBootTest(classes = app.Application.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@AutoConfigureMockMvc
+@ActiveProfiles("test")
+class MuseumApiTest {
 
-    @BeforeAll
-    static void setup() {
+	@LocalServerPort
+	private int port;
+	
+	@BeforeEach
+    void setup() {
         RestAssured.baseURI = "https://localhost";
+        RestAssured.port = port;
         RestAssured.useRelaxedHTTPSValidation();
     }
-
+	
     @Test
     void testGetMuseumsPage() {
         given()

@@ -1,22 +1,36 @@
 package api;
 
 import static io.restassured.RestAssured.given;
+
 import static org.hamcrest.Matchers.containsString;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.web.server.LocalServerPort;
+import org.springframework.test.context.ActiveProfiles;
 
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 
+@SpringBootTest(classes = app.Application.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@AutoConfigureMockMvc
+@ActiveProfiles("test")
 class AnonymousUserApiTest {
 
-    @BeforeAll
-    static void setup() {
+	@LocalServerPort
+	private int port;
+	
+	@BeforeEach
+    void setup() {
         RestAssured.baseURI = "https://localhost";
+        RestAssured.port = port;
         RestAssured.useRelaxedHTTPSValidation();
     }
 
