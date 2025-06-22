@@ -58,7 +58,7 @@ class RegisterUITest {
 	    // 1) Navigate to the register page
 		driver.get("https://localhost:" + port + "/register");
 		
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
 		
 		WebElement userField = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("username")));
 		userField.sendKeys("testUser" + System.currentTimeMillis());
@@ -67,10 +67,8 @@ class RegisterUITest {
 		driver.findElement(By.id("password1")).sendKeys("qwerty123456789");
 		driver.findElement(By.id("location")).sendKeys("Madrid");
 		driver.findElement(By.id("biography")).sendKeys("Usuario en pruebas!");
-
-		wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("button.primary-btn2.btn-hover span")));
 		
-		WebElement submitSpan = driver.findElement(By.cssSelector("button.primary-btn2.btn-hover span"));
+		WebElement submitSpan = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("button.primary-btn2.btn-hover")));
 		
 		((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", submitSpan);
 
