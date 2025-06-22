@@ -10,6 +10,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -68,7 +69,10 @@ class RegisterUITest {
 		driver.findElement(By.id("biography")).sendKeys("Usuario en pruebas!");
 
 		WebElement submitSpan = wait
-				.until(ExpectedConditions.elementToBeClickable(By.cssSelector("button.primary-btn2.btn-hover span")));
+				.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("button.primary-btn2.btn-hover span")));
+		
+		((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", submitSpan);
+
 		submitSpan.click();
 
 		assertTrue(driver.getCurrentUrl().contains("login"));
