@@ -29,7 +29,7 @@ class AnonymousUserApiTest {
 	
 	@BeforeEach
     void setup() {
-        RestAssured.baseURI = "https://localhost";
+        RestAssured.baseURI = "http://localhost";
         RestAssured.port = port;
         RestAssured.useRelaxedHTTPSValidation();
     }
