@@ -30,8 +30,8 @@ jobs:
     - name: Build and start backend
       run: |
         mvn clean package -DskipTests
-        java -jar target/Arteum-0.0.1-SNAPSHOT.jar &
-        sleep 20
+        java -Dspring.profiles.active=test -jar target/Arteum-0.0.1-SNAPSHOT.jar &
+        sleep 30
 
     - name: Grant execute permission for Maven
       run: chmod +x ./mvnw
