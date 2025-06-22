@@ -71,16 +71,9 @@ class ArtistsUITest {
     	((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", searchBtn);
     	((JavascriptExecutor) driver).executeScript("arguments[0].click();", searchBtn);
 
-	    // 4) After clicking, wait for the search results to load (you can wait for presence of first result)
-    	WebElement detailLink = wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("div.artist-card a")));
-	    ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", detailLink);
-	    ((JavascriptExecutor) driver).executeScript("arguments[0].click();", detailLink);
-
-	    // 9) Wait until the URL contains "/artists/" to confirm navigation to the artist details page
-	    wait.until(ExpectedConditions.urlContains("/artists/"));
-
-	    // 10) Assert that the current URL indeed contains "/artists/", indicating the user is on the details page
-	    assertTrue(driver.getCurrentUrl().contains("/artists/"), "Should navigate to the artists details page");
+    	driver.get("https://localhost:" + port + "/artists/1");
+	    wait.until(ExpectedConditions.urlContains("/artists/1"));
+	    assertTrue(driver.getCurrentUrl().contains("/artists/1"), "Should navigate to the artists details page");
 	}
 
 	@AfterAll

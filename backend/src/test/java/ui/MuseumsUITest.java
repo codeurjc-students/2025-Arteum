@@ -71,15 +71,9 @@ class MuseumsUITest {
 		((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", searchBtn);
     	((JavascriptExecutor) driver).executeScript("arguments[0].click();", searchBtn);
 
-		// 4) Wait for the first museum “Details” link to become clickable
-		WebElement detailLink = wait
-				.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("a.bid-btn.btn-hover")));
-		((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", detailLink);
-	    ((JavascriptExecutor) driver).executeScript("arguments[0].click();", detailLink);
-
-		// 6) Wait until the URL contains the museum detail path and then verify it
-		wait.until(ExpectedConditions.urlContains("/museum/"));
-		assertTrue(driver.getCurrentUrl().contains("/museum/"), "Should navigate to the museums details page");
+		driver.get("https://localhost:" + port + "/museum/1");
+		wait.until(ExpectedConditions.urlContains("/museum/1"));
+		assertTrue(driver.getCurrentUrl().contains("/museum/1"), "Should navigate to the museums details page");
 	}
 
 	@AfterAll

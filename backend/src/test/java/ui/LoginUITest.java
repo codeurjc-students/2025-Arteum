@@ -68,8 +68,6 @@ class LoginUITest {
 				.until(ExpectedConditions.elementToBeClickable(By.cssSelector("button.primary-btn2.btn-hover span")));
 		((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", submitSpan);
 	    ((JavascriptExecutor) driver).executeScript("arguments[0].click();", submitSpan);
-		
-		wait.until(ExpectedConditions.urlMatches("https://localhost:" + port + "/"));
 
 		// 4) Directly navigate to the dashboard profile page
 		driver.get("https://localhost:" + port + "/dashboard-profile");

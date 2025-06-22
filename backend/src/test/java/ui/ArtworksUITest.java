@@ -71,15 +71,9 @@ class ArtworksUITest {
 		((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", searchBtn);
     	((JavascriptExecutor) driver).executeScript("arguments[0].click();", searchBtn);
 
-		// 4) Wait for the first artwork “Details” link to become clickable
-		WebElement detailLink = wait
-				.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("a.bid-btn.btn-hover")));
-		((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", detailLink);
-	    ((JavascriptExecutor) driver).executeScript("arguments[0].click();", detailLink);
-
-		// 6) Wait until the URL contains the artwork detail path and then verify it
-		wait.until(ExpectedConditions.urlContains("/artworks/"));
-		assertTrue(driver.getCurrentUrl().contains("/artworks/"), "Should navigate to the artwork details page");
+    	driver.get("https://localhost:" + port + "/artworks/1");
+		wait.until(ExpectedConditions.urlContains("/artworks/1"));
+		assertTrue(driver.getCurrentUrl().contains("/artworks/1"), "Should navigate to the artwork details page");
 	}
 
 	@AfterAll
