@@ -101,17 +101,6 @@ public class MuseumController {
 	        .map(Map.Entry::getKey)
 	        .toList();
 
-	    List<Museum> filteredMuseums = allMuseums.stream()
-	        .filter(m -> {
-	            if (locationFilters.isEmpty()) {
-	                return true;
-	            }
-	            String loc = Optional.ofNullable(m.getLocation()).orElse("").trim();
-	            return locationFilters.stream()
-	                    .anyMatch(f -> f.equalsIgnoreCase(loc));
-	        })
-	        .toList();
-
 	    List<Map<String, Object>> locationFiltersList = topLocations.stream()
 	        .map(loc -> Map.<String, Object>of(
 	            "name", loc,

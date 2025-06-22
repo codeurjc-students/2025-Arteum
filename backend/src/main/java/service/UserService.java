@@ -41,6 +41,7 @@ public class UserService {
 	        user.getFollowing().forEach(followed -> followed.getFollowers().remove(user));
 	        user.getFollowers().clear();
 	        user.getFollowing().clear();
+	        user.getRoles().clear();
 	        repository.save(user);
 	        repository.delete(user);
 	    }
