@@ -68,8 +68,9 @@ class RegisterUITest {
 		driver.findElement(By.id("location")).sendKeys("Madrid");
 		driver.findElement(By.id("biography")).sendKeys("Usuario en pruebas!");
 
-		WebElement submitSpan = wait
-				.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("button.primary-btn2.btn-hover span")));
+		wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("button.primary-btn2.btn-hover span")));
+		
+		WebElement submitSpan = driver.findElement(By.cssSelector("button.primary-btn2.btn-hover span"));
 		
 		((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", submitSpan);
 
