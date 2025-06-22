@@ -64,5 +64,9 @@ public class TestDataInitializer {
 		User admin = new User(userName, userName + ".com", encodedPassword);
 		admin.setRoles(List.of("USER", "ADMIN"));
 		userService.save(admin);
+		
+		User user = new User("test", "test@arteum.com", encodedPassword);
+		user.setRoles(List.of("USER"));
+		userService.save(user);
 	}
 }

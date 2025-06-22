@@ -35,7 +35,7 @@ public class UserApiTest {
     private String accessToken;
     private String username;
     private String testPassword;
-    private String secondUsername = "PastelDreams";
+    private String secondUsername = "test";
 
     @LocalServerPort
 	private int port;
