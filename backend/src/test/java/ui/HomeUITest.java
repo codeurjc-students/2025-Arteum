@@ -51,28 +51,28 @@ class HomeUITest {
 		String baseurl = "https://localhost:" + port;
 
 		driver.get(baseurl + "/");
-		assertTrue(driver.getCurrentUrl().equals("https://localhost/"));
+		assertTrue(driver.getCurrentUrl().equals(baseurl + "/"));
 
 		driver.get(baseurl + "/login");
-		assertTrue(driver.getCurrentUrl().equals("https://localhost/login"));
+		assertTrue(driver.getCurrentUrl().equals(baseurl + "/login"));
 
 		driver.get(baseurl + "/register");
-		assertTrue(driver.getCurrentUrl().equals("https://localhost/register"));
+		assertTrue(driver.getCurrentUrl().equals(baseurl + "/register"));
 
 		driver.get(baseurl + "/contact");
-		assertTrue(driver.getCurrentUrl().equals("https://localhost/contact"));
+		assertTrue(driver.getCurrentUrl().equals(baseurl + "/contact"));
 
 		driver.get(baseurl + "/faq");
-		assertTrue(driver.getCurrentUrl().equals("https://localhost/faq"));
+		assertTrue(driver.getCurrentUrl().equals(baseurl + "/faq"));
 
 		driver.get(baseurl + "/about");
-		assertTrue(driver.getCurrentUrl().equals("https://localhost/about"));
+		assertTrue(driver.getCurrentUrl().equals(baseurl + "/about"));
 
 		driver.get(baseurl + "/terms-condition");
-		assertTrue(driver.getCurrentUrl().equals("https://localhost/terms-condition"));
+		assertTrue(driver.getCurrentUrl().equals(baseurl + "/terms-condition"));
 
 		driver.get(baseurl + "/privacy-policy");
-		assertTrue(driver.getCurrentUrl().equals("https://localhost/privacy-policy"));
+		assertTrue(driver.getCurrentUrl().equals(baseurl + "/privacy-policy"));
 	}
 
 	@AfterAll

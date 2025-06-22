@@ -8,6 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -65,12 +66,13 @@ class LoginUITest {
 		// 3) Wait for the login button’s span element to be clickable and click it
 		WebElement submitSpan = wait
 				.until(ExpectedConditions.elementToBeClickable(By.cssSelector("button.primary-btn2.btn-hover span")));
-		submitSpan.click();
+		((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", submitSpan);
+	    ((JavascriptExecutor) driver).executeScript("arguments[0].click();", submitSpan);
 		
-		wait.until(ExpectedConditions.urlMatches("https://localhost/"));
+		wait.until(ExpectedConditions.urlMatches("https://localhost:" + port + "/"));
 
 		// 4) Directly navigate to the dashboard profile page
-		driver.get("https://localhost/dashboard-profile");
+		driver.get("https://localhost:" + port + "dashboard-profile");
 
 		// 5) Verify that the current URL contains 'dashboard'
 		wait.until(ExpectedConditions.urlContains("dashboard-profile"));

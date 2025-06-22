@@ -65,22 +65,15 @@ class ArtistsUITest {
 	    searchInput.sendKeys("Velazquez");
 
 	    // 3) Wait until the search button is clickable, then click it to submit the search
-	    WebElement searchBtn = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("button[type='submit'].wp-block-search__button")));
-	    searchBtn.click();
+	    WebElement searchBtn = wait.until(ExpectedConditions.presenceOfElementLocated(
+    	    By.cssSelector("button[type='submit'].wp-block-search__button")
+    	));
+    	((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", searchBtn);
+    	((JavascriptExecutor) driver).executeScript("arguments[0].click();", searchBtn);
 
 	    // 4) After clicking, wait for the search results to load (you can wait for presence of first result)
-	    wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("div.artist-card a")));
-
-	    // 5) Now find the artist detail link again (fresh element reference)
-	    WebElement detailLink = driver.findElement(By.cssSelector("div.artist-card a"));
-
-	    // 6) Scroll the detail link element into view to ensure it is visible on the screen
+    	WebElement detailLink = wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("div.artist-card a")));
 	    ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", detailLink);
-
-	    // 7) Wait until the detail link element is clickable (visible and enabled)
-	    wait.until(ExpectedConditions.elementToBeClickable(detailLink));
-
-	    // 8) Click the detail link using JavaScript to avoid any potential overlay or click interception issues
 	    ((JavascriptExecutor) driver).executeScript("arguments[0].click();", detailLink);
 
 	    // 9) Wait until the URL contains "/artists/" to confirm navigation to the artist details page

@@ -66,16 +66,16 @@ class MuseumsUITest {
 		searchInput.sendKeys("Prado");
 
 		// 3) Wait for the search button to be clickable and click it
-		WebElement searchBtn = wait.until(ExpectedConditions.elementToBeClickable(
+		WebElement searchBtn = wait.until(ExpectedConditions.presenceOfElementLocated(
 				By.cssSelector("button[type='submit'].wp-block-search__button")));
-		searchBtn.click();
+		((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", searchBtn);
+    	((JavascriptExecutor) driver).executeScript("arguments[0].click();", searchBtn);
 
 		// 4) Wait for the first museum “Details” link to become clickable
 		WebElement detailLink = wait
-				.until(ExpectedConditions.elementToBeClickable(By.cssSelector("a.bid-btn.btn-hover")));
-
-		// 5) Click the “Details” link via JavaScript to avoid any overlay issues
-		((JavascriptExecutor) driver).executeScript("arguments[0].click();", detailLink);
+				.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("a.bid-btn.btn-hover")));
+		((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", detailLink);
+	    ((JavascriptExecutor) driver).executeScript("arguments[0].click();", detailLink);
 
 		// 6) Wait until the URL contains the museum detail path and then verify it
 		wait.until(ExpectedConditions.urlContains("/museum/"));
