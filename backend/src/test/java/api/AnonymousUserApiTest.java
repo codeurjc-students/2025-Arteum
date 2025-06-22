@@ -21,8 +21,6 @@ import io.restassured.response.Response;
 
 @SpringBootTest(classes = app.Application.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
-@EnableAutoConfiguration(exclude = { OAuth2ClientWebSecurityAutoConfiguration.class,
-		Saml2RelyingPartyAutoConfiguration.class })
 @ActiveProfiles("test")
 class AnonymousUserApiTest {
 
