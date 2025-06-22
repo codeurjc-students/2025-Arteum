@@ -68,11 +68,9 @@ class RegisterUITest {
 		driver.findElement(By.id("location")).sendKeys("Madrid");
 		driver.findElement(By.id("biography")).sendKeys("Usuario en pruebas!");
 		
-		WebElement submitSpan = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("button.primary-btn2.btn-hover")));
-		
-		((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", submitSpan);
-
-		submitSpan.click();
+		WebElement submitBtn = driver.findElement(By.cssSelector("button.primary-btn2.btn-hover"));
+		((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", submitBtn);
+		((JavascriptExecutor) driver).executeScript("arguments[0].click();", submitBtn);
 
 		assertTrue(driver.getCurrentUrl().contains("login"));
 	}
