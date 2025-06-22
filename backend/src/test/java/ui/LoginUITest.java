@@ -60,7 +60,7 @@ class LoginUITest {
 
 		// 2) Wait for the username field to be present and enter credentials
 		WebElement emailField = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("username")));
-		emailField.sendKeys("test");
+		emailField.sendKeys("test@arteum.com");
 		
 		WebElement passwordField = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("password")));
 		passwordField.sendKeys("admin");
