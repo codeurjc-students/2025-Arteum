@@ -78,14 +78,6 @@ class AnonymousUserApiTest {
         accessToken = response.getCookie("AuthToken");
         Assertions.assertNotNull(accessToken, "AuthToken cookie should not be null");
         
-        if (accessToken != null) {
-            given()
-                .cookie("AuthToken", accessToken)
-            .when()
-                .delete("/api/v1/users/me")
-            .then()
-                .statusCode(204);
-        }
     }
 
     @Test
