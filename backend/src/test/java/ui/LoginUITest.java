@@ -61,7 +61,9 @@ class LoginUITest {
 		// 2) Wait for the username field to be present and enter credentials
 		WebElement emailField = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("username")));
 		emailField.sendKeys("test");
-		driver.findElement(By.id("password")).sendKeys("admin");
+		
+		WebElement passwordField = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("password")));
+		passwordField.sendKeys("admin");
 
 		// 3) Wait for the login button’s span element to be clickable and click it
 		WebElement submitSpan = wait

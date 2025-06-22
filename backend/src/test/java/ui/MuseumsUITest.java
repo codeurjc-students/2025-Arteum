@@ -71,9 +71,9 @@ class MuseumsUITest {
 		((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", searchBtn);
     	((JavascriptExecutor) driver).executeScript("arguments[0].click();", searchBtn);
 
-		driver.get("https://localhost:" + port + "/museum/1");
-		wait.until(ExpectedConditions.urlContains("/museum/1"));
-		assertTrue(driver.getCurrentUrl().contains("/museum/1"), "Should navigate to the museums details page");
+		driver.get("https://localhost:" + port + "/museums/1");
+		wait.until(ExpectedConditions.urlContains("/museums/1"));
+		assertTrue(driver.getCurrentUrl().contains("/museums/1"), "Should navigate to the museums details page");
 	}
 
 	@AfterAll
