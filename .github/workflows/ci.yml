@@ -19,9 +19,18 @@ jobs:
       with:
         distribution: 'temurin'
         java-version: '17'
+    
+    - name: Install Chrome
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y wget unzip xvfb
+        wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+        sudo apt install -y ./google-chrome-stable_current_amd64.deb
 
     - name: Grant execute permission for Maven
       run: chmod +x ./mvnw
 
     - name: Run Tests
+      env:
+        SPRING_PROFILES_ACTIVE: test
       run: ./mvnw test -e -X
