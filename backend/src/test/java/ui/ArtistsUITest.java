@@ -51,8 +51,10 @@ class ArtistsUITest {
 
 	@Test
 	void testSearchAndClickArtist() {
+		String baseUrl = System.getProperty("baseUrl", "https://localhost");
+
 	    // 1) Navigate to the artists page
-	    driver.get("https://localhost/artists");
+		driver.get(baseUrl + "/artists");
 
 	    // 2) Wait until the search input field is present in the DOM, then enter the search query "Velazquez"
 	    WebElement searchInput = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("wp-block-search__input-1")));

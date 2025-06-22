@@ -48,8 +48,11 @@ class RegisterUITest {
 
 	@Test
 	void testUserRegisterAndRedirect() {
+		String baseUrl = System.getProperty("baseUrl", "https://localhost");
 
-		driver.get("https://localhost/register");
+	    // 1) Navigate to the register page
+		driver.get(baseUrl + "/register");
+		
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 		
 		WebElement userField = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("username")));

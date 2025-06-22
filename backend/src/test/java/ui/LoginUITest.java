@@ -46,8 +46,11 @@ class LoginUITest {
 
 	@Test
 	void testUserLoginAndDashboard() {
-		// 1) Navigate to the login page
-		driver.get("https://localhost/login");
+		String baseUrl = System.getProperty("baseUrl", "https://localhost");
+
+	    // 1) Navigate to the login page
+		driver.get(baseUrl + "/login");
+		
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
 		// 2) Wait for the username field to be present and enter credentials
@@ -66,7 +69,7 @@ class LoginUITest {
 		driver.get("https://localhost/dashboard-profile");
 
 		// 5) Verify that the current URL contains 'dashboard'
-		wait.until(ExpectedConditions.urlMatches("https://localhost/dashboard-profile"));
+		wait.until(ExpectedConditions.urlMatches(baseUrl + "/dashboard-profile"));
 	}
 
 	@AfterAll

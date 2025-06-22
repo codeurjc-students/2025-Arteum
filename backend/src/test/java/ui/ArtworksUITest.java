@@ -51,8 +51,10 @@ class ArtworksUITest {
 
 	@Test
 	void testSearchAndClickArtwork() {
-		// 1) Navigate to the artworks page
-		driver.get("https://localhost/artworks");
+		String baseUrl = System.getProperty("baseUrl", "https://localhost");
+
+	    // 1) Navigate to the artists page
+		driver.get(baseUrl + "/artworks");
 
 		// 2) Wait for the search input to be present and enter a query
 		WebElement searchInput = wait

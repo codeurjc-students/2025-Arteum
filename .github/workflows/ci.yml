@@ -7,6 +7,10 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+
+    env:
+      BASE_URL: "https://localhost:8080"
+
     defaults:
       run:
         working-directory: backend
@@ -44,8 +48,8 @@ jobs:
     - name: Build and start backend
       run: |
         mvn clean package -DskipTests
-        java -jar target/Arteum-0.0.1-SNAPSHOT.jar &
-        sleep 60
+        java -jar target/Arteum-0.0.1-SNAPSHOT.jar --server.port=8080 & 
+        sleep 20
 
     - name: Grant execute permission for Maven
       run: chmod +x ./mvnw

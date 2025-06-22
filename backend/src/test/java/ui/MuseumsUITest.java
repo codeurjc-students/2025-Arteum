@@ -51,8 +51,10 @@ class MuseumsUITest {
 
 	@Test
 	void testSearchAndClickMuseum() {
-		// 1) Navigate to the museums page
-		driver.get("https://localhost/museums");
+		String baseUrl = System.getProperty("baseUrl", "https://localhost");
+
+	    // 1) Navigate to the museums page
+		driver.get(baseUrl + "/museums");
 
 		// 2) Wait for the search input to be present and enter a query
 		WebElement searchInput = wait
