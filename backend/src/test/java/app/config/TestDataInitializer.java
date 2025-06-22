@@ -47,17 +47,17 @@ public class TestDataInitializer {
 	@PostConstruct
 	@Transactional
 	public void init() {
-		Museum m1 = new Museum(null, "Museo del Louvre", "París, Francia",
+		Museum m1 = new Museum((long) 1, "Museo del Louvre", "París, Francia",
 				"El Louvre es el museo de arte más grande del mundo; alberga obras maestras como la Mona Lisa, la Venus de Milo y muchas más.",
 				1793, null, new ArrayList<>());
 		museumService.save(m1);
 
-		Artist daVinci = new Artist(null, "Leonardo da Vinci", "Italiano", null, null, new Date(), null,
+		Artist daVinci = new Artist((long) 1, "Leonardo da Vinci", "Italiano", null, null, new Date(), null,
 				"Leonardo da Vinci fue un polímata del Renacimiento italiano, reconocido por obras maestras como La Mona Lisa y La Última Cena.",
 				new ArrayList<>());
 		artistService.save(daVinci);
 
-		artworkService.save(new Artwork(null, "La Mona Lisa", daVinci, 1503,
+		artworkService.save(new Artwork((long) 1, "La Mona Lisa", daVinci, 1503,
 				"Una de las obras más famosas y enigmáticas del mundo, célebre por la misteriosa sonrisa de su sujeto.",
 				null, m1));
 
