@@ -26,6 +26,7 @@ import model.Museum;
 import model.Review;
 import model.User;
 
+@Profile("!test")
 @Service
 public class DatabaseInitializerService {
 
