@@ -15,7 +15,7 @@ import org.springframework.test.context.ActiveProfiles;
 
 import io.restassured.RestAssured;
 
-@SpringBootTest(classes = app.Application.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest(classes = { app.Application.class, app.config.TestDataInitializer.class }, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
 class ArtistApiTest {

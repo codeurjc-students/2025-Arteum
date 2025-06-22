@@ -17,7 +17,7 @@ import org.springframework.test.context.ActiveProfiles;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 
-@SpringBootTest(classes = app.Application.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest(classes = { app.Application.class, app.config.TestDataInitializer.class }, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
 class MuseumApiTest {
