@@ -8,9 +8,6 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
-    env:
-      BASE_URL: "https://localhost:8080"
-
     defaults:
       run:
         working-directory: backend
@@ -48,17 +45,13 @@ jobs:
     - name: Build and start backend
       run: |
         mvn clean package -DskipTests
-        # Arrancamos la app en el puerto 8080 (HTTP) para los UI tests
-        java -Dserver.port=8080 \
-             -Dspring.profiles.active=test \
-             -jar target/Arteum-0.0.1-SNAPSHOT.jar & 
+        java -jar target/Arteum-0.0.1-SNAPSHOT.jar --server.port=8080 & 
         sleep 20
 
     - name: Grant execute permission for Maven
       run: chmod +x ./mvnw
 
     - name: Run Tests
-      run: |
-        ./mvnw test \
-          -Dbase.url=${{ env.BASE_URL }} \
-          -e -X
+      env:
+        SPRING_PROFILES_ACTIVE: test
+      run: ./mvnw test -e -X

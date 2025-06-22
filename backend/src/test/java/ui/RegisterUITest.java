@@ -16,11 +16,17 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.web.server.LocalServerPort;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class RegisterUITest {
+	
+	@LocalServerPort
+    private int port;
 	private static WebDriver driver;
 
 	@BeforeAll
@@ -48,10 +54,8 @@ class RegisterUITest {
 
 	@Test
 	void testUserRegisterAndRedirect() {
-		String baseUrl = System.getProperty("baseUrl", "https://localhost");
-
 	    // 1) Navigate to the register page
-		driver.get(baseUrl + "/register");
+		driver.get("https://localhost:" + port + "/register");
 		
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 		
