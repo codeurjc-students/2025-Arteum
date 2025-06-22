@@ -53,7 +53,7 @@ public class Artwork {
 	@OneToMany(mappedBy = "artwork", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Review> reviews;
 
-	@ManyToMany(mappedBy = "favoriteArtworks", fetch = FetchType.LAZY)
+	@ManyToMany(mappedBy = "favoriteArtworks", fetch = FetchType.EAGER)
 	@JsonIgnore
 	private Set<User> usersWhoFavorited;
 

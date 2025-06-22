@@ -1,5 +1,7 @@
 package restController;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -50,6 +52,7 @@ public class AnonymousRestController {
 		user.setName(request.getUsername());
 		user.setEmail(request.getEmail());
 		user.setPassword(passwordEncoder.encode(request.getPassword()));
+		user.setRoles(List.of("USER"));
 
 		if (request.getLocation() != null && !request.getLocation().isBlank()) {
 			user.setLocation(request.getLocation());

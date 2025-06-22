@@ -13,13 +13,11 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ResourceLoader;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,7 +32,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.validation.Valid;
 import model.Artist;
 import model.Artwork;
 import model.Museum;
@@ -405,17 +402,13 @@ public class AdminController {
 	}
 
 	@PostMapping("/museum/edit/{id}")
-	public String updateMuseum(@PathVariable Long id, @Valid @ModelAttribute Museum museum, BindingResult result,
-			RedirectAttributes redirectAttrs, HttpServletRequest request) {
-
-		if (!request.isUserInRole("ADMIN")) {
+	public String updateMuseum(@PathVariable Long id, HttpServletRequest request, RedirectAttributes redirectAttrs,
+			@RequestParam(required = false) String name, @RequestParam(required = false) String location,
+			@RequestParam(required = false) Integer founded, @RequestParam(required = false) String description,
+			@RequestParam(required = false, value = "image") MultipartFile imageFile) throws IOException {
+		if (!request.isUserInRole("ADMIN"))
 			return "redirect:/";
-		}
-
-		if (result.hasErrors()) {
-			return "admin/edit-museum";
-		}
-
+		
 		Optional<Museum> optionalMuseum = museumService.findById(id);
 		if (optionalMuseum.isEmpty()) {
 			redirectAttrs.addFlashAttribute("error", "Museo no encontrado");
@@ -423,16 +416,22 @@ public class AdminController {
 		}
 
 		Museum existing = optionalMuseum.get();
-		existing.setName(museum.getName());
-		existing.setLocation(museum.getLocation());
-		existing.setFounded(museum.getFounded());
-		existing.setDescription(museum.getDescription());
-		// Si manejas imágenes: existing.setImage(museum.getImage());
 
+		if (!isBlank(name))
+			existing.setName(name);
+		if (!isBlank(location)) 
+			existing.setLocation(location);
+		if (founded != null && founded > 1000)
+			existing.setFounded(founded);
+		if (!isBlank(description))
+			existing.setDescription(description);
+		if (imageFile != null && !imageFile.isEmpty())
+			existing.setImage(imageFile.getBytes());
+		
 		museumService.save(existing);
 
 		redirectAttrs.addFlashAttribute("success", "Museo actualizado correctamente");
-		return "redirect:/museums";
+		return "redirect:/admin/museum/edit/" + id;
 	}
 
 	@GetMapping("/museum/delete/{id}")
@@ -756,104 +755,74 @@ public class AdminController {
 			return "redirect:" + (referer != null ? referer : "/admin/dashboard");
 		}
 	}
-	
+
 	@GetMapping("/stats")
 	public String showStats(Model model, HttpServletRequest request) throws JsonProcessingException {
 		if (!request.isUserInRole("ADMIN")) {
 			return "redirect:/";
 		}
-		
+
 		Map<Integer, Long> starsData = reviewService.countStarsGivenByEveryone();
 		model.addAttribute("starsData", new ObjectMapper().writeValueAsString(starsData));
-		
+
 		List<Review> reviews = reviewService.findAll();
 		double avgGiven = round(reviews.stream().mapToDouble(Review::getRating).average().orElse(0.0), 2);
 		model.addAttribute("avgGiven", avgGiven);
 		model.addAttribute("numReviews", reviews.size());
-		
+
 		Map<String, Long> favArtworks = reviews.stream()
-				.collect(Collectors.groupingBy(r -> (r.getArtwork().getTitle() + " (" + r.getArtwork().getArtist().getName() + ")"), Collectors.counting()));
+				.collect(Collectors.groupingBy(
+						r -> (r.getArtwork().getTitle() + " (" + r.getArtwork().getArtist().getName() + ")"),
+						Collectors.counting()));
 		Map<String, Long> top10favArtworks = favArtworks.entrySet().stream()
-				.sorted(Map.Entry.<String, Long>comparingByValue().reversed())
-			    .limit(10)
-			    .collect(Collectors.toMap(
-			        Map.Entry::getKey,
-			        Map.Entry::getValue,
-			        (e1, e2) -> e1,
-			        LinkedHashMap::new
-			    ));
+				.sorted(Map.Entry.<String, Long>comparingByValue().reversed()).limit(10)
+				.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
 		model.addAttribute("top10favArtworks", new ObjectMapper().writeValueAsString(top10favArtworks));
-		
+
 		Map<String, Long> artistCounts = reviews.stream()
 				.collect(Collectors.groupingBy(r -> r.getArtwork().getArtist().getName(), Collectors.counting()));
 		Map<String, Long> top10Artists = artistCounts.entrySet().stream()
-			    .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
-			    .limit(10)
-			    .collect(Collectors.toMap(
-			        Map.Entry::getKey,
-			        Map.Entry::getValue,
-			        (e1, e2) -> e1,
-			        LinkedHashMap::new
-			    ));
+				.sorted(Map.Entry.<String, Long>comparingByValue().reversed()).limit(10)
+				.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
 		model.addAttribute("artistCounts", new ObjectMapper().writeValueAsString(top10Artists));
-		
-		Map<String, Long> favMuseums = reviews.stream()
-				.collect(Collectors.groupingBy(r -> (r.getArtwork().getMuseum().getName() + " (" + r.getArtwork().getMuseum().getLocation() + ")"), Collectors.counting()));
+
+		Map<String, Long> favMuseums = reviews.stream().collect(Collectors.groupingBy(
+				r -> (r.getArtwork().getMuseum().getName() + " (" + r.getArtwork().getMuseum().getLocation() + ")"),
+				Collectors.counting()));
 		Map<String, Long> top10favMuseums = favMuseums.entrySet().stream()
-				.sorted(Map.Entry.<String, Long>comparingByValue().reversed())
-			    .limit(10)
-			    .collect(Collectors.toMap(
-			        Map.Entry::getKey,
-			        Map.Entry::getValue,
-			        (e1, e2) -> e1,
-			        LinkedHashMap::new
-			    ));
+				.sorted(Map.Entry.<String, Long>comparingByValue().reversed()).limit(10)
+				.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
 		model.addAttribute("top10favMuseums", new ObjectMapper().writeValueAsString(top10favMuseums));
-		
+
 		Map<String, Long> topUsers = reviews.stream()
 				.collect(Collectors.groupingBy(r -> r.getUser().getName(), Collectors.counting()));
 		Map<String, Long> top10Users = topUsers.entrySet().stream()
-				.sorted(Map.Entry.<String, Long>comparingByValue().reversed())
-			    .limit(10)
-			    .collect(Collectors.toMap(
-			        Map.Entry::getKey,
-			        Map.Entry::getValue,
-			        (e1, e2) -> e1,
-			        LinkedHashMap::new
-			    ));
+				.sorted(Map.Entry.<String, Long>comparingByValue().reversed()).limit(10)
+				.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
 		model.addAttribute("top10Users", new ObjectMapper().writeValueAsString(top10Users));
-		
+
 		List<User> users = userService.findAll();
 		Map<String, Long> top10FavUsers = users.stream()
-			    .filter(u -> u.getName() != null && u.getFavoriteArtworks().size() > 0)
-			    .sorted(Comparator.comparingInt((User u) -> u.getFavoriteArtworks().size()).reversed())
-			    .limit(10)
-			    .collect(Collectors.toMap(
-			        u -> u.getName(),
-			        u -> (long) u.getFavoriteArtworks().size(),
-			        (e1, e2) -> e1,
-			        LinkedHashMap::new
-			    ));
+				.filter(u -> u.getName() != null && u.getFavoriteArtworks().size() > 0)
+				.sorted(Comparator.comparingInt((User u) -> u.getFavoriteArtworks().size()).reversed()).limit(10)
+				.collect(Collectors.toMap(u -> u.getName(), u -> (long) u.getFavoriteArtworks().size(), (e1, e2) -> e1,
+						LinkedHashMap::new));
 		model.addAttribute("top10FavUsers", new ObjectMapper().writeValueAsString(top10FavUsers));
-		
+
 		List<Artwork> artworks = artworkService.findAll();
 		Map<String, Long> top10ArtworksMostFavourited = artworks.stream()
-			    .filter(a -> a.getTitle() != null && a.getArtist() != null && a.getArtist().getName() != null)
-			    .sorted(Comparator.comparingInt((Artwork a) -> a.getUsersWhoFavorited().size()).reversed())
-			    .limit(10)
-			    .collect(Collectors.toMap(
-			        a -> a.getTitle() + " (" + a.getArtist().getName() + ")",
-			        a -> (long) a.getUsersWhoFavorited().size(),
-			        (e1, e2) -> e1,
-			        LinkedHashMap::new
-			    ));
-		model.addAttribute("top10ArtworksMostFavourited", new ObjectMapper().writeValueAsString(top10ArtworksMostFavourited));
-		
+				.filter(a -> a.getTitle() != null && a.getArtist() != null && a.getArtist().getName() != null)
+				.sorted(Comparator.comparingInt((Artwork a) -> a.getUsersWhoFavorited().size()).reversed()).limit(10)
+				.collect(Collectors.toMap(a -> a.getTitle() + " (" + a.getArtist().getName() + ")",
+						a -> (long) a.getUsersWhoFavorited().size(), (e1, e2) -> e1, LinkedHashMap::new));
+		model.addAttribute("top10ArtworksMostFavourited",
+				new ObjectMapper().writeValueAsString(top10ArtworksMostFavourited));
+
 		model.addAttribute("numUsers", userService.count());
 		model.addAttribute("numArtworks", artworkService.count());
 		model.addAttribute("numArtists", artistService.count());
 		model.addAttribute("numMuseums", museumService.count());
-		
+
 		return "admin/stats";
 	}
 
@@ -873,7 +842,7 @@ public class AdminController {
 	private boolean isBlank(String str) {
 		return str == null || str.trim().isEmpty() || str.isBlank();
 	}
-	
+
 	private static double round(double value, int places) {
 		if (places < 0)
 			throw new IllegalArgumentException();
