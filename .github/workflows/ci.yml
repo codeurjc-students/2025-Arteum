@@ -27,6 +27,12 @@ jobs:
         wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
         sudo apt install -y ./google-chrome-stable_current_amd64.deb
 
+    - name: Build and start backend
+      run: |
+        mvn clean package -DskipTests
+        java -jar target/Arteum-0.0.1-SNAPSHOT.jar &
+        sleep 20
+
     - name: Grant execute permission for Maven
       run: chmod +x ./mvnw
 
