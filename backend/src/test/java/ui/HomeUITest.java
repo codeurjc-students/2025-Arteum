@@ -10,11 +10,17 @@ import org.junit.jupiter.api.TestInstance;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.web.server.LocalServerPort;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
+@SpringBootTest(classes = app.Application.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class HomeUITest {
+
+	@LocalServerPort
+	private int port;
 	private static WebDriver driver;
 
 	@BeforeAll
@@ -31,6 +37,10 @@ class HomeUITest {
 		options.addArguments("--disable-popup-blocking");
 		options.addArguments("--disable-notifications");
 		options.addArguments("--disable-extensions");
+		options.addArguments("--headless=new");
+		options.addArguments("--disable-gpu");
+		options.addArguments("--no-sandbox");
+		options.addArguments("--disable-dev-shm-usage");
 		options.setAcceptInsecureCerts(true);
 		options.addArguments("--ignore-certificate-errors");
 		driver = new ChromeDriver(options);
@@ -38,30 +48,31 @@ class HomeUITest {
 
 	@Test
 	void testHomeAndBasics() {
+		String baseurl = "https://localhost:" + port;
 
-		driver.get("https://localhost/");
-		assertTrue(driver.getCurrentUrl().equals("https://localhost/"));
+		driver.get(baseurl + "/");
+		assertTrue(driver.getCurrentUrl().equals(baseurl + "/"));
 
-		driver.get("https://localhost/login");
-		assertTrue(driver.getCurrentUrl().equals("https://localhost/login"));
+		driver.get(baseurl + "/login");
+		assertTrue(driver.getCurrentUrl().equals(baseurl + "/login"));
 
-		driver.get("https://localhost/register");
-		assertTrue(driver.getCurrentUrl().equals("https://localhost/register"));
+		driver.get(baseurl + "/register");
+		assertTrue(driver.getCurrentUrl().equals(baseurl + "/register"));
 
-		driver.get("https://localhost/contact");
-		assertTrue(driver.getCurrentUrl().equals("https://localhost/contact"));
+		driver.get(baseurl + "/contact");
+		assertTrue(driver.getCurrentUrl().equals(baseurl + "/contact"));
 
-		driver.get("https://localhost/faq");
-		assertTrue(driver.getCurrentUrl().equals("https://localhost/faq"));
+		driver.get(baseurl + "/faq");
+		assertTrue(driver.getCurrentUrl().equals(baseurl + "/faq"));
 
-		driver.get("https://localhost/about");
-		assertTrue(driver.getCurrentUrl().equals("https://localhost/about"));
+		driver.get(baseurl + "/about");
+		assertTrue(driver.getCurrentUrl().equals(baseurl + "/about"));
 
-		driver.get("https://localhost/terms-condition");
-		assertTrue(driver.getCurrentUrl().equals("https://localhost/terms-condition"));
+		driver.get(baseurl + "/terms-condition");
+		assertTrue(driver.getCurrentUrl().equals(baseurl + "/terms-condition"));
 
-		driver.get("https://localhost/privacy-policy");
-		assertTrue(driver.getCurrentUrl().equals("https://localhost/privacy-policy"));
+		driver.get(baseurl + "/privacy-policy");
+		assertTrue(driver.getCurrentUrl().equals(baseurl + "/privacy-policy"));
 	}
 
 	@AfterAll

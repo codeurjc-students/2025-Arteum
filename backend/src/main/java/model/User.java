@@ -6,6 +6,9 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
@@ -27,7 +30,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "User")
+@Table(name = "`user`")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -45,13 +48,14 @@ public class User {
     @JsonIgnore
     private byte[] image;
     @ElementCollection(fetch = FetchType.EAGER)
+    @OnDelete(action = OnDeleteAction.CASCADE)
 	private List<String> roles;
     private Date createdAt = new Date();
     
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Review> reviews;
     
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
         name = "Follower",
         joinColumns = @JoinColumn(name = "follower_id"),
@@ -59,10 +63,10 @@ public class User {
     )
     private Set<User> following = new HashSet<>();
     
-    @ManyToMany(mappedBy = "following", fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "following", fetch = FetchType.EAGER)
     private Set<User> followers = new HashSet<>();
     
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
         name = "Favorite",
         joinColumns = @JoinColumn(name = "user_id"),

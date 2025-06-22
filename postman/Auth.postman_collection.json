@@ -7,7 +7,7 @@
 	},
 	"item": [
 		{
-			"name": "Login",
+			"name": "Iniciar sesión",
 			"event": [
 				{
 					"listen": "test",

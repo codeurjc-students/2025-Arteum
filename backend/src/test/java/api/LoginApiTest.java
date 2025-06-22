@@ -8,21 +8,35 @@ import static org.hamcrest.Matchers.emptyOrNullString;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.not;
 
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.security.oauth2.client.servlet.OAuth2ClientWebSecurityAutoConfiguration;
+import org.springframework.boot.autoconfigure.security.saml2.Saml2RelyingPartyAutoConfiguration;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.web.server.LocalServerPort;
+import org.springframework.test.context.ActiveProfiles;
 
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 
+@SpringBootTest(classes = { app.Application.class, app.config.TestDataInitializer.class }, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@AutoConfigureMockMvc
+@ActiveProfiles("test")
 class LoginApiTest {
 
-	@BeforeAll
-	static void setup() {
-		RestAssured.baseURI = "https://localhost";
-		RestAssured.useRelaxedHTTPSValidation();
-	}
+	@LocalServerPort
+	private int port;
+	
+	@BeforeEach
+    void setup() {
+        RestAssured.baseURI = "https://localhost";
+        RestAssured.port = port;
+        RestAssured.useRelaxedHTTPSValidation();
+    }
 
 	@Test
 	@DisplayName("POST /api/v1/auth/login and logout - should complete successfully")
