@@ -45,7 +45,7 @@ jobs:
       run: |
         mvn clean package -DskipTests
         java -jar target/Arteum-0.0.1-SNAPSHOT.jar &
-        sleep 30
+        sleep 60
 
     - name: Grant execute permission for Maven
       run: chmod +x ./mvnw
