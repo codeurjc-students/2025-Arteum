@@ -30,7 +30,7 @@ jobs:
     - name: Build and start backend
       run: |
         mvn clean package -DskipTests
-        java -Dspring.profiles.active=test -jar target/Arteum-0.0.1-SNAPSHOT.jar &
+        java -Dspring.profiles.active=test -Dspring.datasource.url=jdbc:h2:mem:testdb -Dspring.datasource.driverClassName=org.h2.Driver -Dspring.datasource.username=sa -Dspring.datasource.password= -jar target/Arteum-0.0.1-SNAPSHOT.jar &
         sleep 30
 
     - name: Grant execute permission for Maven
