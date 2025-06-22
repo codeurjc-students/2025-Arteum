@@ -7,9 +7,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 import model.Artist;
 
+@Repository
 public interface ArtistRepository extends JpaRepository<Artist, Long> {
 	@Query("SELECT a, AVG(w.averageRating) AS avgRating FROM Artwork w " + "JOIN w.artist a "
 			+ "WHERE a.image IS NOT NULL " + "GROUP BY a.id ORDER BY avgRating DESC LIMIT 10")
