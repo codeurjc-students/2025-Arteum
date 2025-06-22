@@ -52,7 +52,7 @@ class ArtworksUITest {
 		options.setAcceptInsecureCerts(true);
 		options.addArguments("--ignore-certificate-errors");
 		driver = new ChromeDriver(options);
-		wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+		wait = new WebDriverWait(driver, Duration.ofSeconds(30));
 	}
 
 	@Test

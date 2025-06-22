@@ -72,7 +72,7 @@ class LoginUITest {
 		wait.until(ExpectedConditions.urlMatches("https://localhost:" + port + "/"));
 
 		// 4) Directly navigate to the dashboard profile page
-		driver.get("https://localhost:" + port + "dashboard-profile");
+		driver.get("https://localhost:" + port + "/dashboard-profile");
 
 		// 5) Verify that the current URL contains 'dashboard'
 		wait.until(ExpectedConditions.urlContains("dashboard-profile"));
