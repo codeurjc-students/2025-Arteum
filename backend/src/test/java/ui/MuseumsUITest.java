@@ -63,7 +63,7 @@ class MuseumsUITest {
 		// 2) Wait for the search input to be present and enter a query
 		WebElement searchInput = wait
 				.until(ExpectedConditions.presenceOfElementLocated(By.id("wp-block-search__input-1")));
-		searchInput.sendKeys("Prado");
+		searchInput.sendKeys("Louvre");
 
 		// 3) Wait for the search button to be clickable and click it
 		WebElement searchBtn = wait.until(ExpectedConditions.presenceOfElementLocated(

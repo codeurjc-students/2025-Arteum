@@ -62,7 +62,7 @@ class ArtistsUITest {
 
 	    // 2) Wait until the search input field is present in the DOM, then enter the search query "Velazquez"
 	    WebElement searchInput = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("wp-block-search__input-1")));
-	    searchInput.sendKeys("Velazquez");
+	    searchInput.sendKeys("da Vinci");
 
 	    // 3) Wait until the search button is clickable, then click it to submit the search
 	    WebElement searchBtn = wait.until(ExpectedConditions.presenceOfElementLocated(
