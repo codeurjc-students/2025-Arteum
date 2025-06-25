@@ -1,0 +1,391 @@
+<!-- Top area strats -->
+<div class="top-area" *ngIf="artwork">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 d-flex mb-120">
+                <div class="top-content style-3">
+                    <ul>
+                        <li>
+                            <a [routerLink]="['/']">
+                                <svg width="12" height="12" viewBox="0 0 12 12" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M1.125 5.99955L5.602 1.52205C5.822 1.30255 6.178 1.30255 6.3975 1.52205L10.875 5.99955M2.25 4.87455V9.93705C2.25 10.2475 2.502 10.4995 2.8125 10.4995H4.875V8.06205C4.875 7.75155 5.127 7.49955 5.4375 7.49955H6.5625C6.873 7.49955 7.125 7.75155 7.125 8.06205V10.4995H9.1875C9.498 10.4995 9.75 10.2475 9.75 9.93705V4.87455M4.125 10.4995H8.25"
+                                        stroke="white" stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                            </a>
+                        </li>
+                        <li><a [routerLink]="['/artworks']">Obras de arte</a></li>
+                        <li>{{artwork.title}}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Top area ends -->
+<!-- Auction details section strats here -->
+<div class="auction-details-section mb-120" *ngIf="artwork">
+    <div class="container">
+        <div class="row gy-5">
+            <div class="col-lg-7">
+                <div class="auction-details-img">
+                    <div class="tab-content" id="v-pills-tabContent">
+                        <div class="tab-pane fade show active" id="v-pills-img1" role="tabpanel">
+                            <div class="auction-details-tab-img">
+                                <div class="swiper auction-details-tab-swiper">
+                                    <div class="swiper-wrapper">
+                                        <div class="swiper-slide">
+                                            <div class="tab-image">
+                                                <img [src]="'/artwork/image/' + artwork.id" [alt]="'Imagen de ' + artwork.title" style="width: -webkit-fill-available;">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-5 wow animate fadeInRight" data-wow-delay="200ms" data-wow-duration="1500ms">
+                <div class="auction-details-content">
+                    <h3>{{artwork.title}}</h3>
+                    <ul class="artist-info">
+                        <li><span>Artista : </span><a [routerLink]="['/artists', artwork.artist]">{{artwork.artist}}</a></li>
+                        <li><span>Museo : </span><a [routerLink]="['/museum', artwork.museum]">{{artwork.museum}}</a></li>
+                        <li><span>Puntuación : </span>{{artwork.averageRating}}</li>
+                    </ul>
+                    <ng-container *ngIf="logged">
+                        <ng-container *ngIf="!admin">
+                            <div class="whishlist-area">
+                                <a class="wishlist wishlist-hovered" *ngIf="isFavoriteArtwork" [routerLink]="['/artwork/favourite/delete', artwork.id]" [queryParams]="{page: currentPage}">
+                                    <span>
+                                        <svg width="16" height="15" viewBox="0 0 16 15"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M8.00013 3.32629L7.32792 2.63535C5.75006 1.01348 2.85685 1.57317 1.81244 3.61222C1.32211 4.57128 1.21149 5.95597 2.10683 7.72315C2.96935 9.42471 4.76378 11.4628 8.00013 13.6828C11.2365 11.4628 13.03 9.42471 13.8934 7.72315C14.7888 5.95503 14.6791 4.57128 14.1878 3.61222C13.1434 1.57317 10.2502 1.01254 8.67234 2.63441L8.00013 3.32629ZM8.00013 14.8125C-6.375 5.31378 3.57406 -2.09995 7.83512 1.8216C7.89138 1.87317 7.94669 1.9266 8.00013 1.98192C8.05303 1.92665 8.10807 1.87349 8.16513 1.82254C12.4253 -2.10182 22.3753 5.31284 8.00013 14.8125Z">
+                                            </path>
+                                        </svg>
+                                    </span> Eliminar de la lista de favoritos
+                                </a>
+                                <a class="wishlist" *ngIf="!isFavoriteArtwork" [routerLink]="['/artwork/favourite/add', artwork.id]" [queryParams]="{page: currentPage}">
+                                    <span>
+                                        <svg width="16" height="15" viewBox="0 0 16 15"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M8.00013 3.32629L7.32792 2.63535C5.75006 1.01348 2.85685 1.57317 1.81244 3.61222C1.32211 4.57128 1.21149 5.95597 2.10683 7.72315C2.96935 9.42471 4.76378 11.4628 8.00013 13.6828C11.2365 11.4628 13.03 9.42471 13.8934 7.72315C14.7888 5.95503 14.6791 4.57128 14.1878 3.61222C13.1434 1.57317 10.2502 1.01254 8.67234 2.63441L8.00013 3.32629ZM8.00013 14.8125C-6.375 5.31378 3.57406 -2.09995 7.83512 1.8216C7.89138 1.87317 7.94669 1.9266 8.00013 1.98192C8.05303 1.92665 8.10807 1.87349 8.16513 1.82254C12.4253 -2.10182 22.3753 5.31284 8.00013 14.8125Z">
+                                            </path>
+                                        </svg>
+                                    </span> Añadir a la lista de favoritos
+                                </a>
+                            </div>
+                            <div class="dashboard-content-wrap" style="border-top: 1px solid black; padding-top: 25px">
+                                <h4>Dejar tu opinión</h4>
+                                <form *ngIf="!userReview" (ngSubmit)="addReview()" #addReviewForm="ngForm">
+                                    <div class="row">
+                                        <div class="col-12 mb-30">
+                                            <label class="form-inner">Puntuación</label>
+                                            <div class="product-review-stars">
+                                                <ng-container *ngFor="let star of [5,4,3,2,1]">
+                                                    <input type="radio" [id]="'star'+star" name="rating" [value]="star" class="visuallyhidden" [(ngModel)]="newReview.rating" required />
+                                                    <label [for]="'star'+star" [title]="getStarTitle(star)">★</label>
+                                                </ng-container>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 mb-30">
+                                            <div class="form-inner">
+                                                <label>Comentario</label>
+                                                <input name="comment" id="comment" type="text" [(ngModel)]="newReview.comment">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-inner style-2">
+                                        <button type="submit" class="primary-btn2 btn-hover">
+                                            <span>Añadir review</span>
+                                            <strong></strong>
+                                        </button>
+                                    </div>
+                                </form>
+                                <form *ngIf="userReview" (ngSubmit)="editReview()" #editReviewForm="ngForm">
+                                    <div class="row">
+                                        <div class="col-12 mb-30">
+                                            <label class="form-inner">Puntuación</label>
+                                            <div class="product-review-stars">
+                                                <ng-container *ngFor="let star of [5,4,3,2,1]">
+                                                    <input type="radio" [id]="'star'+star" name="rating" [value]="star" class="visuallyhidden" [(ngModel)]="userReview.rating" required />
+                                                    <label [for]="'star'+star" [title]="getStarTitle(star)">★</label>
+                                                </ng-container>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 mb-30">
+                                            <div class="form-inner">
+                                                <label>Comentario</label>
+                                                <input name="comment" id="comment" type="text" [(ngModel)]="userReview.comment">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-inner style-2">
+                                        <button type="submit" class="primary-btn2 btn-hover">
+                                            <span>Editar review</span>
+                                            <strong></strong>
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </ng-container>
+                        <div *ngIf="admin">
+                            <a [routerLink]="['/admin/artwork/edit', artwork.id]" class="btn btn-info">
+                                <span>Editar obra de arte</span>
+                                <strong></strong>
+                            </a>
+                            <a [routerLink]="['/admin/artwork/delete', artwork.id]" class="btn btn-danger" style="background-color: var(--bs-danger);">
+                                <span>Eliminar obra de arte</span>
+                                <strong></strong>
+                            </a>
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Auction details section ends here -->
+<!-- Product description section strats here -->
+<div class="product-description mb-120" *ngIf="artwork">
+    <div class="container">
+        <div class="row justify-content-center gy-4">
+            <div class="col-xxl-6 col-lg-6">
+                <div class="artist-overview">
+                    <h5>Artista</h5>
+                    <ul>
+                        <li>
+                            <h6>Nombre</h6>
+                            <p>{{artwork.artist}}</p>
+                        </li>
+                        <li *ngIf="artwork.artist">
+                            <h6>Fecha de nacimiento y fallecimiento</h6>
+                            <p *ngIf="artwork.artist">{{artwork.artist}}, y falleció en {{artwork.artist}}</p>
+                            <p *ngIf="!artwork.artist">{{artwork.artist}}</p>
+                        </li>
+                        <li *ngIf="artwork.artist">
+                            <h6>Nacionalidad</h6>
+                            <p>{{artwork.artist}}</p>
+                        </li>
+                        <li>
+                            <h6>Biografía</h6>
+                            <p>{{artwork.artist}}</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-xxl-6 col-lg-6">
+                <div class="exploring-artwork">
+                    <h5>Explorando la obra de arte</h5>
+                    <ul>
+                        <li>
+                            <h6>Título</h6>
+                            <p>{{artwork.title}}</p>
+                        </li>
+                        <li>
+                            <h6>Año de creación</h6>
+                            <p>{{artwork.creationYear}}</p>
+                        </li>
+                        <li>
+                            <h6>Descripción</h6>
+                            <p>{{artwork.description}}</p>
+                        </li>
+                        <li>
+                            <h6>Localización</h6>
+                            <p>{{artwork.museum}} ({{artwork.museum}})</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="auction-card-sidebar-section mb-120" *ngIf="!reviewsEmpty">
+    <div class="container">
+        <div class="col-lg-12 mb-3">
+            <div class="section-title">
+                <h3>Reviews</h3>
+            </div>
+        </div>
+        <div class="row gy-5">
+            <div class="col-12 order-1">
+                <div class="row">
+                    <div class="col-lg-12 mb-30">
+                        <div class="auction-card-top-area">
+                            <div class="left-content">
+                                <h6>Mostrando <span>{{range}}</span> de <span>{{totalReviews}}</span> reviews.</h6>
+                            </div>
+                            <div class="right-content">
+                                <form (ngSubmit)="onSortReviews($event)">
+                                    <input type="hidden" name="page" [value]="currentPage">
+                                    <div class="category-area d-lg-flex d-none active">
+                                        <select name="sort" [(ngModel)]="sort" (change)="onSortReviews($event)">
+                                            <option value="createdAt" [selected]="sortCreatedAt">Más recientes</option>
+                                            <option value="rating" [selected]="sortRating">Mayor Puntuación</option>
+                                            <option value="ratingAsc" [selected]="sortRatingAsc">Menor Puntuación</option>
+                                            <option value="createdAtAsc" [selected]="sortCreatedAtAsc">Más antiguos</option>
+                                        </select>
+                                    </div>
+                                </form>
+                                <ul class="size-icon grid-view d-lg-flex d-none">
+                                    <li class="column-2">
+                                        <svg width="7" height="14" viewBox="0 0 7 14" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M0.75 13.1875L0.749999 0.8125M5.8125 13.1875L5.8125 0.8125"
+                                                stroke="#A0A0A0" stroke-width="1.5" stroke-linecap="round"
+                                                stroke-linejoin="round" />
+                                        </svg>
+                                    </li>
+                                    <li class="column-3 active">
+                                        <svg width="10" height="14" viewBox="0 0 10 14" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M1.0625 13.1875L1.0625 0.8125M5 13.1875L5 0.8125M8.9375 13.1875L8.9375 0.8125"
+                                                stroke="white" stroke-width="1.5" stroke-linecap="round"
+                                                stroke-linejoin="round" />
+                                        </svg>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-grid-product-wrap">
+                    <div class="row gy-4">
+                        <ng-container *ngFor="let review of reviewsPage">
+                            <div class="col-lg-4 col-md-6 item wow animate fadeInDown" data-wow-delay="200ms" data-wow-duration="1500ms">
+                                <div class="auction-card">
+                                    <div class="auction-card-content" style="padding: 25px 15px 25px; border: 1px solid var(--border-color); border-top: outset;">
+                                        <h6><a [routerLink]="['/public-profile', review.user.name]"><b>{{review.user.name}}</b></a></h6>
+                                        <ul>
+                                            <li *ngIf="review.comment"><span>Comentario : </span>{{review.comment}}</li>
+                                            <li><span>Puntuación : </span>{{review.rating}}</li>
+                                        </ul>
+                                        <div class="mt-3" *ngIf="admin">
+                                            <a [routerLink]="['/admin/review/edit', review.id]" class="bid-btn btn-info btn-hover" style="background-color: var(--bs-info);">
+                                                <span>Editar</span>
+                                                <strong></strong>
+                                            </a>
+                                            <a [routerLink]="['/admin/review/delete', review.id]" class="bid-btn btn-danger btn-hover" style="background-color: var(--bs-danger);" (click)="confirmDeleteReview(review.id)">
+                                                <span>Eliminar</span>
+                                                <strong></strong>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-container>
+                    </div>
+                </div>
+                <div class="row wow animate fadeInUp" data-wow-delay="200ms" data-wow-duration="1500ms">
+                    <div class="col-lg-12">
+                        <div class="page-navigation-area d-flex flex-wrap align-items-center justify-content-between">
+                            <div class="prev-next-btn">
+                                <a *ngIf="previousPage" [routerLink]="['/artworks', artwork]" [queryParams]="{page: previousPage, sort: sort}">
+                                    <svg width="7" height="14" viewBox="0 0 7 14"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M0 7.00008L7 0L2.54545 7.00008L7 14L0 7.00008Z" />
+                                    </svg>
+                                    Anterior
+                                </a>
+                            </div>
+                            <ul class="pagination" *ngIf="reviewsPage.length > 0">
+                                <li *ngIf="previousPage"><a [routerLink]="['/artworks', artwork]" [queryParams]="{page: previousPage, sort: sort}">{{previousPage}}</a></li>
+                                <li class="active"><a>{{currentPage}}</a></li>
+                                <li *ngIf="nextPage"><a [routerLink]="['/artworks', artwork]" [queryParams]="{page: nextPage, sort: sort}">{{nextPage}}</a></li>
+                            </ul>
+                            <div class="prev-next-btn">
+                                <a *ngIf="nextPage" [routerLink]="['/artworks', artwork]" [queryParams]="{page: nextPage, sort: sort}">
+                                    Siguiente
+                                    <svg width="7" height="14" viewBox="0 0 7 14"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M7 7.00008L0 0L4.45455 7.00008L0 14L7 7.00008Z" />
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="home1-auction-slider-section mb-120" *ngIf="find7RandomArtworks?.length">
+    <div class="container">
+        <div class="row mb-50 align-items-center justify-content-between flex-wrap gap-3 wow animate fadeInDown"
+            data-wow-delay="200ms" data-wow-duration="1500ms">
+            <div class="col-lg-12">
+                <div class="section-title">
+                    <h3>Obras similares</h3>
+                </div>
+            </div>
+        </div>
+        <div class="auction-slider-wrap wow animate fadeInUp" data-wow-delay="200ms" data-wow-duration="1500ms">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="swiper home1-auction-slider">
+                        <div class="swiper-wrapper">
+                            <ng-container *ngFor="let art of find7RandomArtworks">
+                                <div class="swiper-slide">
+                                    <div class="auction-card">
+                                        <div class="auction-card-img-wrap">
+                                            <a [routerLink]="['/artworks', art.id]" class="card-img">
+                                                <img [src]="'/artwork/image/' + art.id" [alt]="'Imagen de ' + art.title" loading="lazy">
+                                            </a>
+                                            <ng-container *ngIf="!admin && logged">
+                                                <a class="wishlist wishlist-hovered" *ngIf="art.favorite" [routerLink]="['/artwork/favourite/delete', art.id]" [queryParams]="{page: currentPage}">
+                                                </a>
+                                                <a class="wishlist" *ngIf="!art.favorite" [routerLink]="['/artwork/favourite/add', art.id]" [queryParams]="{page: currentPage}">
+                                                </a>
+                                            </ng-container>
+                                        </div>
+                                        <div class="auction-card-content">
+                                            <h6><a [routerLink]="['/artworks', art.id]">{{art.title}}</a></h6>
+                                            <ul>
+                                                <li><span>Artista : </span><a [routerLink]="['/artists', art.artist]">{{art.artist}}</a></li>
+                                                <li><span>Puntuación : </span>{{art.averageRating}}</li>
+                                            </ul>
+                                            <a [routerLink]="['/artworks', art.id]" class="bid-btn btn-hover">
+                                                <span>Detalles</span>
+                                                <strong></strong>
+                                            </a>
+                                            <div class="mt-3" *ngIf="admin">
+                                                <a [routerLink]="['/admin/artwork/edit', art.id]" class="bid-btn btn-info btn-hover" style="background-color: var(--bs-info);">
+                                                    <span>Editar</span>
+                                                    <strong></strong>
+                                                </a>
+                                                <a [routerLink]="['/admin/artwork/delete', art.id]" class="bid-btn btn-danger btn-hover" style="background-color: var(--bs-danger);">
+                                                    <span>Eliminar</span>
+                                                    <strong></strong>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-container>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slider-btn-grp">
+                <div class="slider-btn auction-slider-prev">
+                    <svg width="10" height="16" viewBox="0 0 10 16" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M0.735295 8.27932L10 16L4.10428 8.27932L10 0.558823L0.735295 8.27932Z" />
+                    </svg>
+                </div>
+                <div class="slider-btn auction-slider-next">
+                    <svg width="10" height="16" viewBox="0 0 10 16" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9.26471 7.72068L0 0L5.89572 7.72068L0 15.4412L9.26471 7.72068Z" />
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Home1 Auction Slider Section End -->

@@ -1,0 +1,228 @@
+<!-- Breadcrumb section strats here -->
+<div class="breadcrumb-section2"
+    style="background-image: linear-gradient(180deg, rgba(0, 0, 0, 0.28), rgba(0, 0, 0, 0.28)), url(assets/img/inner-page/breadcrumb-image.jpg);">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 d-flex">
+                <div class="top-content style-2">
+                    <ul>
+                        <li>
+                            <a href="index.html">
+                                <svg width="12" height="12" viewBox="0 0 12 12" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M1.125 5.99955L5.602 1.52205C5.822 1.30255 6.178 1.30255 6.3975 1.52205L10.875 5.99955M2.25 4.87455V9.93705C2.25 10.2475 2.502 10.4995 2.8125 10.4995H4.875V8.06205C4.875 7.75155 5.127 7.49955 5.4375 7.49955H6.5625C6.873 7.49955 7.125 7.75155 7.125 8.06205V10.4995H9.1875C9.498 10.4995 9.75 10.2475 9.75 9.93705V4.87455M4.125 10.4995H8.25"
+                                        stroke="white" stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                            </a>
+                        </li>
+                        <li>Museos</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="breadcrumb-content">
+                    <h1>Museos</h1>
+                    <p>Explora una selección de museos emblemáticos reconocidos por su labor en la preservación, exhibición y 
+                    difusión del arte. Desde instituciones históricas hasta espacios contemporáneos, esta sección destaca aquellos 
+                    museos cuya colección, influencia y propuestas culturales los convierten en referentes del mundo artístico.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Breadcrumb section ends here -->
+<!-- aution card section strats here -->
+<div class="auction-card-sidebar-section pt-120 mb-120">
+    <div *ngIf="error" class="container alert alert-danger">{{error}}</div>
+    <div *ngIf="success" class="container alert alert-success">{{success}}</div>
+    <div class="container">
+        <div class="row gy-5">
+            <div class="col-xl-3 order-xl-1 order-1">
+                <div class="sidebar-area row">
+                    <div class="single-widgets widget_search mb-50">
+                        <form (ngSubmit)="onSearchSubmit()" #searchForm="ngForm">
+                            <div class="wp-block-search__inside-wrapper ">
+                                <input type="hidden" name="sort" [value]="sortName ? 'name' : sortFounded ? 'founded' : sortLocation ? 'location' : ''">
+                                <input type="search" id="wp-block-search__input-1" class="wp-block-search__input"
+                                    name="search" [(ngModel)]="search" placeholder="Busca cualquier museo">
+                                <ng-container *ngFor="let loc of locationFiltersList">
+                                    <input *ngIf="loc.selected" type="hidden" name="locationFilters" [value]="loc.name">
+                                </ng-container>
+                                <button type="submit" class="wp-block-search__button">
+                                    <svg width="16" height="16" viewBox="0 0 16 16"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M11.7425 10.3418C12.7107 9.0205 13.1444 7.38236 12.9567 5.75508C12.769 4.1278 11.9739 2.63139 10.7303 1.56522C9.48666 0.49905 7.88635 -0.0582469 6.2495 0.0048239C4.61265 0.0678947 3.05997 0.746681 1.90209 1.90538C0.744221 3.06409 0.0665459 4.61725 0.00464636 6.25415C-0.0572531 7.89104 0.501188 9.49095 1.56825 10.7338C2.63531 11.9766 4.13229 12.7707 5.7597 12.9572C7.38711 13.1438 9.02494 12.7089 10.3455 11.7397H10.3445C10.3745 11.7797 10.4065 11.8177 10.4425 11.8547L14.2924 15.7046C14.4799 15.8922 14.7342 15.9977 14.9995 15.9977C15.2647 15.9978 15.5192 15.8926 15.7068 15.7051C15.8944 15.5176 15.9999 15.2632 16 14.9979C16.0001 14.7327 15.8948 14.4782 15.7073 14.2906L11.8575 10.4408C11.8217 10.4046 11.7833 10.3711 11.7425 10.3408V10.3418ZM12.0004 6.4979C12.0004 7.22015 11.8582 7.93532 11.5818 8.60258C11.3054 9.26985 10.9003 9.87614 10.3896 10.3868C9.87889 10.8975 9.2726 11.3027 8.60533 11.5791C7.93807 11.8554 7.2229 11.9977 6.50065 11.9977C5.77841 11.9977 5.06324 11.8554 4.39597 11.5791C3.72871 11.3027 3.12242 10.8975 2.61171 10.3868C2.10101 9.87614 1.6959 9.26985 1.41951 8.60258C1.14312 7.93532 1.00086 7.22015 1.00086 6.4979C1.00086 5.03927 1.5803 3.64037 2.61171 2.60896C3.64312 1.57755 5.04202 0.99811 6.50065 0.99811C7.95929 0.99811 9.35818 1.57755 10.3896 2.60896C11.421 3.64037 12.0004 5.03927 12.0004 6.4979Z" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    
+                    <div class="single-widgets mb-50 col-6 col-xl-12">
+                        <form (ngSubmit)="onLocationFilterChange()" #locationForm="ngForm">
+                            <input type="hidden" name="sort" [value]="sortName ? 'name' : sortFounded ? 'founded' : sortLocation ? 'location' : ''">
+                            <input *ngIf="search" type="hidden" name="search" [value]="search">
+                            <div class="widget-title">
+                                <h5>Localización</h5>
+                            </div>
+                            <div class="checkbox-container">
+                                <ul>
+                                    <ng-container *ngFor="let loc of locationFiltersList">
+                                        <li>
+                                            <label class="containerss">
+                                                <input class="form-check-input" type="checkbox" name="locationFilters"
+                                                    [value]="loc.name" (change)="onLocationChange(loc)" [checked]="loc.selected">
+                                                <span class="checkmark"></span>
+                                                <span>{{loc.name}}</span>
+                                            </label>
+                                        </li>
+                                    </ng-container>
+                                </ul>
+                            </div>
+                        </form>
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="col-xl-9 order-xl-2 order-2">
+                <div class="right-content">
+                    <div class="row">
+                        <div class="col-lg-12 mb-30">
+                            <div class="auction-card-top-area">
+                                <div class="left-content">
+                                    <h6>Mostrando <span>{{range}}</span> de <span>{{totalMuseums}}</span> museos.</h6>
+                                </div>
+                                <div class="right-content">
+                                    <form (ngSubmit)="onSortChange($event)">
+                                        <div class="category-area d-lg-flex d-none active">
+                                            <select name="sort" [(ngModel)]="sort" (change)="onSortChange($event)">
+                                                <option value="name" [selected]="sortName">Nombre</option>
+                                                <option value="founded" [selected]="sortFounded">Año de creación</option>
+                                                <option value="location" [selected]="sortLocation">País</option>
+                                            </select>
+                                            <input *ngIf="search" type="hidden" name="search" [value]="search">
+                                            <ng-container *ngFor="let loc of locationFiltersList">
+                                                <input *ngIf="loc.selected" type="hidden" name="locationFilters" [value]="loc.name">
+                                            </ng-container>
+                                            <input type="hidden" name="page" [value]="currentPage">
+                                        </div>
+                                    </form>
+                                    <ul class="size-icon grid-view d-lg-flex d-none">
+                                        <li class="column-2">
+                                            <svg width="7" height="14" viewBox="0 0 7 14" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M0.75 13.1875L0.749999 0.8125M5.8125 13.1875L5.8125 0.8125"
+                                                    stroke="#A0A0A0" stroke-width="1.5" stroke-linecap="round"
+                                                    stroke-linejoin="round" />
+                                            </svg>
+                                        </li>
+                                        <li class="column-3 active">
+                                            <svg width="10" height="14" viewBox="0 0 10 14" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path
+                                                    d="M1.0625 13.1875L1.0625 0.8125M5 13.1875L5 0.8125M8.9375 13.1875L8.9375 0.8125"
+                                                    stroke="white" stroke-width="1.5" stroke-linecap="round"
+                                                    stroke-linejoin="round" />
+                                            </svg>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf="museumsEmpty" class="list-grid-product-wrap mt-5 mb-5 pt-5 pb-5">
+                        <div class="row gy-4">
+                            <div class="col-lg-12" style="text-align: -webkit-center;">
+                                <div class="breadcrumb-content col-12">
+                                    <h6><b>No hay museos en base a tus criterios de busqueda.</b></h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <ng-container *ngIf="!museumsEmpty">
+                        <div class="list-grid-product-wrap">
+                            <div class="row gy-4">
+                                <ng-container *ngFor="let museum of museumsPage">
+                                    <div class="col-lg-4 col-md-6 item wow animate fadeInDown" data-wow-delay="200ms" data-wow-duration="1500ms">
+                                        <div class="auction-card">
+                                            <div class="auction-card-img-wrap">
+                                                <a [routerLink]="['/museum', museum.id]" class="card-img">
+                                                    <img [src]="'api/v1/museums/image/' + museum.id" [alt]="'Imagen de ' + museum.name" loading="lazy">
+                                                </a>
+                                            </div>
+                                            <div class="auction-card-content">
+                                                <h6><a [routerLink]="['/museum', museum.id]"><b>{{museum.name}}</b></a></h6>
+                                                <ul>
+                                                    <li><span>País : </span>{{museum.location}}</li>
+                                                    <li><span>Año de creación : </span>{{museum.founded}}</li>
+                                                </ul>
+                                                <a [routerLink]="['/museum', museum.id]" class="bid-btn btn-hover">
+                                                    <span>Detalles</span>
+                                                    <strong></strong>
+                                                </a>
+                                                <div class="mt-3" *ngIf="admin">
+                                                    <a [routerLink]="['/admin/museum/edit', museum.id]" class="bid-btn btn-info btn-hover" style="background-color: var(--bs-info);">
+                                                        <span>Editar</span>
+                                                        <strong></strong>
+                                                    </a>
+                                                    <a [routerLink]="['/admin/museum/delete', museum.id]" class="bid-btn btn-danger btn-hover"
+                                                       style="background-color: var(--bs-danger);"
+                                                       (click)="confirmDelete(museum.id!)">
+                                                        <span>Eliminar</span>
+                                                        <strong></strong>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </ng-container>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="page-navigation-area d-flex flex-wrap align-items-center justify-content-between">
+                                        <div class="prev-next-btn">
+                                            <a *ngIf="previousPage" [routerLink]="['/museums']" [queryParams]="getPageParams(previousPage)">
+                                                <svg width="7" height="14" viewBox="0 0 7 14"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M0 7.00008L7 0L2.54545 7.00008L7 14L0 7.00008Z" />
+                                                </svg>
+                                                Anterior
+                                            </a>
+                                        </div>
+                                        <ul class="pagination">
+                                            <li *ngIf="previousPage">
+                                                <a [routerLink]="['/museums']" [queryParams]="getPageParams(previousPage)">
+                                                    {{previousPage}}
+                                                </a>
+                                            </li>
+                                            <li class="active"><a>{{currentPage}}</a></li>
+                                            <li *ngIf="nextPage">
+                                                <a [routerLink]="['/museums']" [queryParams]="getPageParams(nextPage)">
+                                                    {{nextPage}}
+                                                </a>
+                                            </li>
+                                        </ul>
+                                        <div class="prev-next-btn">
+                                            <a *ngIf="nextPage" [routerLink]="['/museums']" [queryParams]="getPageParams(nextPage)">
+                                                Siguiente
+                                                <svg width="7" height="14" viewBox="0 0 7 14"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M7 7.00008L0 0L4.45455 7.00008L0 14L7 7.00008Z" />
+                                                </svg>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- aution card section ends here -->

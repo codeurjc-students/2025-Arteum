@@ -1,0 +1,190 @@
+<div class="top-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 d-flex">
+                <div class="top-content">
+                    <ul>
+                        <li>
+                            <a href="/">
+                                <svg width="12" height="12" viewBox="0 0 12 12" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M1.125 5.99955L5.602 1.52205C5.822 1.30255 6.178 1.30255 6.3975 1.52205L10.875 5.99955M2.25 4.87455V9.93705C2.25 10.2475 2.502 10.4995 2.8125 10.4995H4.875V8.06205C4.875 7.75155 5.127 7.49955 5.4375 7.49955H6.5625C6.873 7.49955 7.125 7.75155 7.125 8.06205V10.4995H9.1875C9.498 10.4995 9.75 10.2475 9.75 9.93705V4.87455M4.125 10.4995H8.25"
+                                        stroke="white" stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                            </a>
+                        </li>
+                        <li>Perfil público</li>
+                        <li>{{name}}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Strats deshboard section -->
+<div class="dashboard-section mb-120 mt-5">
+    <div class="container">
+        <div class="">
+            <div class="dashboard-content-wrap">
+                <div class="dashboard-profile-content">
+                    <div class="single-content">
+                        <div class="author-area text-center">
+                            <div class="author-image">
+                                <img [src]="'/user/image/' + username" [alt]="'Imagen de ' + username" style="max-width: 25em;">
+                                <div class="icon" style="justify-self: anchor-center;">
+                                    <svg width="15" height="15" viewBox="0 0 15 15" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <g clip-path="url(#clip0_1323_1720)">
+                                            <path
+                                                d="M14.0625 11.25C14.0625 11.4986 13.9637 11.7371 13.7879 11.9129C13.6121 12.0887 13.3736 12.1875 13.125 12.1875H1.875C1.62636 12.1875 1.3879 12.0887 1.21209 11.9129C1.03627 11.7371 0.9375 11.4986 0.9375 11.25V5.625C0.9375 5.37636 1.03627 5.1379 1.21209 4.96209C1.3879 4.78627 1.62636 4.6875 1.875 4.6875H2.97375C3.71929 4.68709 4.43416 4.39069 4.96125 3.86344L5.73938 3.08719C5.91469 2.91182 6.15234 2.81305 6.40031 2.8125H8.59781C8.84643 2.81255 9.08485 2.91136 9.26062 3.08719L10.0369 3.86344C10.2981 4.12473 10.6082 4.332 10.9496 4.47339C11.2909 4.61479 11.6568 4.68754 12.0262 4.6875H13.125C13.3736 4.6875 13.6121 4.78627 13.7879 4.96209C13.9637 5.1379 14.0625 5.37636 14.0625 5.625V11.25ZM1.875 3.75C1.37772 3.75 0.900806 3.94754 0.549175 4.29917C0.197544 4.65081 0 5.12772 0 5.625L0 11.25C0 11.7473 0.197544 12.2242 0.549175 12.5758C0.900806 12.9275 1.37772 13.125 1.875 13.125H13.125C13.6223 13.125 14.0992 12.9275 14.4508 12.5758C14.8025 12.2242 15 11.7473 15 11.25V5.625C15 5.12772 14.8025 4.65081 14.4508 4.29917C14.0992 3.94754 13.6223 3.75 13.125 3.75H12.0262C11.529 3.74989 11.0522 3.55228 10.7006 3.20063L9.92438 2.42437C9.57283 2.07272 9.09599 1.87511 8.59875 1.875H6.40125C5.90401 1.87511 5.42717 2.07272 5.07562 2.42437L4.29938 3.20063C3.94783 3.55228 3.47099 3.74989 2.97375 3.75H1.875Z"
+                                                fill="black" />
+                                            <path
+                                                d="M7.5 10.3125C6.8784 10.3125 6.28226 10.0656 5.84272 9.62603C5.40318 9.18649 5.15625 8.59035 5.15625 7.96875C5.15625 7.34715 5.40318 6.75101 5.84272 6.31147C6.28226 5.87193 6.8784 5.625 7.5 5.625C8.1216 5.625 8.71774 5.87193 9.15728 6.31147C9.59682 6.75101 9.84375 7.34715 9.84375 7.96875C9.84375 8.59035 9.59682 9.18649 9.15728 9.62603C8.71774 10.0656 8.1216 10.3125 7.5 10.3125ZM7.5 11.25C8.37024 11.25 9.20484 10.9043 9.82019 10.2889C10.4355 9.67359 10.7812 8.83899 10.7812 7.96875C10.7812 7.09851 10.4355 6.26391 9.82019 5.64856C9.20484 5.0332 8.37024 4.6875 7.5 4.6875C6.62976 4.6875 5.79516 5.0332 5.17981 5.64856C4.56445 6.26391 4.21875 7.09851 4.21875 7.96875C4.21875 8.83899 4.56445 9.67359 5.17981 10.2889C5.79516 10.9043 6.62976 11.25 7.5 11.25ZM2.8125 6.09375C2.8125 6.21807 2.76311 6.3373 2.67521 6.42521C2.5873 6.51311 2.46807 6.5625 2.34375 6.5625C2.21943 6.5625 2.1002 6.51311 2.01229 6.42521C1.92439 6.3373 1.875 6.21807 1.875 6.09375C1.875 5.96943 1.92439 5.8502 2.01229 5.76229C2.1002 5.67439 2.21943 5.625 2.34375 5.625C2.46807 5.625 2.5873 5.67439 2.67521 5.76229C2.76311 5.8502 2.8125 5.96943 2.8125 6.09375Z"
+                                                fill="black" />
+                                        </g>
+                                        <defs>
+                                            <clipPath id="clip0_1323_1720">
+                                                <rect width="15" height="15" fill="white" />
+                                            </clipPath>
+                                        </defs>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="discover-section mb-5 mt-5">
+                                <div class="container">
+                                    <div class="row gy-4 ">
+                                        <div class="col-12 wow animate fadeInLeft" data-wow-delay="200ms" data-wow-duration="1500ms">
+                                            <div class="discover-content" style="justify-items: center">
+                                                <h3>{{name}}</h3>
+                                                
+                                                <ng-container *ngIf="!admin && logged && isNotMyProfile">
+                                                    <a *ngIf="isFollowing" [routerLink]="['/unfollow', username]" class="primary-btn2 btn-hover mb-5">
+                                                        <span>Dejar de seguir</span>
+                                                        <strong style="top: -28.5px; left: 73.9531px;"></strong>
+                                                    </a>
+                                                    <a *ngIf="!isFollowing" [routerLink]="['/follow', username]" class="primary-btn2 btn-hover mb-5">
+                                                        <span>Seguir</span>
+                                                        <strong style="top: -28.5px; left: 73.9531px;"></strong>
+                                                    </a>
+                                                </ng-container>
+                                                <div class="mt-3 mb-3" *ngIf="admin">
+                                                    <a [routerLink]="['/admin/user/edit', id]" class="primary-btn2 btn-hover btn-info" style="background-color: var(--bs-info);">
+                                                        <span>Editar usuario</span>
+                                                        <strong></strong>
+                                                    </a>
+                                                    <a [routerLink]="['/admin/user/delete', id]" class="primary-btn2 btn-hover btn-danger"
+                                                        style="background-color: var(--bs-danger);"
+                                                        (click)="confirmDelete(id)">
+                                                        <span>Eliminar usuario</span>
+                                                        <strong></strong>
+                                                    </a>
+                                                </div>
+                                                <p *ngIf="location">📍 {{location}}</p>
+                                                <p *ngIf="biography">🖋️ {{biography}}</p>
+                                                <div class="countdown-wrap col-12" style="justify-items: anchor-center;">
+                                                    <ul class="countdown-list">
+                                                        <li class="single-countdown">
+                                                            <div class="number">
+                                                                <h3 class="counter">{{reviews}}</h3>
+                                                            </div>
+                                                            <span>Reviews</span>
+                                                        </li>
+                                                        <li class="single-countdown">
+                                                            <div class="number">
+                                                                <h3 class="counter">{{reviews_avg}}</h3>
+                                                            </div>
+                                                            <span>Media</span>
+                                                        </li>
+                                                        <li class="single-countdown">
+                                                            <div class="number">
+                                                                <h3 class="counter">{{followers}}</h3>
+                                                            </div>
+                                                            <span>Seguidores</span>
+                                                        </li>
+                                                        <li class="single-countdown">
+                                                            <div class="number">
+                                                                <h3 class="counter">{{follows}}</h3>
+                                                            </div>
+                                                            <span>Seguidos</span>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div *ngIf="artworksEmpty" class="breadcrumb-section2 pt-120 mb-120">
+                                <div class="row">
+                                    <div class="col-lg-12" style="text-align: -webkit-center;">
+                                        <div class="breadcrumb-content col-12">
+                                            <h4>No tiene obras de arte favoritas, de momento.</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div *ngIf="!artworksEmpty" class="list-grid-product-wrap">
+                                <div class="row gy-4">
+                                    <h3>Obras de arte favoritas</h3>
+                                    <ng-container *ngFor="let artwork of artworks">
+                                        <div class="col-lg-3 col-md-6 item wow animate fadeInDown" data-wow-delay="200ms" data-wow-duration="1500ms">
+                                            <div class="auction-card">
+                                                <div class="auction-card-img-wrap">
+                                                    <a [routerLink]="['/artworks', artwork.id]" class="card-img">
+                                                        <img [src]="'/artwork/image/' + artwork.id" [alt]="'Imagen de ' + artwork.title" loading="lazy">
+                                                    </a>
+                                                    <ng-container *ngIf="!admin && logged">
+                                                        <a class="wishlist wishlist-hovered" *ngIf="artwork.isFavorite" [routerLink]="['/artwork/favourite/delete', artwork.id]">
+                                                            <svg width="16" height="15" viewBox="0 0 16 15"
+                                                                xmlns="http://www.w3.org/2000/svg">
+                                                                <path
+                                                                    d="M8.00013 3.32629L7.32792 2.63535C5.75006 1.01348 2.85685 1.57317 1.81244 3.61222C1.32211 4.57128 1.21149 5.95597 2.10683 7.72315C2.96935 9.42471 4.76378 11.4628 8.00013 13.6828C11.2365 11.4628 13.03 9.42471 13.8934 7.72315C14.7888 5.95503 14.6791 4.57128 14.1878 3.61222C13.1434 1.57317 10.2502 1.01254 8.67234 2.63441L8.00013 3.32629ZM8.00013 14.8125C-6.375 5.31378 3.57406 -2.09995 7.83512 1.8216C7.89138 1.87317 7.94669 1.9266 8.00013 1.98192C8.05303 1.92665 8.10807 1.87349 8.16513 1.82254C12.4253 -2.10182 22.3753 5.31284 8.00013 14.8125Z">
+                                                                </path>
+                                                            </svg>
+                                                        </a>
+                                                        <a class="wishlist" *ngIf="!artwork.isFavorite" [routerLink]="['/artwork/favourite/add', artwork.id]">
+                                                            <svg width="16" height="15" viewBox="0 0 16 15"
+                                                                xmlns="http://www.w3.org/2000/svg">
+                                                                <path
+                                                                    d="M8.00013 3.32629L7.32792 2.63535C5.75006 1.01348 2.85685 1.57317 1.81244 3.61222C1.32211 4.57128 1.21149 5.95597 2.10683 7.72315C2.96935 9.42471 4.76378 11.4628 8.00013 13.6828C11.2365 11.4628 13.03 9.42471 13.8934 7.72315C14.7888 5.95503 14.6791 4.57128 14.1878 3.61222C13.1434 1.57317 10.2502 1.01254 8.67234 2.63441L8.00013 3.32629ZM8.00013 14.8125C-6.375 5.31378 3.57406 -2.09995 7.83512 1.8216C7.89138 1.87317 7.94669 1.9266 8.00013 1.98192C8.05303 1.92665 8.10807 1.87349 8.16513 1.82254C12.4253 -2.10182 22.3753 5.31284 8.00013 14.8125Z">
+                                                                </path>
+                                                            </svg>
+                                                        </a>
+                                                    </ng-container>
+                                                </div>
+                                                <div class="auction-card-content">
+                                                    <h6><a [routerLink]="['/artworks', artwork.id]"><b>{{artwork.title}}</b></a></h6>
+                                                    <ul>
+                                                        <li><span>Artista : </span><a [routerLink]="['/artists', artwork.artist.id]">{{artwork.artist.name}}</a></li>
+                                                        <li><span>Museo : </span><a [routerLink]="['/museum', artwork.museum.id]">{{artwork.museum.name}}</a></li>
+                                                        <li><span>Puntuación : </span>{{artwork.averageRating}}</li>
+                                                    </ul>
+                                                    <a [routerLink]="['/artworks', artwork.id]" class="bid-btn btn-hover">
+                                                        <span>Detalles</span>
+                                                        <strong></strong>
+                                                    </a>
+                                                    <div class="mt-3" *ngIf="admin">
+                                                        <a [routerLink]="['/admin/artwork/edit', artwork.id]" class="bid-btn btn-info btn-hover" style="background-color: var(--bs-info);">
+                                                            <span>Editar</span>
+                                                            <strong></strong>
+                                                        </a>
+                                                        <a [routerLink]="['/admin/artwork/delete', artwork.id]" class="bid-btn btn-danger btn-hover" style="background-color: var(--bs-danger);" (click)="confirmDeleteArtwork(artwork.id)">
+                                                            <span>Eliminar</span>
+                                                            <strong></strong>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </ng-container>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Ends deshboard section -->

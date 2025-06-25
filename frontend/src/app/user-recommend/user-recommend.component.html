@@ -1,0 +1,115 @@
+<!-- Breadcrumb section strats here -->
+<div class="breadcrumb-section2"
+	style="background-image: linear-gradient(180deg, rgba(0, 0, 0, 0.28), rgba(0, 0, 0, 0.28)), url(/assets/img/inner-page/home1-banner-bg1.jpg);">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12 d-flex">
+				<div class="top-content style-2">
+					<ul>
+						<li><a href="/"> <svg width="12" height="12"
+									viewBox="0 0 12 12" fill="none"
+									xmlns="http://www.w3.org/2000/svg">
+                                        <path
+										d="M1.125 5.99955L5.602 1.52205C5.822 1.30255 6.178 1.30255 6.3975 1.52205L10.875 5.99955M2.25 4.87455V9.93705C2.25 10.2475 2.502 10.4995 2.8125 10.4995H4.875V8.06205C4.875 7.75155 5.127 7.49955 5.4375 7.49955H6.5625C6.873 7.49955 7.125 7.75155 7.125 8.06205V10.4995H9.1875C9.498 10.4995 9.75 10.2475 9.75 9.93705V4.87455M4.125 10.4995H8.25"
+										stroke="white" stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+						</a></li>
+						<li>Obras de arte recomendadas</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="breadcrumb-content">
+					<h1>Obras de arte recomendadas</h1>
+					<p>
+					    Este módulo te recomienda obras de arte basadas en tus gustos y preferencias. 
+					    El sistema analiza tus valoraciones anteriores, las compara con otros usuarios 
+					    que han dado puntuaciones similares y te sugiere nuevas obras que podrían 
+					    interesarte, incluso si aún no las has descubierto. Cuantas más valoraciones des, ¡mejor serán las recomendaciones!
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Breadcrumb section ends here -->
+<!-- aution card section strats here -->
+
+<div *ngIf="recommendedArtworksEmpty" class="breadcrumb-section2 pt-120 mb-120">
+    <div class="row">
+        <div class="col-lg-12" style="text-align: -webkit-center;">
+            <div class="breadcrumb-content col-12">
+                <h2>No tenemos suficentes datos para recomendarte obras de arte.</h2>
+                <h2>¡Te recomendamos que amplies tus red social y guardes tus obras favoritas!</h2>
+            </div>
+        </div>
+    </div>
+</div>
+<div *ngIf="!recommendedArtworksEmpty" class="auction-card-sidebar-section pt-120 mb-120">
+    <div class="container">
+        <div class="row gy-5">
+            <div class="col-12 order-2">
+                <div class="list-grid-product-wrap">
+                    <div class="row gy-4">
+                        <ng-container *ngFor="let artwork of recommendedArtworks">
+                        <div class="col-lg-3 col-md-4 item wow animate fadeInDown" data-wow-delay="200ms" data-wow-duration="1500ms">
+                            <div class="auction-card">
+                                <div class="auction-card-img-wrap">
+                                    <a [routerLink]="['/artworks', artwork.id]" class="card-img">
+                                        <img [src]="'/artwork/image/' + artwork.id" [alt]="'Imagen de ' + artwork.title" loading="lazy">
+                                    </a>
+                                    <ng-container *ngIf="logged && !admin">
+                                        <a *ngIf="artwork.isFavorite" class="wishlist wishlist-hovered" [href]="'/artwork/favourite/delete/' + artwork.id">
+                                            <!-- ...svg... -->
+                                        </a>
+                                        <a *ngIf="!artwork.isFavorite" class="wishlist" [href]="'/artwork/favourite/add/' + artwork.id">
+                                            <!-- ...svg... -->
+                                        </a>
+                                    </ng-container>
+                                    <div class="auction-card-content">
+                                        <h6>
+                                            <a [routerLink]="['/artworks', artwork.id]"><b>{{artwork.title}}</b></a>
+                                        </h6>
+                                        <ul>
+                                            <li>
+                                                <span>Artista : </span>
+                                                <a [routerLink]="['/artists', artwork.artist.id]">{{artwork.artist.name}}</a>
+                                            </li>
+                                            <li>
+                                                <span>Museo : </span>
+                                                <a [routerLink]="['/museum', artwork.museum.id]">{{artwork.museum.name}}</a>
+                                            </li>
+                                            <li>
+                                                <span>Puntuación : </span>{{artwork.averageRating}}
+                                            </li>
+                                        </ul>
+                                        <a [routerLink]="['/artworks', artwork.id]" class="bid-btn btn-hover">
+                                            <span>Detalles</span>
+                                            <strong></strong>
+                                        </a>
+                                        <div *ngIf="admin" class="mt-3">
+                                            <a [routerLink]="['/admin/artwork/edit', artwork.id]" class="bid-btn btn-info btn-hover" style="background-color: var(--bs-info);">
+                                                <span>Editar</span>
+                                                <strong></strong>
+                                            </a>
+                                            <a [routerLink]="['/admin/artwork/delete', artwork.id]" class="bid-btn btn-danger btn-hover"
+                                               style="background-color: var(--bs-danger);"
+                                               (click)="confirmDeleteArtwork($event)">
+                                                <span>Eliminar</span>
+                                                <strong></strong>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- aution card section ends here -->

@@ -1,0 +1,224 @@
+<!-- Breadcrumb section strats here -->
+<div class="breadcrumb-section2"
+    style="background-image: linear-gradient(180deg, rgba(0, 0, 0, 0.28), rgba(0, 0, 0, 0.28)), url(/assets/img/inner-page/home1-banner-bg1.jpg);">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 d-flex">
+                <div class="top-content style-2">
+                    <ul>
+                        <li>
+                            <a href="/">
+                                <svg width="12" height="12" viewBox="0 0 12 12" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M1.125 5.99955L5.602 1.52205C5.822 1.30255 6.178 1.30255 6.3975 1.52205L10.875 5.99955M2.25 4.87455V9.93705C2.25 10.2475 2.502 10.4995 2.8125 10.4995H4.875V8.06205C4.875 7.75155 5.127 7.49955 5.4375 7.49955H6.5625C6.873 7.49955 7.125 7.75155 7.125 8.06205V10.4995H9.1875C9.498 10.4995 9.75 10.2475 9.75 9.93705V4.87455M4.125 10.4995H8.25"
+                                        stroke="white" stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                            </a>
+                        </li>
+                        <li><a href="/dashboard-profile">{{userName}}</a></li>
+                        <li>Obras de arte favoritas</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="breadcrumb-content">
+                    <h1>Tus obras de arte favoritas</h1>
+                    <p>Catálogo de tus obras de arte favoritas, aquí podrás modificar tu listado.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Breadcrumb section ends here -->
+<!-- aution card section strats here -->
+
+<div *ngIf="artworksEmpty" class="breadcrumb-section2 pt-120 mb-120">
+    <div class="row">
+        <div class="col-lg-12" style="text-align: -webkit-center;">
+            <div class="breadcrumb-content col-12">
+                <h2>No tienes obras de arte favoritas, de momento.</h2>
+            </div>
+        </div>
+    </div>
+</div>
+<div *ngIf="!artworksEmpty" class="auction-card-sidebar-section pt-120 mb-120">
+    <div class="container">
+        <div class="row gy-5">
+            <div class="col-xl-3 order-xl-1 order-1">
+                <div class="sidebar-area row">
+                    <!-- Search Widget -->
+                    <div class="single-widgets widget_search mb-50">
+                        <form method="get" action="/user/favouritesArtworks">
+                            <div class="wp-block-search__inside-wrapper ">
+                                <input type="hidden" name="sort" [value]="sortValue">
+                                <ng-container *ngFor="let artist of topArtists">
+                                    <input *ngIf="artist.selected" type="hidden" name="artist" [value]="artist.id">
+                                </ng-container>
+                                <input type="search" id="wp-block-search__input-1" class="wp-block-search__input"
+                                    name="search" [value]="search || ''" placeholder="Busca obras de arte">
+                                <ng-container *ngFor="let range of ratingRanges">
+                                    <input *ngIf="range.selected" type="hidden" name="ratingRanges" [value]="range.min + '-' + range.max">
+                                </ng-container>
+                                <button type="submit" class="wp-block-search__button">
+                                    <!-- ...svg... -->
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- Artists Filter -->
+                    <div class="single-widgets mb-50 col-6 col-xl-12">
+                        <form id="filterForm" method="get" action="/user/favouritesArtworks">
+                            <input type="hidden" name="sort" [value]="sortValue">
+                            <input *ngIf="search" type="hidden" name="search" [value]="search">
+                            <ng-container *ngFor="let range of ratingRanges">
+                                <input *ngIf="range.selected" type="hidden" name="ratingRanges" [value]="range.min + '-' + range.max">
+                            </ng-container>
+                            <div class="widget-title">
+                                <h5>Artistas</h5>
+                            </div>
+                            <div class="checkbox-container">
+                                <ul>
+                                    <li *ngFor="let artist of topArtists">
+                                        <label class="containerss">
+                                            <input type="checkbox" name="artist" [value]="artist.id" [checked]="artist.selected" (change)="onArtistFilterChange($event)">
+                                            <span class="checkmark"></span>
+                                            <span>{{artist.name}}</span>
+                                        </label>
+                                    </li>
+                                </ul>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- Rating Filter -->
+                    <div class="single-widgets mb-50 col-6 col-xl-12">
+                        <form id="filterForm" method="get" action="/user/favouritesArtworks">
+                            <input type="hidden" name="sort" [value]="sortValue">
+                            <input *ngIf="search" type="hidden" name="search" [value]="search">
+                            <ng-container *ngFor="let artist of topArtists">
+                                <input *ngIf="artist.selected" type="hidden" name="artist" [value]="artist.id">
+                            </ng-container>
+                            <div class="widget-title">
+                                <h5>Valoración media</h5>
+                            </div>
+                            <div class="checkbox-container">
+                                <ul>
+                                    <li *ngFor="let range of ratingRanges">
+                                        <label class="containerss">
+                                            <input type="checkbox" name="ratingRanges" [value]="range.min + '-' + range.max" [checked]="range.selected" (change)="onRatingRangeChange($event)">
+                                            <span class="checkmark"></span>
+                                            <span>{{range.min}} - {{range.max}}</span>
+                                        </label>
+                                    </li>
+                                </ul>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-9 order-xl-2 order-2">
+                <div class="row">
+                    <div class="col-lg-12 mb-30">
+                        <div class="auction-card-top-area">
+                            <div class="left-content">
+                                <h6>Mostrando <span>{{range}}</span> de <span>{{totalArtworks}}</span> obras de arte.</h6>
+                            </div>
+                            <div class="right-content">
+                                <form method="get" action="/user/favouritesArtworks">
+                                    <div class="category-area d-lg-flex d-none active">
+                                        <select name="sort" (change)="onSortChange($event)">
+                                            <option value="title" [selected]="sortTitle">Nombre</option>
+                                            <option value="averageRating" [selected]="sortRating">Puntuación</option>
+                                            <option value="artist.name" [selected]="sortArtist">Artista</option>
+                                            <option value="creationYear" [selected]="sortYear">Año de creación</option>
+                                            <option value="museum.name" [selected]="sortMuseum">Museo</option>
+                                        </select>
+                                        <input *ngIf="search" type="hidden" name="search" [value]="search">
+                                        <ng-container *ngFor="let artist of topArtists">
+                                            <input *ngIf="artist.selected" type="hidden" name="artist" [value]="artist.id">
+                                        </ng-container>
+                                        <ng-container *ngFor="let range of ratingRanges">
+                                            <input *ngIf="range.selected" type="hidden" name="ratingRanges" [value]="range.min + '-' + range.max">
+                                        </ng-container>
+                                        <input type="hidden" name="page" [value]="currentPage">
+                                    </div>
+                                </form>
+                                <ul class="size-icon grid-view d-lg-flex d-none">
+                                    <!-- ...existing code... -->
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-grid-product-wrap">
+                    <div class="row gy-4">
+                        <ng-container *ngFor="let artwork of artworksPage">
+                        <div class="col-lg-4 col-md-6 item wow animate fadeInDown" data-wow-delay="200ms" data-wow-duration="1500ms">
+                            <div class="auction-card">
+                                <div class="auction-card-img-wrap">
+                                    <a [routerLink]="['/artworks', artwork.id]" class="card-img">
+                                        <img [src]="'/artwork/image/' + artwork.id" [alt]="'Imagen de ' + artwork.title" loading="lazy">
+                                    </a>
+                                    <a *ngIf="logged && !admin" class="wishlist wishlist-hovered" [href]="'/artwork/favourite/delete/' + artwork.id">
+                                        <!-- ...svg... -->
+                                    </a>
+                                <div class="auction-card-content">
+                                    <h6><a [routerLink]="['/artworks', artwork.id]"><b>{{artwork.title}}</b></a></h6>
+                                    <ul>
+                                        <li><span>Artista : </span><a [routerLink]="['/artists', artwork.artist.id]">{{artwork.artist.name}}</a></li>
+                                        <li><span>Museo : </span><a [routerLink]="['/museum', artwork.museum.id]">{{artwork.museum.name}}</a></li>
+                                        <li><span>Puntuación : </span>{{artwork.averageRating}}</li>
+                                    </ul>
+                                    <a [routerLink]="['/artworks', artwork.id]" class="bid-btn btn-hover">
+                                        <span>Detalles</span>
+                                        <strong></strong>
+                                    </a>
+                                    <div *ngIf="admin" class="mt-3">
+                                        <a [routerLink]="['/admin/artwork/edit', artwork.id]" class="bid-btn btn-info btn-hover" style="background-color: var(--bs-info);">
+                                            <span>Editar</span>
+                                            <strong></strong>
+                                        </a>
+                                        <a [routerLink]="['/admin/artwork/delete', artwork.id]" class="bid-btn btn-danger btn-hover"
+                                           style="background-color: var(--bs-danger);"
+                                           (click)="confirmDeleteArtwork($event)">
+                                            <span>Eliminar</span>
+                                            <strong></strong>
+                                        </a>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                        </ng-container>
+                    </div>
+                </div>
+                <div class="row wow animate fadeInUp" data-wow-delay="200ms" data-wow-duration="1500ms">
+                    <div class="col-lg-12 mb-120">
+                        <div class="page-navigation-area d-flex flex-wrap align-items-center justify-content-between">
+                            <div class="prev-next-btn">
+                                <a *ngIf="previousPage" [href]="'/user/favouritesArtworks?page=' + previousPage">
+                                    <!-- ...svg... -->
+                                    Anterior
+                                </a>
+                            </div>
+                            <ul class="pagination">
+                                <li *ngIf="previousPage"><a [href]="'/user/favouritesArtworks?page=' + previousPage">{{previousPage}}</a></li>
+                                <li class="active"><a>{{currentPage}}</a></li>
+                                <li *ngIf="nextPage"><a [href]="'/user/favouritesArtworks?page=' + nextPage">{{nextPage}}</a></li>
+                            </ul>
+                            <div class="prev-next-btn">
+                                <a *ngIf="nextPage" [href]="'/user/favouritesArtworks?page=' + nextPage">
+                                    Siguiente
+                                    <!-- ...svg... -->
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- aution card section ends here -->

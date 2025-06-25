@@ -1,0 +1,380 @@
+
+<!-- Home1 Footer Section Start -->
+<footer class="footer-section">
+	<div class="container">
+		<div class="footer-menu-wrap">
+			<div class="row gy-5">
+				<div class="col-lg-8 col-md-6 col-sm-12">
+					<div class="footer-content-area">
+						<a [routerLink]="['/']" class="footer-logo"> <img
+							src="/assets/img/logolateral.png" alt="">
+						</a>
+						<p>ARTEUM es un trabajo de acción artística dedicada a reinventar la forma en que el arte se experimenta y se comparte.
+Combinando el compromiso con la comunidad, la innovación creativa y el diálogo cultural, apoyamos y promovemos obras de arte que trascienden fronteras, desde obras maestras clásicas hasta atrevidas expresiones contemporáneas. 
+En ARTEUM creemos en el arte como catalizador de la reflexión, la conexión y el cambio.</p>
+					</div>
+				</div>
+				<div
+					class="col-lg-2 col-md-3 col-sm-6 d-flex justify-content-lg-end justify-content-md-center justify-content-sm-start">
+					<div class="footer-widget">
+						<div class="widget-title">
+							<h5>Menu</h5>
+						</div>
+						<ul class="widget-list">
+							<li><a [routerLink]="['/']">Inicio</a></li>
+							<li><a [routerLink]="['/artworks']">Obras de arte</a></li>
+							<li><a [routerLink]="['/artists']">Artistas</a></li>
+							<li><a [routerLink]="['/museums']">Museos</a></li>
+						</ul>
+					</div>
+				</div>
+				<div
+					class="col-lg-2 col-md-3 col-sm-6 d-flex justify-content-md-end">
+					<div class="footer-widget">
+						<div class="widget-title">
+							<h5>Recursos</h5>
+						</div>
+						<ul class="widget-list">
+							<li><a [routerLink]="['/contact']">Contacto</a></li>
+							<li><a [routerLink]="['/about']">Sobre nosotros</a></li>
+							<li><a [routerLink]="['/faq']">F.A.Q</a></li>
+						</ul>
+					</div>
+				</div>
+
+			</div>
+		</div>
+		<div class="footer-bottom">
+			<div class="copyright-area">
+				<p>
+					©Copyright 2025 <a [routerLink]="['/']">Arteum</a> | Design By Enrique Tentor
+					Martin
+				</p>
+			</div>
+			<div class="footer-bottom-right">
+				<ul>
+					<li><a [routerLink]="['/terms-condition']">Términos &amp; Condiciones</a></li>
+					<li><a [routerLink]="['/privacy-policy']">Política de privacidad</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</footer>
+<!-- Home1 Footer Section End -->
+
+<!--  Main jQuery  -->
+<script src="/assets/js/jquery-3.7.1.min.js"></script>
+<!-- Popper and Bootstrap JS -->
+<script src="/assets/js/popper.min.js"></script>
+<script src="/assets/js/bootstrap.min.js"></script>
+<!-- Swiper slider JS -->
+<script src="/assets/js/swiper-bundle.min.js"></script>
+<script src="/assets/js/slick.min.js"></script>
+<!-- Waypoints JS -->
+<script src="/assets/js/waypoints.min.js"></script>
+<!-- Counterup JS -->
+<script src="/assets/js/jquery.counterup.min.js"></script>
+<!-- Nice Select  JS -->
+<script src="/assets/js/jquery.nice-select.min.js"></script>
+<!-- Fancybox  JS -->
+<script src="/assets/js/jquery.fancybox.min.js"></script>
+<!-- Wow  JS -->
+<script src="/assets/js/wow.min.js"></script>
+<!-- Marquee  JS -->
+<script src="/assets/js/jquery.marquee.min.js"></script>
+
+<script src="/assets/js/main.js"></script>
+
+<!-- Incluye Chart.js correctamente -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const starsData = window.chartData.starsData || {};
+    const followers = window.chartData.followers || 0;
+    const following = window.chartData.following || 0;
+    const avgGiven = window.chartData.avgGiven || 0;
+    const numReviews = window.chartData.numReviews || 0;
+    const artistCounts = window.chartData.artistCounts || {};
+    const top10favByArtist = window.chartData.top10favByArtist || {};
+    const top10favArtworks = window.chartData.top10favArtworks || {};
+    const top10favMuseums = window.chartData.top10favMuseums || {};
+    const top10Users = window.chartData.top10Users || {};
+    const top10ArtworksMostFavourited = window.chartData.top10ArtworksMostFavourited || {};
+    const top10FavUsers = window.chartData.top10FavUsers || {};
+    
+    // Stars bar chart
+    const starsCtx = document.getElementById('starsChart');
+    if (starsCtx) {
+      new Chart(starsCtx, {
+        type: 'bar',
+        data: {
+          labels: Object.keys(starsData),
+          datasets: [{
+            label: 'Número de reseñas',
+            data: Object.values(starsData),
+            backgroundColor: '#edc948'
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            title: {
+              display: false
+            }
+          }
+        }
+      });
+    }
+
+    // Followers doughnut chart
+    const followersCtx = document.getElementById('followersChart');
+    if (followersCtx) {
+      new Chart(followersCtx, {
+        type: 'doughnut',
+        data: {
+          labels: ['Seguidores ' + followers, 'Siguiendo ' + following],
+          datasets: [{
+            data: [followers, following],
+            backgroundColor: ['#f28e2b', '#e15759']
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            title: {
+              display: false
+            }
+          }
+        }
+      });
+    }
+
+    // Average rating chart
+    const receivedCtx = document.getElementById('receivedChart');
+    if (receivedCtx) {
+      new Chart(receivedCtx, {
+        type: 'bar',
+        data: {
+          labels: ['Valoración media: ' + avgGiven],
+          datasets: [{
+            data: [avgGiven],
+            backgroundColor: ['#76b7b2']
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            title: {
+            	display: true,
+                text: 'Valoraciones dadas: ' + numReviews,
+                font: {
+                  size: 15,
+                  weight: 'bold'
+                },
+                padding: {
+                  top: 10,
+                  bottom: 30
+                }
+            },
+            legend: {
+                display: false
+              }
+          },
+        scales: {
+        	  y: {
+        	    beginAtZero: true,
+        	    max: 5,
+        	    ticks: {
+        	      stepSize: 1
+        	    }
+        	  }
+        	}
+        }
+      });
+    }
+    
+ 	// Stars bar chart
+    const artistsChart = document.getElementById('artistsChart');
+    if (artistsChart) {
+      new Chart(artistsChart, {
+        type: 'bar',
+        data: {
+          labels: Object.keys(artistCounts),
+          datasets: [{
+            data: Object.values(artistCounts),
+            backgroundColor: '#f28e2b'
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            title: {
+              display: false
+            },
+            legend: {
+                display: false
+              }
+          }
+        }
+      });
+    }
+    
+ 	// Stars bar chart
+    const artistsFavChart = document.getElementById('artistsFavChart');
+    if (artistsFavChart) {
+      new Chart(artistsFavChart, {
+        type: 'bar',
+        data: {
+          labels: Object.keys(top10favByArtist),
+          datasets: [{
+            data: Object.values(top10favByArtist),
+            backgroundColor: '#f28e2b'
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            title: {
+              display: false
+            },
+            legend: {
+                display: false
+              }
+          }
+        }
+      });
+    }
+    
+ 	// Stars bar chart
+    const artworksFavChart = document.getElementById('artworksFavChart');
+    if (artworksFavChart) {
+      new Chart(artworksFavChart, {
+        type: 'bar',
+        data: {
+          labels: Object.keys(top10favArtworks),
+          datasets: [{
+            data: Object.values(top10favArtworks),
+            backgroundColor: '#e15759'
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            title: {
+              display: false
+            },
+            legend: {
+                display: false
+              }
+          }
+        }
+      });
+    }
+    
+ 	// Stars bar chart
+    const museumsFavChart = document.getElementById('museumsFavChart');
+    if (museumsFavChart) {
+      new Chart(museumsFavChart, {
+        type: 'bar',
+        data: {
+          labels: Object.keys(top10favMuseums),
+          datasets: [{
+            data: Object.values(top10favMuseums),
+            backgroundColor: '#59a14f'
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            title: {
+              display: false
+            },
+            legend: {
+                display: false
+              }
+          }
+        }
+      });
+    }
+    
+ 	// Stars bar chart
+    const usersTopChart = document.getElementById('usersTopChart');
+    if (usersTopChart) {
+      new Chart(usersTopChart, {
+        type: 'bar',
+        data: {
+          labels: Object.keys(top10Users),
+          datasets: [{
+            data: Object.values(top10Users),
+            backgroundColor: '#4e79a7'
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            title: {
+              display: false
+            },
+            legend: {
+                display: false
+              }
+          }
+        }
+      });
+    }
+    
+ 	// Stars bar chart
+    const artworksTopChart = document.getElementById('artworksTopChart');
+    if (artworksTopChart) {
+      new Chart(artworksTopChart, {
+        type: 'bar',
+        data: {
+          labels: Object.keys(top10ArtworksMostFavourited),
+          datasets: [{
+            data: Object.values(top10ArtworksMostFavourited),
+            backgroundColor: '#e15759'
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            title: {
+              display: false
+            },
+            legend: {
+                display: false
+              }
+          }
+        }
+      });
+    }
+    
+ 	// Stars bar chart
+    const usersFavChart = document.getElementById('usersFavChart');
+    if (usersFavChart) {
+      new Chart(usersFavChart, {
+        type: 'bar',
+        data: {
+          labels: Object.keys(top10FavUsers),
+          datasets: [{
+            data: Object.values(top10FavUsers),
+            backgroundColor: '#4e79a7'
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            title: {
+              display: false
+            },
+            legend: {
+                display: false
+              }
+          }
+        }
+      });
+    }
+    
+  });
+</script>

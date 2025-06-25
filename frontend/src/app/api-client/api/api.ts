@@ -1,0 +1,17 @@
+export * from './adminRestController.service';
+import { AdminRestControllerService } from './adminRestController.service';
+export * from './anonymousRestController.service';
+import { AnonymousRestControllerService } from './anonymousRestController.service';
+export * from './artists.service';
+import { ArtistsService } from './artists.service';
+export * from './artworks.service';
+import { ArtworksService } from './artworks.service';
+export * from './loginRestController.service';
+import { LoginRestControllerService } from './loginRestController.service';
+export * from './museums.service';
+import { MuseumsService } from './museums.service';
+export * from './reviews.service';
+import { ReviewsService } from './reviews.service';
+export * from './users.service';
+import { UsersService } from './users.service';
+export const APIS = [AdminRestControllerService, AnonymousRestControllerService, ArtistsService, ArtworksService, LoginRestControllerService, MuseumsService, ReviewsService, UsersService];
