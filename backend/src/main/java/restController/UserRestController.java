@@ -51,6 +51,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import model.Artwork;
 import model.Review;
@@ -119,6 +120,29 @@ public class UserRestController {
 				.toList();
 
 		return ResponseEntity.ok(new PageImpl<>(dtos, pageable, usersPage.getTotalElements()));
+	}
+	
+	@Operation(summary = "Get the information of the user logged in")
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "200", description = "Showing information of the user", content = {
+					@Content(mediaType = "application/json", schema = @Schema(implementation = User.class)) }),
+			@ApiResponse(responseCode = "404", description = "User not found", content = @Content),
+			@ApiResponse(responseCode = "401", description = "Not permissions needed", content = @Content) })
+	@GetMapping("/me")
+	public ResponseEntity<User> get_me(HttpServletRequest request) throws IOException {
+		Principal principal = request.getUserPrincipal();
+		if (principal != null) {
+			User user = userService.findByEmail(principal.getName())
+					.orElseGet(() -> userService.findByName(principal.getName()).orElse(null));
+			user.setPassword(null);
+			user.setFollowers(null);
+			user.setFollowing(null);
+			user.setReviews(null);
+			user.setFavoriteArtworks(null);
+			return ResponseEntity.ok(user);
+		} else {
+			return ResponseEntity.notFound().build();
+		}
 	}
 
 	@Operation(summary = "Perfil público de un usuario", description = "Obtiene información pública de un usuario por su nombre de usuario")
@@ -533,7 +557,7 @@ public class UserRestController {
 	public ResponseEntity<Map<String, String>> changePassword(@Valid @RequestBody ChangePasswordRequest request,
 			@AuthenticationPrincipal UserDetails userDetails) {
 		User user = findUser(userDetails);
-
+		 System.out.println("Received ChangePasswordRequest: " + request);
 		if (!request.getNewPassword().equals(request.getConfirmPassword())) {
 			return ResponseEntity.badRequest()
 					.body(Map.of("error", "La nueva contraseña no coincide con la confirmación"));

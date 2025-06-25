@@ -144,6 +144,8 @@ public class ArtistRestController {
 			r.setCreationYear(a.getCreationYear());
 			r.setDescription(a.getDescription());
 			r.setAverageRating(a.getAverageRating());
+			r.setArtist(a.getArtist().getName());
+			r.setMuseum(a.getMuseum().getName());
 			return r;
 		}).toList();
 

@@ -108,7 +108,9 @@ public class WebSecurityConfig {
 
 		// Add JWT Token filter
 		http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
-
+		
+		http.cors();
+		
 		return http.build();
 	}
 

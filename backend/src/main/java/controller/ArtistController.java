@@ -153,7 +153,20 @@ public class ArtistController {
 			}
 		}
 
+		Comparator<Artist> comparator;
+		switch (sort) {
+		case "dateOfBirth":
+			comparator = Comparator.comparing(Artist::getDateOfBirth, Comparator.nullsLast(Comparator.naturalOrder()));
+			break;
+		case "nationality":
+			comparator = Comparator.comparing(Artist::getNationality, Comparator.nullsLast(Comparator.naturalOrder()));
+			break;
+		default: // "name"
+			comparator = Comparator.comparing(Artist::getName, Comparator.nullsLast(Comparator.naturalOrder()));
+		}
+
 		List<Artist> allFiltered = artistService.getArtistsPage(search, nationalityFilters);
+		allFiltered = allFiltered.stream().sorted(comparator).toList();
 
 		if (centuries != null && !centuries.isEmpty()) {
 			allFiltered = allFiltered.stream()
@@ -369,7 +382,8 @@ public class ArtistController {
 
 		// Verify page limit
 		if (artworksPage.getTotalPages() > 0 && page > artworksPage.getTotalPages()) {
-			StringBuilder redirectUrl = new StringBuilder("redirect:/artists/" + id + "?page=" + artworksPage.getTotalPages());
+			StringBuilder redirectUrl = new StringBuilder(
+					"redirect:/artists/" + id + "?page=" + artworksPage.getTotalPages());
 			if (search != null && !search.isBlank()) {
 				redirectUrl.append("&search=").append(URLEncoder.encode(search, StandardCharsets.UTF_8));
 			}
