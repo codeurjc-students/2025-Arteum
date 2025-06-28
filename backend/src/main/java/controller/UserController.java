@@ -353,7 +353,6 @@ public class UserController {
 					.orElseGet(() -> userService.findByName(principal.getName()).orElse(null));
 
 			byte[] pdfBytes = userPdfExportService.generateUserPdf(user.getId());
-			System.out.println(pdfBytes.toString());
 			return ResponseEntity.ok().contentType(MediaType.APPLICATION_PDF)
 					.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=usuario_" + user.getName() + ".pdf")
 					.body(pdfBytes);

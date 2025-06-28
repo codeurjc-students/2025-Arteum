@@ -39,7 +39,7 @@ public class SecurityCipher {
 
 		try {
 			setKey();
-			Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
+			Cipher cipher = Cipher.getInstance("AES/GCM/NoPadding");
 			cipher.init(Cipher.ENCRYPT_MODE, secretKey);
 			return Base64.getEncoder().encodeToString(cipher.doFinal(strToEncrypt.getBytes(StandardCharsets.UTF_8)));
 		} catch (Exception e) {
@@ -55,7 +55,7 @@ public class SecurityCipher {
 
 		try {
 			setKey();
-			Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
+			Cipher cipher = Cipher.getInstance("AES/GCM/NoPadding");
 			cipher.init(Cipher.DECRYPT_MODE, secretKey);
 			return new String(cipher.doFinal(Base64.getDecoder().decode(strToDecrypt)));
 		} catch (Exception e) {
