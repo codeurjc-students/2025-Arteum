@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/7e63f64e-29f4-439b-8575-c19f2c4574ee)# 2025-Arteum
+# 2025-Arteum
 
 # Fase 0
 
